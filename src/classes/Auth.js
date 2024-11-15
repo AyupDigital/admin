@@ -11,6 +11,7 @@ class Auth {
     this.http = axios.create({
       baseURL: this.appApiUri
     });
+    this.appSessionTimeout = process.env.VUE_APP_SESSION_TIMEOUT;
   }
 
   get authorizeUrl() {

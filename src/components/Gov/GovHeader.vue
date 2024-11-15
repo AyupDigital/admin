@@ -7,7 +7,7 @@
           class="govuk-header__link govuk-header__link--homepage"
         >
           <span class="govuk-header__logotype">
-            <img src="@/assets/logo.svg" class="govuk-header__logotype-crown" />
+            <img :src="logo" class="govuk-header__logotype-crown" />
           </span>
         </router-link>
       </div>
@@ -106,6 +106,11 @@ export default {
     },
     onToggleMenu() {
       this.navExpanded = !this.navExpanded;
+    }
+  },
+  computed: {
+    logo() {
+      return require("@/assets/" + process.env.VUE_APP_LOGO);
     }
   }
 };
