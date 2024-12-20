@@ -154,7 +154,8 @@ export default {
           // Remove the logo from the request if null, or delete if false.
           if (
             data.image_file_id === null ||
-            data.image_file_id === this.location.image.id
+            (this.location.image &&
+              data.image_file_id === this.location.image.id)
           ) {
             delete data.image_file_id;
           } else if (data.image_file_id === false) {
