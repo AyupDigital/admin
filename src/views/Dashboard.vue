@@ -37,7 +37,7 @@
 
         <gov-grid-column width="one-half" v-if="auth.canView('locations')">
           <gov-heading size="l">Locations</gov-heading>
-          <gov-body>View and edit service locations in the Borough.</gov-body>
+          <gov-body>View and edit service locations in the area.</gov-body>
           <gov-button start :to="{ name: 'locations-index' }">
             Go to locations
           </gov-button>
