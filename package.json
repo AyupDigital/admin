@@ -5,15 +5,18 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && npm run sentry:sourcemaps",
     "lint": "vue-cli-service lint",
     "lint:fix": "vue-cli-service lint --fix",
     "deploy": "vue-cli-service s3-deploy",
     "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e"
+    "test:e2e": "vue-cli-service test:e2e",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org ayup-digital --project admin ./dist && sentry-cli sourcemaps upload --org ayup-digital --project admin ./dist"
   },
   "dependencies": {
     "@duetds/date-picker": "^1.4.0",
+    "@sentry/cli": "^2.40.0",
+    "@sentry/vue": "^8.48.0",
     "axios": "^0.18.0",
     "bugsnag-js": "^4.7.3",
     "bugsnag-vue": "^1.0.1",

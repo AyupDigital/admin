@@ -32,24 +32,15 @@ import Vue from "vue";
 import App from "@/App.vue";
 import router from "@/router";
 
-// Bugsnag.
-import bugsnag from "bugsnag-js";
-import bugsnagVue from "bugsnag-vue";
+// Sentry
+import * as Sentry from "@sentry/vue";
 
-if (process.env.VUE_APP_BUGSNAG_API_KEY) {
-  const bugsnagClient = bugsnag({
-    apiKey: process.env.VUE_APP_BUGSNAG_API_KEY,
-    releaseStage: process.env.VUE_APP_ENV,
-    notifyReleaseStages: ["staging", "production"],
-    beforeSend(report) {
-      const user = Auth.user;
-      delete user.roles;
-
-      report.user = user;
-    }
+if (process.env.VUE_APP_SENTRY_DSN) {
+  Sentry.init({
+    Vue,
+    dsn: process.env.VUE_APP_SENTRY_DSN,
+    integrations: [new Sentry.Integrations.Vue({ Vue })]
   });
-
-  bugsnagClient.use(bugsnagVue(Vue));
 }
 
 // Vue headful.
