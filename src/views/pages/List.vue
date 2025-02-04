@@ -45,6 +45,10 @@
         </ck-table-filters>
       </gov-grid-column>
       <gov-grid-column v-if="auth.canAdd('page')" width="one-third">
+        <gov-button :to="{ name: 'pages-create-topic' }" success expand
+          >Add a new Topic page</gov-button
+        >
+
         <gov-button :to="{ name: 'pages-create-landing' }" success expand
           >Add a new Landing page</gov-button
         >
@@ -64,13 +68,15 @@
               <gov-link
                 :to="{
                   name: 'pages-show',
-                  params: { page: page.id }
+                  params: { page: page.id },
                 }"
               >
                 View </gov-link
               >&nbsp;
             </span>
             <gov-tag v-if="page.page_type === 'landing'">Landing page</gov-tag
+            >&nbsp;
+            <gov-tag v-if="page.page_type === 'topic'">Topic page</gov-tag
             >&nbsp;
             <gov-tag v-if="!page.enabled" class="govuk-tag--grey"
               >disabled</gov-tag
@@ -91,7 +97,7 @@
             <gov-link
               :to="{
                 name: 'pages-show',
-                params: { page: editProps.node.id }
+                params: { page: editProps.node.id },
               }"
             >
               View
@@ -120,7 +126,7 @@ export default {
   name: "ListPages",
   components: {
     CkTreeList,
-    CkTableFilters
+    CkTableFilters,
   },
   data() {
     return {
@@ -129,21 +135,21 @@ export default {
       pages: [],
       filters: {
         title: "",
-        page_type: null
+        page_type: null,
       },
       minSearchPhraseLength: 3,
       pageTypes: [
         { value: "", text: "All" },
         { value: "information", text: "Information page" },
-        { value: "landing", text: "Landing page" }
+        { value: "landing", text: "Landing page" },
       ],
-      orderChangedMessage: null
+      orderChangedMessage: null,
     };
   },
   computed: {
     pagesTree() {
       return this.buildPagesTree(
-        this.pages.filter(page => {
+        this.pages.filter((page) => {
           return !page.parent;
         })
       );
@@ -163,21 +169,21 @@ export default {
     },
     updatedPage() {
       return this.updated
-        ? this.pages.find(page => page.id === this.updated)
+        ? this.pages.find((page) => page.id === this.updated)
         : null;
-    }
+    },
   },
   methods: {
     async fetchPages() {
       this.loading = true;
       this.searching = Object.keys(this.params).length > 0;
       const { data } = await http.get("/pages/index", {
-        params: this.params
+        params: this.params,
       });
-      this.pages = data.data.map(page => {
+      this.pages = data.data.map((page) => {
         return {
           label: page.title,
-          ...page
+          ...page,
         };
       });
 
@@ -189,7 +195,7 @@ export default {
       page.order--;
       await http.put(`/pages/${page.id}`, {
         id: page.id,
-        order: page.order
+        order: page.order,
       });
       if (!this.auth.isSuperAdmin) {
         this.orderChangedMessage = this.orderUpdateRequestMessage(
@@ -205,7 +211,7 @@ export default {
       page.order++;
       await http.put(`/pages/${page.id}`, {
         id: page.id,
-        order: page.order
+        order: page.order,
       });
       if (!this.auth.isSuperAdmin) {
         this.orderChangedMessage = this.orderUpdateRequestMessage(
@@ -227,9 +233,9 @@ export default {
         .sort((page1, page2) => {
           return page1.order - page2.order;
         })
-        .forEach(page => {
+        .forEach((page) => {
           page.children = this.pages.filter(
-            child => child.parent && child.parent.id === page.id
+            (child) => child.parent && child.parent.id === page.id
           );
 
           if (depth === 0) {
@@ -245,11 +251,11 @@ export default {
     },
     orderUpdateRequestMessage(orderWas, page) {
       return `An update request has been created to change the order of page ${page.title} from ${orderWas} to ${page.order}`;
-    }
+    },
   },
   created() {
     this.fetchPages();
-  }
+  },
 };
 </script>
 
