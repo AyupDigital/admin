@@ -29,6 +29,8 @@
             :sideboxes.sync="form.sideboxes"
             :category_taxonomies.sync="form.category_taxonomies"
             :image_file_id.sync="form.image_file_id"
+            :parent_id.sync="form.parent_id"
+            :show-parent="true"
             @clear="form.$errors.clear($event)"
             @image-changed="imageChanged = $event"
           />
@@ -64,6 +66,7 @@ export default {
         name: "",
         intro: "",
         image_file_id: null,
+        parent_id: null,
         order: 1,
         enabled: true,
         homepage: false,

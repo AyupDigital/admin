@@ -9,6 +9,17 @@
       :error="errors.get('name')"
     />
 
+    <ck-loader v-if="loading" />
+    <ck-select-input
+      v-else
+      :value="parent_id"
+      @input="onInput('parent_id', $event)"
+      id="parent_id"
+      label="Parent"
+      :options="categoryOptions"
+      :error="errors.get('parent_id')"
+    />
+
     <ck-textarea-input
       :value="intro"
       @input="
@@ -87,6 +98,7 @@ import CkTaxonomyInput from "@/components/Ck/CkTaxonomyInput";
 import CkSideboxesInput from "@/views/collections/inputs/SideboxesInput";
 import CollectionEnabledInput from "@/views/collections/inputs/CollectionEnabledInput";
 import CollectionHomepageInput from "@/views/collections/inputs/CollectionHomepageInput";
+import http from "@/http"
 
 export default {
   name: "CollectionForm",
@@ -129,13 +141,51 @@ export default {
     },
     image_file_id: {
       required: true
+    },
+    parent_id: {
+      required: false,
+    },
+    showParent: {
+      default: false,
+    }
+  },
+  data () {
+    return {
+      loading: false,
+      categories: [],
+      categoryOptions: []
     }
   },
   methods: {
     onInput(field, value) {
       this.$emit(`update:${field}`, value);
       this.$emit("clear", field);
-    }
+    },
+    async fetchCategories() {
+      this.loading = true;
+
+      const { data } = await http.get("/collections/categories");
+      this.categories = data.data;
+      this.categoryOptions = [
+        { text: "No parent (top level)", value: null },
+        ...this.parseCategories(this.categories)
+      ];
+      this.loading = false;
+    },
+    parseCategories(categories, parsed = [], depth = 0) {
+      categories.forEach(category => {
+        const text = "-".repeat(depth) + " " + category.name;
+        parsed.push({ text, value: category.id });
+
+        if ((category.children && category.children.length > 0) && depth < 4) {
+          parsed = this.parseCategories(category.children, parsed, depth + 1);
+        }
+      })
+      return parsed;
+    },
+  },
+  created() {
+    this.fetchCategories();
   }
 };
 </script>
