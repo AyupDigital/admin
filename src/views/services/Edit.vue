@@ -50,6 +50,9 @@
                   :gallery_items.sync="form.gallery_items"
                   :tags.sync="form.tags"
                   :id="service.id"
+                  :national.sync="form.national"
+                  :attending_type.sync="form.attending_type"
+                  :attending_access.sync="form.attending_access"
                   @clear="
                     form.$errors.clear($event);
                     errors = {};
@@ -328,6 +331,9 @@ export default {
         referral_button_text: this.service.referral_button_text || "",
         referral_email: this.service.referral_email || "",
         referral_url: this.service.referral_url || "",
+        national: this.service.national,
+        attending_type: this.service.attending_type,
+        attending_access: this.service.attending_access,
         ends_at: (this.service.ends_at || "").substring(0, 10),
         useful_infos: this.service.useful_infos,
         offerings: this.service.offerings,

@@ -12,12 +12,12 @@
     <ck-loader v-if="loading" />
     <ck-select-input
       v-else
-      :value="parent_id"
-      @input="onInput('parent_id', $event)"
-      id="parent_id"
+      :value="parent_uuid"
+      @input="onInput('parent_uuid', $event)"
+      id="parent_uuid"
       label="Parent"
       :options="categoryOptions"
-      :error="errors.get('parent_id')"
+      :error="errors.get('parent_uuid')"
     />
 
     <ck-textarea-input
@@ -142,7 +142,7 @@ export default {
     image_file_id: {
       required: true
     },
-    parent_id: {
+    parent_uuid: {
       required: false,
     },
     showParent: {
@@ -164,7 +164,7 @@ export default {
     async fetchCategories() {
       this.loading = true;
 
-      const { data } = await http.get("/collections/categories");
+      const { data } = await http.get("/collections/categories/all");
       this.categories = data.data;
       this.categoryOptions = [
         { text: "No parent (top level)", value: null },

@@ -82,6 +82,8 @@
           :error="errors.get('url')"
         />
 
+        
+
         <ck-select-input
           :value="score"
           @input="
@@ -96,6 +98,39 @@
           :options="scoreOptions"
           :error="errors.get('score')"
           v-if="auth.isSuperAdmin"
+        />
+
+        <ck-radio-input
+          :value="national"
+          @input="$emit('update:national', $event)"
+          id="national"
+          :label="`Is the ${type} a national ${type}?`"
+          :options="nationalOptions"
+          :error="errors.get('national')"
+        />
+
+        <ck-select-input
+          :value="attending_type"
+          @input="
+            $emit('update:attending_type', $event);
+            $emit('clear', 'attending_type');
+          "
+          id="attending_type"
+          label="Attending type"
+          :options="attendingTypeOptions"
+          :error="errors.get('attending_type')"
+        />
+
+        <ck-select-input
+          :value="attending_access"
+          @input="
+            $emit('update:attending_access', $event);
+            $emit('clear', 'attending_access');
+          "
+          id="attending_access"
+          label="Attending access"
+          :options="attendingAccessOptions"
+          :error="errors.get('attending_access')"
         />
 
         <ck-image-input
@@ -218,6 +253,15 @@ export default {
     type: {
       required: true
     },
+    national: {
+      default: false,
+    },
+    attending_type: {
+      required: false
+    },
+    attending_access: {
+      required: false
+    },
     organisation_id: {
       required: false
     },
@@ -268,6 +312,18 @@ export default {
         { text: "Average", value: 3 },
         { text: "Above Average", value: 4 },
         { text: "Excellent", value: 5 }
+      ],
+      attendingAccessOptions: [
+        { text: "Referral", value: "referral" },
+        { text: "Appointment", value: "appointment" },
+        { text: "Drop-in", value: "drop_in" },
+        { text: "Membership", value: "membership" },
+      ],
+      attendingTypeOptions: [
+        { text: "Phone", value: "phone" },
+        { text: "Venue", value: "venue" },
+        { text: "Home", value: "home" },
+        { text: "Online", value: "online" },
       ]
     };
   },
@@ -277,7 +333,16 @@ export default {
       const subject = "Help uploading service logo";
 
       return `mailto:${to}?subject=${encodeURIComponent(subject)}`;
-    }
+    },
+    nationalOptions() {
+      return [
+        { value: true, label: `Yes - The ${this.type} is a national ${this.type}` },
+        {
+          value: false,
+          label: `No - The ${this.type} is a local ${this.type}`
+        }
+      ];
+    },
   },
   methods: {
     async fetchOrganisations() {
