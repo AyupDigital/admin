@@ -84,6 +84,24 @@
           </gov-table-cell>
         </gov-table-row>
         <gov-table-row>
+          <gov-table-header top scope="row">National</gov-table-header>
+          <gov-table-cell>
+            {{ service.national ? "Yes " : "No" }}
+          </gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row">Attending type</gov-table-header>
+          <gov-table-cell>
+            {{ service.attending_type.slice(0, 1).toUpperCase() + service.attending_type.slice(1).replaceAll('_', ' ') }}
+          </gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row">Attending access</gov-table-header>
+          <gov-table-cell>
+            {{ service.attending_access.slice(0, 1).toUpperCase() + service.attending_access.slice(1).replaceAll('_', ' ') }}
+          </gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
           <gov-table-header top scope="row"
             >Gallery items ({{
               service.gallery_items.length

@@ -36,6 +36,7 @@
               :sideboxes.sync="form.sideboxes"
               :category_taxonomies.sync="form.category_taxonomies"
               :image_file_id.sync="form.image_file_id"
+              :parent_uuid.sync="form.parent_uuid"
               @clear="form.$errors.clear($event)"
               @image-changed="imageChanged = $event"
             />
@@ -98,6 +99,7 @@ export default {
         order: this.collection.order,
         enabled: this.collection.enabled,
         homepage: this.collection.homepage,
+        parent_uuid: this.collection.parent_uuid,
         sideboxes: this.collection.sideboxes,
         category_taxonomies: this.collection.category_taxonomies.map(
           taxonomy => taxonomy.id

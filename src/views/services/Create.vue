@@ -79,6 +79,9 @@
                 :gallery_items.sync="form.gallery_items"
                 :tags.sync="form.tags"
                 :logo_file_id="form.logo_file_id"
+                :national.sync="form.national"
+                :attending_type.sync="form.attending_type"
+                :attending_access.sync="form.attending_access"
                 @clear="
                   form.$errors.clear($event);
                   errors = {};
@@ -252,6 +255,9 @@ export default {
         referral_button_text: "",
         referral_email: "",
         referral_url: "",
+        national: false,
+        attending_type: "",
+        attending_access: "",
         ends_at: "",
         criteria: {
           age_group: "",
