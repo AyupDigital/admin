@@ -1,4 +1,4 @@
-name: Deploy to Kingston Production
+name: Deploy to Hounslow Production
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: Kingston Production
+    environment: Hounslow Production
     env:
       NODE_ENV: production
       ENVIRONMENT: production
