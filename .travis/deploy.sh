@@ -11,7 +11,6 @@ set -e
 
 # Declare the configuration variables for the deployment.
 echo "Setting deployment configuration for ${ENVIRONMENT}..."
-ENV_SECRET_ID=".env.admin.${ENVIRONMENT}"
 
 # Get the .env file.
 echo "Downloading .env file..."
