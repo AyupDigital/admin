@@ -1,12 +1,38 @@
 <template>
   <div>
     <ck-text-input
+      :value="slug"
+      @input="onInput('slug', $event)"
+      id="slug"
+      label="Unique slug"
+      type="text"
+      :error="errors.get('slug')"
+      v-if="auth.isSuperAdmin && showEditSlug"
+    >
+      <gov-hint slot="hint" for="slug">
+        This will be used to access the category collection.<br />
+        e.g. /collections/{{ slug }}
+      </gov-hint>
+    </ck-text-input>
+
+    <ck-text-input
       :value="name"
       @input="onInput('name', $event)"
       id="name"
       label="Name"
       type="text"
       :error="errors.get('name')"
+    />
+
+    <ck-loader v-if="loading" />
+    <ck-select-input
+      v-else
+      :value="parent_uuid"
+      @input="onInput('parent_uuid', $event)"
+      id="parent_uuid"
+      label="Parent"
+      :options="categoryOptions"
+      :error="errors.get('parent_uuid')"
     />
 
     <ck-textarea-input
@@ -87,6 +113,7 @@ import CkTaxonomyInput from "@/components/Ck/CkTaxonomyInput";
 import CkSideboxesInput from "@/views/collections/inputs/SideboxesInput";
 import CollectionEnabledInput from "@/views/collections/inputs/CollectionEnabledInput";
 import CollectionHomepageInput from "@/views/collections/inputs/CollectionHomepageInput";
+import http from "@/http"
 
 export default {
   name: "CollectionForm",
@@ -105,6 +132,12 @@ export default {
     id: {
       required: false,
       type: String
+    },
+    slug: {
+      required: true
+    },
+    showEditSlug: {
+      default: false
     },
     name: {
       required: true
@@ -129,13 +162,51 @@ export default {
     },
     image_file_id: {
       required: true
+    },
+    parent_uuid: {
+      required: false,
+    },
+    showParent: {
+      default: false,
+    }
+  },
+  data () {
+    return {
+      loading: false,
+      categories: [],
+      categoryOptions: []
     }
   },
   methods: {
     onInput(field, value) {
       this.$emit(`update:${field}`, value);
       this.$emit("clear", field);
-    }
+    },
+    async fetchCategories() {
+      this.loading = true;
+
+      const { data } = await http.get("/collections/categories/all");
+      this.categories = data.data;
+      this.categoryOptions = [
+        { text: "No parent (top level)", value: null },
+        ...this.parseCategories(this.categories)
+      ];
+      this.loading = false;
+    },
+    parseCategories(categories, parsed = [], depth = 0) {
+      categories.forEach(category => {
+        const text = "-".repeat(depth) + " " + category.name;
+        parsed.push({ text, value: category.id });
+
+        if ((category.children && category.children.length > 0) && depth < 4) {
+          parsed = this.parseCategories(category.children, parsed, depth + 1);
+        }
+      })
+      return parsed;
+    },
+  },
+  created() {
+    this.fetchCategories();
   }
 };
 </script>

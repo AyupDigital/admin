@@ -47,14 +47,14 @@ export default {
   name: "CreatePage",
 
   components: {
-    PageForm
+    PageForm,
   },
 
   props: {
     type: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
@@ -68,10 +68,25 @@ export default {
         page_type: this.type,
         image_file_id: null,
         collections: [],
-        enabled: false
+        enabled: false,
       }),
 
       contentTypes: {
+        topic: {
+          info_pages: {
+            order: 1,
+            label: "Landing Pages",
+            title: "",
+            hint:
+              "Title and subtext for the landing pages section of the topic.",
+            content: [
+              {
+                type: "copy",
+                value: "",
+              },
+            ],
+          },
+        },
         landing: {
           introduction: {
             order: 1,
@@ -80,9 +95,9 @@ export default {
             content: [
               {
                 type: "copy",
-                value: ""
-              }
-            ]
+                value: "",
+              },
+            ],
           },
           about: {
             order: 2,
@@ -91,9 +106,9 @@ export default {
             content: [
               {
                 type: "copy",
-                value: ""
-              }
-            ]
+                value: "",
+              },
+            ],
           },
           info_pages: {
             order: 3,
@@ -103,9 +118,9 @@ export default {
             content: [
               {
                 type: "copy",
-                value: ""
-              }
-            ]
+                value: "",
+              },
+            ],
           },
           collections: {
             order: 4,
@@ -115,10 +130,10 @@ export default {
             content: [
               {
                 type: "copy",
-                value: ""
-              }
-            ]
-          }
+                value: "",
+              },
+            ],
+          },
         },
         information: {
           introduction: {
@@ -129,13 +144,13 @@ export default {
             content: [
               {
                 type: "copy",
-                value: ""
-              }
-            ]
-          }
-        }
+                value: "",
+              },
+            ],
+          },
+        },
       },
-      imageChanged: false
+      imageChanged: false,
     };
   },
 
@@ -147,23 +162,23 @@ export default {
       if (this.auth.isSuperAdmin && pageId) {
         this.$router.push({
           name: "pages-show",
-          params: { page: pageId }
+          params: { page: pageId },
         });
       } else if (!this.form.$errors.any()) {
         this.$router.push({
-          name: "pages-updated"
+          name: "pages-updated",
         });
       }
     },
     onUpdateTitle(title) {
       this.form.title = title;
       this.form.slug = this.slugify(title);
-    }
+    },
   },
 
   created() {
     this.form.content = this.contentTypes[this.form.page_type];
-  }
+  },
 };
 </script>
 
