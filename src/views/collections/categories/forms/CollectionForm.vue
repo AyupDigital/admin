@@ -1,6 +1,21 @@
 <template>
   <div>
     <ck-text-input
+      :value="slug"
+      @input="onInput('slug', $event)"
+      id="slug"
+      label="Unique slug"
+      type="text"
+      :error="errors.get('slug')"
+      v-if="auth.isSuperAdmin && showEditSlug"
+    >
+      <gov-hint slot="hint" for="slug">
+        This will be used to access the category collection.<br />
+        e.g. /collections/{{ slug }}
+      </gov-hint>
+    </ck-text-input>
+
+    <ck-text-input
       :value="name"
       @input="onInput('name', $event)"
       id="name"
@@ -105,6 +120,12 @@ export default {
     id: {
       required: false,
       type: String
+    },
+    slug: {
+      required: true
+    },
+    showEditSlug: {
+      default: false
     },
     name: {
       required: true

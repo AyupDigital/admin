@@ -21,6 +21,7 @@
 
           <collection-form
             :errors="form.$errors"
+            :slug.sync="form.slug"
             :name.sync="form.name"
             :intro.sync="form.intro"
             :order.sync="form.order"
@@ -61,6 +62,7 @@ export default {
     return {
       imageChanged: false,
       form: new Form({
+        slug: "",
         name: "",
         intro: "",
         image_file_id: null,
