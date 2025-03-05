@@ -28,16 +28,6 @@
         <gov-button
           v-if="isActive.heading"
           class="ck-wysiwyg__toolbar-button"
-          :active="isActive.heading({ level: 1 })"
-          @click="commands.heading({ level: 1 })"
-          title="Heading 1"
-        >
-          H1
-        </gov-button>
-
-        <gov-button
-          v-if="isActive.heading"
-          class="ck-wysiwyg__toolbar-button"
           :active="isActive.heading({ level: 2 })"
           @click="commands.heading({ level: 2 })"
           title="Heading 2"
@@ -130,7 +120,7 @@ export default {
       default() {
         return [
           new Blockquote(),
-          new Heading({ levels: [1, 2, 3] }),
+          new Heading({ levels: [2, 3] }),
           new BulletList(),
           new OrderedList(),
           new ListItem(),
