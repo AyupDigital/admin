@@ -39,7 +39,8 @@ if (process.env.VUE_APP_SENTRY_DSN) {
   Sentry.init({
     Vue,
     dsn: process.env.VUE_APP_SENTRY_DSN,
-    integrations: [new Sentry.Integrations.Vue({ Vue })]
+    integrations: [Sentry.browserTracingIntegration({ router }),
+    Sentry.replayIntegration(),]
   });
 }
 
