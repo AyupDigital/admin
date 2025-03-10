@@ -1,9 +1,7 @@
 name: Deploy to Sutton Production
 
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
   deploy:
