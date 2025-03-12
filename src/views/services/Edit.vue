@@ -112,6 +112,13 @@
                   <gov-button @click="onNext" start>Next</gov-button>
                 </eligibility-tab>
 
+                <locations-tab
+                  v-if="isTabActive('locations')"
+                  :service="service"
+                >
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </locations-tab>
+
                 <taxonomies-tab
                   v-if="isTabActive('taxonomies')"
                   @clear="
@@ -248,6 +255,7 @@ import EligibilityTab from "@/views/services/forms/EligibilityTab";
 import ReferralTab from "@/views/services/forms/ReferralTab";
 import TaxonomiesTab from "@/views/services/forms/TaxonomiesTab";
 import ServiceDetails from "@/views/update-requests/show/ServiceDetails";
+import LocationsTab from "@/views/services/show/LocationsTab";
 
 export default {
   name: "EditService",
@@ -259,7 +267,8 @@ export default {
     EligibilityTab,
     ReferralTab,
     TaxonomiesTab,
-    ServiceDetails
+    ServiceDetails,
+    LocationsTab
   },
   data() {
     return {
@@ -269,6 +278,7 @@ export default {
         { id: "additional-info", heading: "Additional info", active: false },
         { id: "useful-info", heading: "Good to know", active: false },
         { id: "eligibility", heading: "Eligibility", active: false },
+        { id: "locations", heading: "Locations", active: false },
         { id: "taxonomies", heading: "Taxonomies", active: false },
         { id: "description", heading: "Description", active: false },
         { id: "referral", heading: "Referral", active: false }
@@ -353,6 +363,13 @@ export default {
         logo_file_id: this.service.image ? this.service.image.id : null,
         logo: null
       });
+
+      // Fetch the service locations.
+      const serviceLocations = await this.fetchAll("/service-locations", {
+        "filter[service_id]": this.$route.params.service,
+        include: "location"
+      });
+      this.service.service_locations = serviceLocations;
 
       this.loading = false;
     },
