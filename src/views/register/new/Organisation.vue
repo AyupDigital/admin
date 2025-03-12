@@ -82,7 +82,7 @@ export default {
   },
   computed: {
     fieldsEmpty() {
-      const requiredFields = ["name", "slug", "phone", "email"];
+      const requiredFields = ["name", "description"];
       return requiredFields.some((field) => !this.form.organisation[field]);
     },
   },
