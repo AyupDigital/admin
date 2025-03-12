@@ -11,14 +11,13 @@ set -e
 
 # Declare the configuration variables for the deployment.
 echo "Setting deployment configuration for ${ENVIRONMENT}..."
-ENV_SECRET_ID=".env.admin.${ENVIRONMENT}"
 
-# Get the .env file.
+# Get the .env.local file.
 echo "Downloading .env file..."
-rm -f .env
+rm -f .env.local
 aws secretsmanager get-secret-value \
     --secret-id ${ENV_SECRET_ID} | \
-    python -c "import json,sys;obj=json.load(sys.stdin);print(obj['SecretString']);" > .env
+    python -c "import json,sys;obj=json.load(sys.stdin);print(obj['SecretString']);" > .env.local
 
 # Build.
 echo "Building..."

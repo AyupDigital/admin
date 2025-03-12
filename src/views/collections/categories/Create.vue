@@ -21,6 +21,7 @@
 
           <collection-form
             :errors="form.$errors"
+            :slug.sync="form.slug"
             :name.sync="form.name"
             :intro.sync="form.intro"
             :order.sync="form.order"
@@ -29,6 +30,8 @@
             :sideboxes.sync="form.sideboxes"
             :category_taxonomies.sync="form.category_taxonomies"
             :image_file_id.sync="form.image_file_id"
+            :parent_uuid.sync="form.parent_uuid"
+            :show-parent="true"
             @clear="form.$errors.clear($event)"
             @image-changed="imageChanged = $event"
           />
@@ -61,9 +64,11 @@ export default {
     return {
       imageChanged: false,
       form: new Form({
+        slug: "",
         name: "",
         intro: "",
         image_file_id: null,
+        parent_uuid: null,
         order: 1,
         enabled: true,
         homepage: false,

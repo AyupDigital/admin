@@ -7,8 +7,8 @@ All logic is handled by the API - so you can think of this app as purely an inte
 
 ## Installation
 ```bash
-# Copy the example .env and fill in the empty variables.
-cp .env.example .env
+# Copy the example .env.local and fill in the empty variables.
+cp .env.local.example .env.local
 
 # Install the NPM dependencies.
 npm install

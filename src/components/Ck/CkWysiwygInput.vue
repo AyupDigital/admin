@@ -82,7 +82,7 @@ export default {
       default() {
         return [
           new Blockquote(),
-          new Heading({ levels: [1, 2, 3] }),
+          new Heading({ levels: [2, 3] }),
           new BulletList(),
           new OrderedList(),
           new ListItem(),
