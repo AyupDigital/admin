@@ -19,6 +19,10 @@ aws secretsmanager get-secret-value \
     --secret-id ${ENV_SECRET_ID} | \
     python -c "import json,sys;obj=json.load(sys.stdin);print(obj['SecretString']);" > .env.local
 
+# Install dependencies.
+echo "Installing dependencies..."
+npm install
+
 # Build.
 echo "Building..."
 node_modules/.bin/vue-cli-service build --mode ${ENVIRONMENT}
