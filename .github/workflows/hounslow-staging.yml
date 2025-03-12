@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - ACD-16-website-field-should-be-optional-during-public-reg
 
 jobs:
   deploy:
