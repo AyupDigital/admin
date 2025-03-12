@@ -185,6 +185,16 @@ Vue.mixin({
       return process.env.hasOwnProperty("VUE_APP_HELP_SECTION")
         ? process.env.VUE_APP_HELP_SECTION === "true"
         : false;
+    },
+    appServiceShowBestPracticeGuidance() {
+      return process.env.hasOwnProperty(
+        "VUE_APP_SERVICE_SHOW_BEST_PRACTICE_GUIDANCE"
+      )
+        ? process.env.VUE_APP_SERVICE_SHOW_BEST_PRACTICE_GUIDANCE === "true"
+        : false;
+    },
+    appServiceBestPracticeGuidanceUrl() {
+      return process.env.VUE_APP_SERVICE_BEST_PRACTICE_GUIDANCE_URL;
     }
   },
   methods: {
