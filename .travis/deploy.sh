@@ -21,8 +21,8 @@ aws secretsmanager get-secret-value \
 
 # Build.
 echo "Building..."
-npm run build --mode ${ENVIRONMENT}
+node_modules/.bin/vue-cli-service build --mode ${ENVIRONMENT}
 
 # Deploy to S3.
 echo "Deploying..."
-npm run deploy --mode ${ENVIRONMENT}
+node_modules/.bin/vue-cli-service s3-deploy --mode ${ENVIRONMENT}
