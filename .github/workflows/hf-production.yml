@@ -25,7 +25,7 @@ jobs:
           node-version: "14"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci && ls node_modules/.bin
 
       - name: Run deployment script
-        run: .travis/deploy.sh
+        run: npm install && .travis/deploy.sh
