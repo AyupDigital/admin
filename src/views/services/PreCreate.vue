@@ -29,6 +29,13 @@
               When you are finished your page will be sent to the admin team for
               approval
             </li>
+            <li v-if="appServiceShowBestPracticeGuidance">
+              Follow
+              <a :href="appServiceBestPracticeGuidanceUrl" target="_blank"
+                >best practice guidance</a
+              >
+              when writing about your service
+            </li>
           </gov-list>
 
           <gov-warning-text>

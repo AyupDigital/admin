@@ -50,9 +50,7 @@
           "
           id="description"
           label="Long description"
-          :hint="
-            `This is the largest body of text on your page. Fill it with everything else someone should know about your ${type}. Use headers, bullets and formatting for the maximum effect.`
-          "
+          :hint="descriptionHint"
           :error="errors.get('description')"
           large
           :maxlength="10000"
@@ -70,25 +68,34 @@ import CkOfferingsInput from "@/views/services/inputs/OfferingsInput.vue";
 export default {
   name: "DescriptionTab",
   components: {
-    CkOfferingsInput
+    CkOfferingsInput,
   },
   props: {
     errors: {
-      required: true
+      required: true,
     },
     type: {
       required: true,
-      type: String
+      type: String,
     },
     intro: {
-      required: true
+      required: true,
     },
     offerings: {
-      required: true
+      required: true,
     },
     description: {
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
+  computed: {
+    descriptionHint() {
+      let hint = `This is the largest body of text on your page. Fill it with everything else someone should know about your ${this.type}. Use headers, bullets and formatting for the maximum effect.`;
+      if (this.appServiceShowBestPracticeGuidance) {
+        hint += ` Follow <a href='${this.appServiceBestPracticeGuidanceUrl}' target='_blank'>best practice guidance</a> when writing about your service.`;
+      }
+      return hint;
+    },
+  },
 };
 </script>

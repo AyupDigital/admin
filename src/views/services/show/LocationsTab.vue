@@ -26,6 +26,7 @@
     <ck-service-locations-table
       :service-locations="service.service_locations"
     />
+    <slot />
   </div>
 </template>
 
