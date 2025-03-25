@@ -265,6 +265,7 @@ export default {
             break;
           case "organisations":
           case "new_organisation_created_by_global_admin":
+          case "organisation_sign_up_form":
             this.$router.push({
               name: "organisations-" + routeAction,
               params: { organisation: updateable_id }
