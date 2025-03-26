@@ -37,12 +37,12 @@
       label="Image description"
       hint="Describe the image for visually impaired visitors"
       type="text"
-      :error="form.$errors.get('alt_text')"
+      :error="errors.get('alt_text')"
     />
 
     <gov-error-message
-      v-if="form.$errors.any()"
-      v-text="form.$errors.get(['is_private', 'mime_type', 'file'])"
+      v-if="errors.any()"
+      v-text="errors.get(['is_private', 'mime_type', 'file'])"
       :for="id"
     />
 
@@ -108,6 +108,9 @@ export default {
       required: false,
       type: Boolean,
       default: false
+    },
+    errors: {
+      required: false,
     }
   },
   data() {
@@ -145,6 +148,7 @@ export default {
       // Set the outstanding changes flag
       this.imageChanged = true;
       this.$emit("image-changed", true);
+      this.$emit("alt-text-changed", $event);
     },
     async onUpload() {
       // Upload the file and retrieve the ID.

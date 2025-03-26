@@ -59,6 +59,7 @@
                 :image_file_id.sync="form.image_file_id"
                 @clear="form.$errors.clear($event)"
                 @image-changed="imageChanged = $event"
+                @alt-text-changed="altTextChanged = true"
               />
               <taxonomies-tab
                 v-if="isTabActive('taxonomies')"
@@ -84,7 +85,7 @@
             <gov-button
               v-else
               @click="onSubmit"
-              :disabled="imageChanged || loading || !event"
+              :disabled="loading || !event"
               type="submit"
               >{{ updateButtonText }}</gov-button
             >
@@ -116,7 +117,8 @@ export default {
       loading: false,
       event: null,
       form: null,
-      imageChanged: false
+      imageChanged: false,
+      altTextChanged: false
     };
   },
 
@@ -181,6 +183,14 @@ export default {
 
     async onSubmit() {
       if (!this.event) {
+        return;
+      }
+      if (this.imageChanged && (!this.altTextChanged && (this.event.image && !this.event.image.alt_text))) {
+        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        return;
+      }
+      if (this.imageChanged) {
+        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
         return;
       }
       const response = await this.form.put(
