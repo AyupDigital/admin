@@ -96,23 +96,6 @@
           :disabled="!isGlobalAdmin"
         />
 
-        <ck-radio-input
-          v-if="referralIsInternalOrExternal"
-          :value="show_referral_disclaimer"
-          @input="
-            $emit('update:show_referral_disclaimer', $event);
-            $emit('clear', 'show_referral_disclaimer');
-          "
-          id="show_referral_disclaimer"
-          label="Show referral disclaimer?"
-          :options="[
-            { value: true, label: 'Display' },
-            { value: false, label: 'Don\'t display' }
-          ]"
-          :error="errors.get('show_referral_disclaimer')"
-          :disabled="!isSuperAdmin"
-        />
-
         <slot />
       </gov-grid-column>
     </gov-grid-row>
@@ -141,9 +124,6 @@ export default {
     type: {
       required: true,
       type: String
-    },
-    show_referral_disclaimer: {
-      required: true
     },
     referral_method: {
       required: true
@@ -193,12 +173,10 @@ export default {
         this.$emit("update:referral_button_text", "");
         this.$emit("update:referral_email", "");
         this.$emit("update:referral_url", "");
-        this.$emit("update:show_referral_disclaimer", false);
 
         this.$emit("clear", "referral_button_text");
         this.$emit("clear", "referral_email");
         this.$emit("clear", "referral_url");
-        this.$emit("clear", "show_referral_disclaimer");
       }
 
       if (newReferralMethod !== "internal") {
@@ -211,29 +189,6 @@ export default {
         this.$emit("update:referral_url", "");
 
         this.$emit("clear", "referral_url");
-      }
-
-      if (
-        (oldReferralMethod === null || oldReferralMethod === "none") &&
-        newReferralMethod !== null &&
-        newReferralMethod !== "none"
-      ) {
-        if (this.originalData === undefined) {
-          // Create service.
-          this.$emit("update:show_referral_disclaimer", true);
-        } else {
-          // Edit service.
-          if (
-            this.originalData.referral_method !== "none" &&
-            this.originalData.show_referral_disclaimer === false
-          ) {
-            this.$emit("update:show_referral_disclaimer", false);
-          } else {
-            this.$emit("update:show_referral_disclaimer", true);
-          }
-        }
-
-        this.$emit("clear", "show_referral_disclaimer");
       }
     }
   }

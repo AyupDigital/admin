@@ -119,7 +119,6 @@ export default {
         contact_name: "Contact Name",
         contact_phone: "Contact Phone",
         contact_email: "Contact Email",
-        show_referral_disclaimer: "Show Referral Disclaimer",
         referral_method: "Referral Method",
         referral_button_text: "Referral Button Text",
         referral_email: "Referral Email",

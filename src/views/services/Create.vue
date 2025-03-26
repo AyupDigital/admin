@@ -180,7 +180,6 @@
                 :is-global-admin="auth.isGlobalAdmin"
                 :is-super-admin="auth.isSuperAdmin"
                 :type="form.type"
-                :show_referral_disclaimer.sync="form.show_referral_disclaimer"
                 :referral_method.sync="form.referral_method"
                 :referral_button_text.sync="form.referral_button_text"
                 :referral_email.sync="form.referral_email"
@@ -250,7 +249,6 @@ export default {
         contact_phone: "",
         contact_email: "",
         cqc_location_id: "",
-        show_referral_disclaimer: false,
         referral_method: "none",
         referral_button_text: "",
         referral_email: "",

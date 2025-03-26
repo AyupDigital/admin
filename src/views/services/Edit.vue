@@ -159,7 +159,6 @@
                   :is-super-admin="auth.isSuperAdmin"
                   :original-data="form.$originalData"
                   :type="form.type"
-                  :show_referral_disclaimer.sync="form.show_referral_disclaimer"
                   :referral_method.sync="form.referral_method"
                   :referral_button_text.sync="form.referral_button_text"
                   :referral_email.sync="form.referral_email"
@@ -336,7 +335,6 @@ export default {
         contact_phone: this.service.contact_phone || "",
         contact_email: this.service.contact_email || "",
         cqc_location_id: this.service.cqc_location_id || "",
-        show_referral_disclaimer: this.service.show_referral_disclaimer,
         referral_method: this.service.referral_method,
         referral_button_text: this.service.referral_button_text || "",
         referral_email: this.service.referral_email || "",
@@ -448,12 +446,6 @@ export default {
             data.cqc_location_id === (this.service.cqc_location_id || "")
           ) {
             delete data.cqc_location_id;
-          }
-          if (
-            data.show_referral_disclaimer ===
-            this.service.show_referral_disclaimer
-          ) {
-            delete data.show_referral_disclaimer;
           }
           if (data.referral_method === this.service.referral_method) {
             delete data.referral_method;
