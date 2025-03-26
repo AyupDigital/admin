@@ -60,6 +60,10 @@ export default {
           to: { name: "admin-index-cms-frontend-privacy-policy" }
         },
         {
+          heading: "Cookie Policy",
+          to: { name: "admin-index-cms-frontend-cookie-policy" }
+        },
+        {
           heading: "Accessibility Statement",
           to: { name: "admin-index-cms-frontend-accessibility-statement" }
         },
