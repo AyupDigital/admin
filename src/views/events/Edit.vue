@@ -84,7 +84,7 @@
             <gov-button
               v-else
               @click="onSubmit"
-              :disabled="imageChanged"
+              :disabled="imageChanged || loading || !event"
               type="submit"
               >{{ updateButtonText }}</gov-button
             >
@@ -180,6 +180,9 @@ export default {
     },
 
     async onSubmit() {
+      if (!this.event) {
+        return;
+      }
       const response = await this.form.put(
         `/organisation-events/${this.event.id}`,
         (config, data) => {

@@ -473,20 +473,6 @@
           <gov-table-cell>{{ service.referral_button_text }}</gov-table-cell>
         </gov-table-row>
 
-        <gov-table-row
-          v-if="service.hasOwnProperty('show_referral_disclaimer')"
-        >
-          <gov-table-header top scope="row"
-            >Show referral disclaimer</gov-table-header
-          >
-          <gov-table-cell v-if="original">{{
-            original.show_referral_disclaimer | showReferralDisclaimer
-          }}</gov-table-cell>
-          <gov-table-cell>{{
-            service.show_referral_disclaimer | showReferralDisclaimer
-          }}</gov-table-cell>
-        </gov-table-row>
-
         <gov-table-row v-if="service.hasOwnProperty('logo_file_id')">
           <gov-table-header top scope="row">Logo</gov-table-header>
           <gov-table-cell v-if="original">
