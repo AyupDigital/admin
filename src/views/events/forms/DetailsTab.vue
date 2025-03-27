@@ -285,7 +285,7 @@
     />
 
     <event-homepage-input
-      v-if="auth.isGlobalAdmin"
+      v-if="auth.isGlobalAdmin && !appHideEventOnHomepage"
       :value="homepage"
       @input="onInput('homepage', $event)"
       id="homepage"
