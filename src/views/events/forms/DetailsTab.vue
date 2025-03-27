@@ -65,7 +65,7 @@
       :error="errors.get(['start_time', 'end_time'])"
     />
 
-    <ck-text-input
+    <ck-textarea-input
       :value="intro"
       @input="onInput('intro', $event)"
       id="intro"
@@ -301,6 +301,7 @@ import CkImageInput from "@/components/Ck/CkImageInput";
 import CkLocationInput from "@/components/Ck/CkLocationInput";
 import CkTimePeriodInput from "@/components/Ck/CkTimePeriodInput";
 import EventHomepageInput from "@/views/events/inputs/EventHomepageInput";
+import CkTextareaInput from "@/components/Ck/CkTextareaInput";
 
 export default {
   name: "OrganisationEventDetailsTab",
@@ -310,7 +311,8 @@ export default {
     CkImageInput,
     CkLocationInput,
     CkTimePeriodInput,
-    EventHomepageInput
+    EventHomepageInput,
+    CkTextareaInput
   },
 
   props: {
