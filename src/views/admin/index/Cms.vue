@@ -83,10 +83,6 @@ export default {
           heading: "Favourites",
           to: { name: "admin-index-cms-frontend-favourites" }
         },
-        {
-          heading: "Banner",
-          to: { name: "admin-index-cms-frontend-banner" }
-        }
       ],
       settings: null,
       loading: false
