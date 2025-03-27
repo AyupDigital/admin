@@ -284,6 +284,9 @@
       :existing-url="
         id ? apiUrl(`/service-locations/${id}/image.png?v=${now}`) : undefined
       "
+      :errors="errors"
+      @alt-text-changed="$emit('alt-text-changed', $event)"
+      @image-changed="$emit('image-changed', $event)"
     />
   </div>
 </template>

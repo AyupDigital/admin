@@ -142,9 +142,11 @@ export default {
       // Set the variables in the form.
       this.form.mime_type = mime_type;
       this.form.file = content;
+      this.errors.clear("file");
     },
     onChangeAltText($event) {
       this.form.alt_text = $event;
+      this.errors.clear("alt_text");
       // Set the outstanding changes flag
       this.imageChanged = true;
       this.$emit("image-changed", true);

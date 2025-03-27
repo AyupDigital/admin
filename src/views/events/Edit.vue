@@ -185,7 +185,7 @@ export default {
       if (!this.event) {
         return;
       }
-      if (this.imageChanged && (!this.altTextChanged && (this.event.image && !this.event.image.alt_text))) {
+      if (this.imageChanged && (!this.altTextChanged && (!this.event.image || !this.event.image.alt_text))) {
         this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
         return;
       }
