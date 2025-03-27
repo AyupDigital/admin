@@ -265,10 +265,19 @@ export default {
             break;
           case "organisations":
           case "new_organisation_created_by_global_admin":
-          case "organisation_sign_up_form":
             this.$router.push({
               name: "organisations-" + routeAction,
               params: { organisation: updateable_id }
+            });
+            break;
+          case "organisation_sign_up_form":
+            // GET new organisation by slug
+            const { data } = await http.get(
+              `/organisations/${this.updateRequest.data.organisation.slug}`
+            );
+            this.$router.push({
+              name: "organisations-" + routeAction,
+              params: { organisation: data.data.id }
             });
             break;
           case "locations":
