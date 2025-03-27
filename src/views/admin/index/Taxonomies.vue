@@ -16,10 +16,6 @@ export default {
       tabs: [
         { heading: "Categories", to: { name: "admin-index-taxonomies" } },
         {
-          heading: "Organisations",
-          to: { name: "admin-index-taxonomies-organisations" }
-        },
-        {
           heading: "Service Eligibilities",
           to: { name: "admin-index-taxonomies-service-eligibilities" }
         }
