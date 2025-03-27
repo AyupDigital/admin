@@ -58,6 +58,7 @@
                   @update:logo_file_id="form.logo_file_id = $event"
                   @clear="form.$errors.clear($event)"
                   @image-changed="imageChanged = $event"
+                  @alt-text-changed="altTextChanged = true"
                 />
               </organisation-tab>
 
@@ -103,7 +104,6 @@
             <gov-button
               v-else
               @click="onSubmit"
-              :disabled="imageChanged"
               type="submit"
               >Create</gov-button
             >
@@ -143,7 +143,8 @@ export default {
       ],
       updateRequestCreated: false,
       updateRequestMessage: null,
-      imageChanged: false
+      imageChanged: false,
+      altTextChanged: false
     };
   },
   watch: {
@@ -153,6 +154,15 @@ export default {
   },
   methods: {
     async onSubmit() {
+      if (this.imageChanged && !this.altTextChanged) {
+        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+      }
+      if (this.imageChanged) {
+        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+      }
+      if (this.form.$errors.any()) {
+        return;
+      }
       const response = await this.form.post("/organisations");
       const organisationId = response.data.id;
 

@@ -29,6 +29,8 @@
               :holiday_opening_hours.sync="form.holiday_opening_hours"
               @update:image_file_id="form.image_file_id = $event"
               @clear="form.$errors.clear($event)"
+              @alt-text-changed="altTextChanged = true"
+              @image-changed="imageChanged = true"
             />
 
             <gov-warning-text>
@@ -62,7 +64,9 @@ export default {
     return {
       form: null,
       serviceLocation: null,
-      loading: false
+      loading: false,
+      altTextChanged: false,
+      imageChanged: false
     };
   },
   computed: {
@@ -88,6 +92,14 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
+      if (this.imageChanged && !this.altTextChanged && (!this.serviceLocation.image || !this.serviceLocation.image.alt_text)) {
+        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        return;
+      }
+      if (this.imageChanged) {
+        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        return;
+      }
       const response = await this.form.put(
         `/service-locations/${this.serviceLocation.id}`,
         (config, data) => {

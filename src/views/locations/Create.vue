@@ -30,6 +30,7 @@
             :image_file_id.sync="form.image_file_id"
             @clear="form.$errors.clear($event)"
             @image-changed="imageChanged = $event"
+            @alt-text-changed="altTextChanged = true"
           />
 
           <gov-button v-if="form.$submitting" disabled type="submit"
@@ -38,7 +39,6 @@
           <gov-button
             v-else
             @click="onSubmit"
-            :disabled="imageChanged"
             type="submit"
             >Create</gov-button
           >
@@ -59,6 +59,7 @@ export default {
   data() {
     return {
       imageChanged: false,
+      altTextChanged: false,
       form: new Form({
         address_line_1: "",
         address_line_2: "",
@@ -77,6 +78,14 @@ export default {
   },
   methods: {
     onSubmit() {
+      if (this.imageChanged && !this.altTextChanged) {
+        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        return;
+      }
+      if (this.imageChanged) {
+        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        return;
+      }
       this.form.post("/locations").then(({ data }) =>
         this.$router.push({
           name: "locations-show",

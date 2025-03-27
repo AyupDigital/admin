@@ -127,9 +127,11 @@
     <ck-image-input
       @input="onInput('image_file_id', $event.file_id)"
       @image-changed="$emit('image-changed', $event)"
+      @alt-text-changed="$emit('alt-text-changed', $event)"
       id="image"
       label="Location image"
       :file-id="image_file_id"
+      :errors="errors"
     />
   </div>
 </template>

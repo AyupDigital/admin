@@ -64,9 +64,11 @@
     <ck-image-input
       @input="onInput('logo_file_id', $event.file_id)"
       @image-changed="$emit('image-changed', $event)"
+      @alt-text-changed="$emit('alt-text-changed', $event)"
       id="logo"
       label="Organisation logo"
       :file-id="logo_file_id"
+      :errors="errors"
     />
 
     <gov-section-break size="l" />

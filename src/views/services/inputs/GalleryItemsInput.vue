@@ -9,6 +9,9 @@
         :id="`Ck::GalleryItemImage::${galleryItem.file_id}`"
         label="Upload an item to the gallery"
         :file-id="galleryItem.file_id"
+        @image-changed="$emit('image-changed', $event); $emit('clear', `gallery_items.${index}.file_id`);"
+        @alt-text-changed="alt_text = $event; $emit('clear', `gallery_items.${index}.alt_text`);"
+        :errors="errors"
       />
 
       <gov-error-message
@@ -23,6 +26,16 @@
           ])
         "
         :for="`Ck::GalleryItem::${galleryItem.file_id}`"
+      />
+      <gov-error-message
+        v-if="
+          errors.has(`gallery_items`)
+        "
+        v-text="
+          errors.get([
+            `gallery_items`,
+          ])
+        "
       />
     </gov-inset-text>
 
@@ -62,7 +75,8 @@ export default {
 
   data() {
     return {
-      index: 1
+      index: 1,
+      alt_text: null
     };
   },
 
@@ -78,6 +92,7 @@ export default {
       } else {
         galleryItems[index].file_id = event.file_id;
         galleryItems[index].image = event.image;
+        galleryItems[index].alt_text = this.alt_text;
       }
       this.$emit("clear", `gallery_items.${index}`);
       this.$emit("clear", `gallery_items.${index}.file_id`);
@@ -89,7 +104,8 @@ export default {
       galleryItems.push({
         file_id: null,
         image: null,
-        $index: this.index
+        $index: this.index,
+        alt_text: null
       });
       this.$emit("input", galleryItems);
 

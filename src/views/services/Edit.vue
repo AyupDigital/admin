@@ -59,6 +59,7 @@
                   "
                   @update:logo="form.logo = $event"
                   @image-changed="imageChanged = $event"
+                  @alt-text-changed="altTextChanged = true"
                 >
                   <gov-button @click="onNext" start>Next</gov-button>
                 </details-tab>
@@ -286,7 +287,8 @@ export default {
       service: null,
       loading: false,
       updateRequest: null,
-      imageChanged: false
+      imageChanged: false,
+      altTextChanged: false
     };
   },
   computed: {
@@ -372,6 +374,22 @@ export default {
       this.loading = false;
     },
     async onSubmit(preview = false) {
+      if (this.imageChanged && (!this.altTextChanged && (!this.service.image || !this.service.image.alt_text))) {
+        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+      }
+      if (this.imageChanged) {
+        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+      }
+
+      const invalidGalleryImages = this.form.gallery_items.filter(galleryItem => !galleryItem.alt_text || !galleryItem.file_id);
+      invalidGalleryImages.forEach((galleryItem, index) => {
+        this.form.$errors.record({
+          [`gallery_items.${index}`]: ["Please ensure you've added an image description and pressed 'Upload file' to upload your image."]
+        });
+      });
+      if (this.form.$errors.any()) {
+        return;
+      }
       const response = await this.form.put(
         `/services/${this.service.id}`,
         (config, data) => {
