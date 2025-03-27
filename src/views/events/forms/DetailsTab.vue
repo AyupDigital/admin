@@ -71,6 +71,7 @@
       id="intro"
       label="Event summary*"
       type="text"
+      :maxlength="255"
       :error="errors.get('intro')"
     />
 
