@@ -112,7 +112,7 @@
               {
                 heading: 'First name',
                 sort: 'first_name',
-                render: user => user.first_name
+                render: (user, updateRequests) => user.first_name + ' ' + this.hasUpdateRequest(user, updateRequests)
               },
               {
                 heading: 'Last name',
@@ -263,6 +263,15 @@ export default {
       this.services = services;
 
       this.loadingServices = false;
+    },
+    hasUpdateRequest(user, updateRequests) {
+      const request = updateRequests.find(r => 
+        r.updateable_id === user.id
+      );
+      if (request) {
+        return `<a href="/update-requests/${request.id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+      }
+      return '';
     }
   },
   created() {

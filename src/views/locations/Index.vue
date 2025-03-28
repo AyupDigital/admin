@@ -63,7 +63,7 @@
               {
                 heading: 'Address line 1',
                 sort: 'address_line_1',
-                render: location => location.address_line_1
+                render: (location, updateRequests) => location.address_line_1 + ' ' + this.hasUpdateRequest(location, updateRequests)
               },
               {
                 heading: 'City',
@@ -133,6 +133,15 @@ export default {
     },
     onAddLocation() {
       this.$router.push({ name: "locations-create" });
+    },
+    hasUpdateRequest(location, updateRequests) {
+      const request = updateRequests.find(r => 
+        r.updateable_id === location.id
+      );
+      if (request) {
+        return `<a href="/update-requests/${request.id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+      }
+      return '';
     }
   }
 };

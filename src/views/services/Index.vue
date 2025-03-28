@@ -83,8 +83,8 @@
               {
                 heading: 'Service name',
                 sort: 'name',
-                render: (service) => {
-                  return service.name + this.hasUpdateRequest(service);
+                render: (service, updateRequests) => {
+                  return service.name + ' ' + this.hasUpdateRequest(service, updateRequests);
                 }
               },
               {
@@ -138,7 +138,6 @@ export default {
         status: "",
         referral_method: ""
       },
-      updateRequests: [],
       statuses: [
         { value: "", text: "All" },
         { value: "active", text: "Enabled" },
@@ -216,23 +215,8 @@ export default {
     displayReferralMethod(referralMethod) {
       return referralMethod.charAt(0).toUpperCase() + referralMethod.substr(1);
     },
-    async loadUpdateRequests() {
-      try {
-        const response = await http.get("/update-requests", {
-          params: {
-            "filter[type]": "services",
-            "per_page": 100
-          }
-        });
-        this.updateRequests = response.data.data;
-      } catch (error) {
-        console.error('Error fetching update requests:', error);
-        this.updateRequests = [];
-      }
-    },
-    hasUpdateRequest(service) {
-      const request = this.updateRequests.find(r => 
-        r.updateable_type === 'services' && 
+    hasUpdateRequest(service, updateRequests) {
+      const request = updateRequests.find(r => 
         r.updateable_id === service.id
       );
       if (request) {
@@ -240,9 +224,6 @@ export default {
       }
       return '';
     }
-  },
-  created() {
-    this.loadUpdateRequests();
   }
 };
 </script>

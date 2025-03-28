@@ -72,7 +72,7 @@
               {
                 heading: 'Title',
                 sort: 'title',
-                render: event => event.title
+                render: (event, updateRequests) => event.title + ' ' + this.hasUpdateRequest(event, updateRequests)
               },
               {
                 heading: 'Start',
@@ -225,6 +225,15 @@ export default {
       this.$nextTick(function() {
         this.onSearch();
       });
+    },
+    hasUpdateRequest(event, updateRequests) {
+      const request = updateRequests.find(r => 
+        r.updateable_id === event.id
+      );
+      if (request) {
+        return `<a href="/update-requests/${request.id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+      }
+      return '';
     }
   },
 

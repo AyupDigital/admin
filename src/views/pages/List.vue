@@ -81,6 +81,7 @@
             <gov-tag v-if="!page.enabled" class="govuk-tag--grey"
               >disabled</gov-tag
             >
+            {{ hasUpdateRequest(page) }}
           </li>
         </gov-list>
         <ck-tree-list
@@ -133,6 +134,7 @@ export default {
       loading: false,
       searching: false,
       pages: [],
+      updateRequests: [],
       filters: {
         title: "",
         page_type: null,
@@ -252,9 +254,31 @@ export default {
     orderUpdateRequestMessage(orderWas, page) {
       return `An update request has been created to change the order of page ${page.title} from ${orderWas} to ${page.order}`;
     },
+    async loadUpdateRequests() {
+      try {
+        const response = await http.post("/update-requests/index", {
+            "filter[page_id]": this.pages.map(page => page.id).join(","),
+            "per_page": 100
+        });
+        this.updateRequests = response.data.data;
+      } catch (error) {
+        console.error('Error fetching update requests:', error);
+        this.updateRequests = [];
+      }
+    },
+    hasUpdateRequest(page) {
+      const request = this.updateRequests.find(r => 
+        r.updateable_id === page.id
+      );
+      if (request) {
+        return `<a href="/update-requests/${request.id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+      }
+      return '';
+    }
   },
   created() {
     this.fetchPages();
+    this.loadUpdateRequests();
   },
 };
 </script>

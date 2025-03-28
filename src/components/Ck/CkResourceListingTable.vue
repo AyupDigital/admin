@@ -23,7 +23,7 @@
           <gov-table-cell
             v-for="(column, index) in columns"
             :key="`ResourceListingTableCell-${index}`"
-            v-html="column.render(resource)"
+            v-html="column.render(resource, updateRequests)"
           />
           <gov-table-cell right>
             <gov-link
@@ -114,7 +114,8 @@ export default {
       loading: false,
       currentPage: 1,
       totalPages: 1,
-      sort: this.defaultSort
+      sort: this.defaultSort,
+      updateRequests: []
     };
   },
 
@@ -142,7 +143,24 @@ export default {
       this.currentPage = response.data.meta.current_page;
       this.totalPages = response.data.meta.last_page;
 
+      await this.fetchUpdateRequests();
+
       this.loading = false;
+    },
+
+    async fetchUpdateRequests() {
+      if (!["/organisations", "/services", "/events", "/locations", "/users"].includes(this.uri)) {
+        return;
+      }
+
+      const type = this.uri.replace("/", "");
+      const singularType = type.slice(0, -1);
+      const response = await http.post("/update-requests/index", { 
+        "per_page": 100,
+        [`filter[${singularType}_id]`]: this.resources.map(resource => resource.id).join(",")
+      } );
+
+      this.updateRequests = response.data.data;
     },
 
     onPrevious() {
