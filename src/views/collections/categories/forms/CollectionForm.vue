@@ -26,7 +26,7 @@
 
     <ck-loader v-if="loading" />
     <ck-select-input
-      v-else
+      v-else-if="!loading && appShowParentIdOnCollections"
       :value="parent_uuid"
       @input="onInput('parent_uuid', $event)"
       id="parent_uuid"
