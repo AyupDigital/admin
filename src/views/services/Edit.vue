@@ -376,9 +376,11 @@ export default {
     async onSubmit(preview = false) {
       if (this.imageChanged && (!this.altTextChanged && (!this.service.image || !this.service.image.alt_text))) {
         this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        return;
       }
       if (this.imageChanged) {
         this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        return;
       }
 
       const invalidGalleryImages = this.form.gallery_items.filter(galleryItem => !galleryItem.alt_text || !galleryItem.file_id);
