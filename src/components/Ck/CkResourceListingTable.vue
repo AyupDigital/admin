@@ -70,42 +70,42 @@ export default {
     GovTableRow,
     GovLink,
     CkLoader,
-    CkPagination
+    CkPagination,
   },
 
   props: {
     uri: {
       required: true,
-      type: String
+      type: String,
     },
 
     params: {
       required: false,
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
 
     columns: {
       required: true,
-      type: Array
+      type: Array,
     },
 
     viewRoute: {
       required: false,
-      type: Function
+      type: Function,
     },
 
     defaultSort: {
       required: false,
       type: String,
-      default: ""
+      default: "",
     },
 
     actionText: {
       required: false,
       type: String,
-      default: "View"
-    }
+      default: "View",
+    },
   },
 
   data() {
@@ -115,7 +115,7 @@ export default {
       currentPage: 1,
       totalPages: 1,
       sort: this.defaultSort,
-      updateRequests: []
+      updateRequests: [],
     };
   },
 
@@ -123,7 +123,7 @@ export default {
     allParams() {
       const params = {
         ...this.params,
-        page: this.currentPage
+        page: this.currentPage,
       };
 
       if (this.sort !== "") {
@@ -131,7 +131,7 @@ export default {
       }
 
       return params;
-    }
+    },
   },
 
   methods: {
@@ -149,18 +149,31 @@ export default {
     },
 
     async fetchUpdateRequests() {
-      if (!["/organisations", "/services", "/events", "/locations", "/users"].includes(this.uri)) {
+      if (
+        ![
+          "/organisations",
+          "/services",
+          "/events",
+          "/locations",
+          "/users",
+        ].includes(this.uri)
+      ) {
         return;
       }
 
       const type = this.uri.replace("/", "");
       const singularType = type.slice(0, -1);
-      const response = await http.post("/update-requests/index", { 
-        "per_page": 100,
-        [`filter[${singularType}_id]`]: this.resources.map(resource => resource.id).join(",")
-      } );
 
-      this.updateRequests = response.data.data;
+      if (this.auth.isGlobalAdmin) {
+        const response = await http.post("/update-requests/index", {
+          per_page: 100,
+          [`filter[${singularType}_id]`]: this.resources
+            .map((resource) => resource.id)
+            .join(","),
+        });
+
+        this.updateRequests = response.data.data;
+      }
     },
 
     onPrevious() {
@@ -215,11 +228,11 @@ export default {
 
     onAction(resource) {
       this.$emit("action", resource);
-    }
+    },
   },
 
   created() {
     this.fetchResources();
-  }
+  },
 };
 </script>
