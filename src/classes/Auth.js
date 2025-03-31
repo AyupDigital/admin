@@ -155,7 +155,7 @@ class Auth {
     const milliseconds = minutes * 60 * 1000;
 
     if (this.lastActive === null) {
-      return true;
+      return false;
     }
 
     return Date.now() - this.lastActive > milliseconds;
