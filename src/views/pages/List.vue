@@ -267,11 +267,14 @@ export default {
       }
     },
     hasUpdateRequest(page) {
-      const request = this.updateRequests.find(r => 
+      const request = this.updateRequests.filter(r => 
         r.updateable_id === page.id
       );
-      if (request) {
-        return `<a href="/update-requests/${request.id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+      if (request.length) {
+        if (request.length > 1) {
+          return `<a href="/update-requests/${request[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${request.length})</span></a>`;
+        }
+        return `<a href="/update-requests/${request[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
       }
       return '';
     }

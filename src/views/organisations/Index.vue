@@ -119,11 +119,14 @@ export default {
       this.$router.push({ name: "organisations-create" });
     },
     hasUpdateRequest(organisation, updateRequests) {
-      const request = updateRequests.find(r => 
+      const request = updateRequests.filter(r => 
         r.updateable_id === organisation.id
       );
-      if (request) {
-        return `<a href="/update-requests/${request.id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+      if (request.length) {
+        if (request.length > 1) {
+          return `<a href="/update-requests/${request[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${request.length})</span></a>`;
+        }
+        return `<a href="/update-requests/${request[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
       }
       return '';
     }
