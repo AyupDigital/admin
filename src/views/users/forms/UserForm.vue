@@ -92,7 +92,7 @@ export default {
       type: Object
     },
     first_name: {
-      required: true,
+    required: true,
       type: String
     },
     last_name: {
