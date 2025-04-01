@@ -453,9 +453,9 @@ let router = new Router({
                 import("@/views/admin/index/cms/frontend/Global"),
             },
             {
-              path: "frontend/home",
-              name: "admin-index-cms-frontend-home",
-              component: () => import("@/views/admin/index/cms/frontend/Home"),
+              path: "frontend/campaigns",
+              name: "admin-index-cms-frontend-campaign",
+              component: () => import("@/views/admin/index/cms/frontend/Campaign"),
             },
             {
               path: "frontend/terms-and-conditions",

@@ -1,9 +1,9 @@
 <template>
   <gov-grid-row>
     <gov-grid-column width="two-thirds">
-      <gov-heading size="l">Home</gov-heading>
+      <gov-heading size="l">Campaigns</gov-heading>
 
-      <gov-body>Review the content for the home page on the frontend.</gov-body>
+      <gov-body>Review the content for the campaigns on the frontend.</gov-body>
 
       <ck-banner-input
         v-for="(banner, index) in frontend.home.banners"
@@ -12,12 +12,12 @@
         :errors="errors.get('cms.frontend.home.banners')"
       >
         <gov-button @click="onRemoveBanner(index)" type="button" error
-          >Remove banner</gov-button
+          >Remove campaign</gov-button
         >
       </ck-banner-input>
       <gov-button @click="onAddBanner">
         <template v-if="frontend.home.banners.length === 0"
-          >Add Home Banner</template
+          >Add campaign</template
         >
         <template v-else>Add another</template>
       </gov-button>
@@ -29,7 +29,7 @@
 import CkBannerInput from "@/components/Ck/CkBannerInput";
 
 export default {
-  name: "CmsFrontendHome",
+  name: "CmsFrontendCampaigns",
 
   components: {
     CkBannerInput

@@ -48,8 +48,8 @@ export default {
           to: { name: "admin-index-cms" }
         },
         {
-          heading: "Home",
-          to: { name: "admin-index-cms-frontend-home" }
+          heading: "Campaigns",
+          to: { name: "admin-index-cms-frontend-campaign" }
         },
         {
           heading: "Terms and Conditions",
