@@ -110,12 +110,12 @@ export default {
         `/collections/personas/${this.collection.id}`,
         (config, data) => {
           // Unset the image field if not provided.
-          if (data.image_file_id === null) {
+          if (this.collection.image && this.collection.image.id === data.image_file_id) {
             delete data.image_file_id;
           }
 
           // Set the image to null if explicitly removed.
-          if (data.image_file_id === false) {
+          if (data.image_file_id === false || data.image_file_id === null) {
             data.image_file_id = null;
           }
         }

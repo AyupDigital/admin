@@ -136,7 +136,7 @@ export default {
           }
 
           // Convert false to null if removed
-          if (data.image_file_id === false) {
+          if (data.image_file_id === false || data.image_file_id === null) {
             data.image_file_id = null;
           }
 

@@ -273,11 +273,11 @@ export default {
           }
           // Remove the logo from the request if null, or delete if false.
           if (
-            data.image_file_id === null ||
+            this.event.image &&
             data.image_file_id === this.event.image.id
           ) {
             delete data.image_file_id;
-          } else if (data.image_file_id === false) {
+          } else if (data.image_file_id === false || data.logo_file_id === null) {
             data.image_file_id = null;
           }
         }

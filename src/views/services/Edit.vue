@@ -531,7 +531,7 @@ export default {
             (this.service.image === null && data.logo_file_id === null)
           ) {
             delete data.logo_file_id;
-          } else if (data.logo_file_id === false) {
+          } else if (data.logo_file_id === false || data.logo_file_id === null) {
             data.logo_file_id = null;
           }
 

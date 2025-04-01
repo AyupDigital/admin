@@ -120,9 +120,9 @@ export default {
             delete data.holiday_opening_hours;
           }
           // Remove the logo from the request if null, or delete if false.
-          if (data.image_file_id === null) {
+          if (this.serviceLocation.image && this.serviceLocation.image.id === data.image_file_id) {
             delete data.image_file_id;
-          } else if (data.image_file_id === false) {
+          } else if (data.image_file_id === false || data.image_file_id === null) {
             data.image_file_id = null;
           }
         }
