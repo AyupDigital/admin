@@ -134,7 +134,6 @@ export default {
       loading: false,
       searching: false,
       pages: [],
-      updateRequests: [],
       filters: {
         title: "",
         page_type: null,
@@ -254,34 +253,18 @@ export default {
     orderUpdateRequestMessage(orderWas, page) {
       return `An update request has been created to change the order of page ${page.title} from ${orderWas} to ${page.order}`;
     },
-    async loadUpdateRequests() {
-      try {
-        const response = await http.post("/update-requests/index", {
-            "filter[page_id]": this.pages.map(page => page.id).join(","),
-            "per_page": 100
-        });
-        this.updateRequests = response.data.data;
-      } catch (error) {
-        console.error('Error fetching update requests:', error);
-        this.updateRequests = [];
-      }
-    },
     hasUpdateRequest(page) {
-      const request = this.updateRequests.filter(r => 
-        r.updateable_id === page.id
-      );
-      if (request.length) {
-        if (request.length > 1) {
-          return `<a href="/update-requests/${request[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${request.length})</span></a>`;
+      if (page.pending_update_requests.length) {
+        if (page.pending_update_requests.length > 1) {
+          return `<a href="/update-requests/${page.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${page.pending_update_requests.length})</span></a>`;
         }
-        return `<a href="/update-requests/${request[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+        return `<a href="/update-requests/${page.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
       }
       return '';
     }
   },
   created() {
     this.fetchPages();
-    this.loadUpdateRequests();
   },
 };
 </script>

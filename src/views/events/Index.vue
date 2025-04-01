@@ -72,7 +72,7 @@
               {
                 heading: 'Title',
                 sort: 'title',
-                render: (event, updateRequests) => event.title + ' ' + this.hasUpdateRequest(event, updateRequests)
+                render: event => event.title + ' ' + this.hasUpdateRequest(event)
               },
               {
                 heading: 'Start',
@@ -226,15 +226,12 @@ export default {
         this.onSearch();
       });
     },
-    hasUpdateRequest(event, updateRequests) {
-      const request = updateRequests.filter(r => 
-        r.updateable_id === event.id
-      );
-      if (request.length) {
-        if (request.length > 1) {
-          return `<a href="/update-requests/${request[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${request.length})</span></a>`;
+    hasUpdateRequest(event) {
+      if (event.pending_update_requests.length) {
+        if (event.pending_update_requests.length > 1) {
+          return `<a href="/update-requests/${event.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${event.pending_update_requests.length})</span></a>`;
         }
-        return `<a href="/update-requests/${request[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+        return `<a href="/update-requests/${event.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
       }
       return '';
     }

@@ -83,8 +83,8 @@
               {
                 heading: 'Service name',
                 sort: 'name',
-                render: (service, updateRequests) => {
-                  return service.name + ' ' + this.hasUpdateRequest(service, updateRequests);
+                render: (service) => {
+                  return service.name + ' ' + this.hasUpdateRequest(service);
                 }
               },
               {
@@ -215,15 +215,12 @@ export default {
     displayReferralMethod(referralMethod) {
       return referralMethod.charAt(0).toUpperCase() + referralMethod.substr(1);
     },
-    hasUpdateRequest(service, updateRequests) {
-      const request = updateRequests.filter(r => 
-        r.updateable_id === service.id
-      );
-      if (request.length) {
-        if (request.length > 1) {
-          return `<a href="/update-requests/${request[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${request.length})</span></a>`;
+    hasUpdateRequest(service) {
+      if (service.pending_update_requests.length) {
+        if (service.pending_update_requests.length > 1) {
+          return `<a href="/update-requests/${service.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${service.pending_update_requests.length})</span></a>`;
         }
-        return `<a href="/update-requests/${request[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+        return `<a href="/update-requests/${service.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
       }
       return '';
     }
