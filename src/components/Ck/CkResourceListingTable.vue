@@ -135,7 +135,7 @@ export default {
           "/services",
           "/organisation-events",
           "/locations",
-          "/users",
+          "/service-locations",
         ].includes(this.uri)
       ) {
         params.include = [params.include, 'pendingUpdateRequests'].join(',');

@@ -81,7 +81,7 @@
             <gov-tag v-if="!page.enabled" class="govuk-tag--grey"
               >disabled</gov-tag
             >
-            {{ hasUpdateRequest(page) }}
+            <span v-html="hasUpdateRequest(page)" />
           </li>
         </gov-list>
         <ck-tree-list
@@ -163,6 +163,7 @@ export default {
       if (this.filters.page_type) {
         params["filter[page_type]"] = this.filters.page_type;
       }
+      params["include"] = "pendingUpdateRequests";
       return params;
     },
     showView() {
