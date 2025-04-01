@@ -17,11 +17,17 @@
         :large="large"
         :extensions="extensions"
       />
+      <ck-character-count
+        v-if="maxlength"
+        :count="count"
+        :max-length="maxlength"
+      />
       <ck-character-count-bar
         v-if="maxlength"
         :count="count"
         :max-length="maxlength"
       />
+      
     </ck-character-count-group>
 
     <slot name="after-input" />
@@ -33,6 +39,7 @@
 <script>
 import CkCharacterCountBar from "@/components/Ck/CkCharacterCountBar.vue";
 import CkCharacterCountGroup from "@/components/Ck/CkCharacterCountGroup.vue";
+import CkCharacterCount from "@/components/Ck/CkCharacterCount.vue";
 import {
   Blockquote,
   Heading,
@@ -46,7 +53,7 @@ import {
 
 export default {
   name: "CkWysiwygInput",
-  components: { CkCharacterCountBar, CkCharacterCountGroup },
+  components: { CkCharacterCountBar, CkCharacterCountGroup, CkCharacterCount },
   props: {
     value: {
       required: true,
