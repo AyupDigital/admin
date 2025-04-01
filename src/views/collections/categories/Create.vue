@@ -64,7 +64,7 @@ export default {
     return {
       imageChanged: false,
       form: new Form({
-        slug: "",
+        slug: null,
         name: "",
         intro: "",
         image_file_id: null,

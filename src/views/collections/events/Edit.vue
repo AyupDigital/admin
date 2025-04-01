@@ -27,6 +27,8 @@
             <collection-form
               :errors="form.$errors"
               :id="collection.id"
+              :show-edit-slug="true"
+              :slug.sync="form.slug"
               :name.sync="form.name"
               :intro.sync="form.intro"
               :order.sync="form.order"
@@ -92,6 +94,7 @@ export default {
       this.collection = response.data.data;
       this.form = new Form({
         name: this.collection.name,
+        slug: this.collection.slug,
         intro: this.collection.intro,
         image_file_id: this.collection.image ? this.collection.image.id : null,
         order: this.collection.order,

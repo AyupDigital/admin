@@ -26,6 +26,8 @@
             <collection-form
               :errors="form.$errors"
               :id="collection.id"
+              :show-edit-slug="true"
+              :slug.sync="form.slug"
               :name.sync="form.name"
               :subtitle.sync="form.subtitle"
               :intro.sync="form.intro"
@@ -91,6 +93,7 @@ export default {
       this.collection = response.data.data;
       this.form = new Form({
         name: this.collection.name,
+        slug: this.collection.slug,
         subtitle: this.collection.subtitle,
         intro: this.collection.intro,
         order: this.collection.order,

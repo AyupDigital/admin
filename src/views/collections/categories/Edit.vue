@@ -92,8 +92,8 @@ export default {
       );
       this.collection = response.data.data;
       this.form = new Form({
-        slug: this.collection.slug,
         name: this.collection.name,
+        slug: this.collection.slug,
         intro: this.collection.intro,
         image_file_id: this.collection.image ? this.collection.image.id : null,
         order: this.collection.order,
