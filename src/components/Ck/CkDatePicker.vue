@@ -112,6 +112,7 @@ export default {
 
   methods: {
     dateSelected(e) {
+      this.formatError = null;
       if (!isNaN(Date.parse(e.detail.value))) {
         this.$emit("input", e.detail.value);
       }
