@@ -50,18 +50,13 @@
 
     <ck-image-input
       @input="onInput('image_file_id', $event.file_id)"
-      @image-changed="$emit('image-changed', $event)"
+      @image-changed="$emit('image-changed', $event); $emit('clear', 'file')"
+      @alt-text-changed="$emit('alt-text-changed', $event); $emit('clear', 'alt_text');"
       id="image"
       label="Category image"
       :file-id="image_file_id"
+      :errors="errors"
     >
-      <template slot="after-error-message">
-        <gov-error-message
-          v-if="errors.get('image_file_id')"
-          v-text="errors.get('image_file_id')"
-          for="image"
-        />
-      </template>
     </ck-image-input>
 
     <collection-homepage-input

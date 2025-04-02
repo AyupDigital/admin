@@ -33,6 +33,7 @@
             :image_file_id.sync="form.image_file_id"
             @clear="form.$errors.clear($event)"
             @image-changed="imageChanged = $event"
+            @alt-text-changed="altTextChanged = true"
           />
 
           <gov-button v-if="form.$submitting" disabled type="submit"
@@ -41,7 +42,6 @@
           <gov-button
             v-else
             @click="onSubmit"
-            :disabled="imageChanged"
             type="submit"
           >
             Create
@@ -63,6 +63,7 @@ export default {
   data() {
     return {
       imageChanged: false,
+      altTextChanged: false,
       form: new Form({
         name: "",
         slug: null,
@@ -79,6 +80,14 @@ export default {
   },
   methods: {
     async onSubmit() {
+      if (this.imageChanged && !this.altTextChanged) {
+        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        return;
+      }
+      if (this.imageChanged) {
+        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        return;
+      }
       await this.form.post("/collections/personas", (config, data) => {
         // Unset the image field if not provided.
         if (data.image_file_id === null) {
