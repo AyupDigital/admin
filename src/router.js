@@ -92,6 +92,12 @@ let router = new Router({
       meta: { auth: true },
     },
     {
+      path: "/events/:event/duplicate",
+      name: "events-duplicate",
+      component: () => import("@/views/events/Duplicate"),
+      meta: { auth: true },
+    },
+    {
       path: "/events/:event/updated",
       name: "events-updated",
       component: () => import("@/views/events/Updated"),

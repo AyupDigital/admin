@@ -67,7 +67,7 @@
             ref="eventsTable"
             uri="/organisation-events"
             :params="params"
-            default-sort="start_date"
+            default-sort="-start_date"
             :columns="[
               {
                 heading: 'Title',
@@ -154,6 +154,8 @@ export default {
       if (this.filters.end_date !== "") {
         params["filter[ends_before]"] = this.filters.end_date;
       }
+
+      params["filter[ends_after]"] = "2020-01-01";
 
       return params;
     },
