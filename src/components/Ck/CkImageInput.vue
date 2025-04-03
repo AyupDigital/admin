@@ -68,7 +68,7 @@
         :disabled="!form.file || !form.alt_text || !form.mime_type"
         >{{ fileId ? "Update" : "Upload" }} file</gov-button
       >&nbsp;
-      <gov-button v-if="form.file" @click="onRemove" type="button" error
+      <gov-button v-if="form.file || gallery" @click="onRemove" type="button" error
         >Remove file</gov-button
       >
     </div>
@@ -111,6 +111,11 @@ export default {
     },
     errors: {
       required: false,
+    },
+    gallery: {
+      required: false,
+      type: Boolean,
+      default: false,
     }
   },
   data() {
@@ -185,6 +190,7 @@ export default {
       this.imageChanged = false;
       this.$emit("image-changed", false);
       this.$emit("input", { file_id: false, image: null, alt: null });
+      this.$emit("removed")
     },
     async loadFile(fileId) {
       const { data: file } = await http.get(`files/${fileId}`);

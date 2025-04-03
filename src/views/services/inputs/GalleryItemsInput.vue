@@ -11,7 +11,9 @@
         :file-id="galleryItem.file_id"
         @image-changed="$emit('image-changed', $event); $emit('clear', `gallery_items.${index}.file_id`);"
         @alt-text-changed="alt_text = $event; $emit('clear', `gallery_items.${index}.alt_text`);"
+        @removed="remove(index)"
         :errors="errors"
+        :gallery="true"
       />
 
       <gov-error-message
@@ -110,6 +112,11 @@ export default {
       this.$emit("input", galleryItems);
 
       this.index++;
+    },
+    remove(index) {
+      const galleryItems = this.clone();
+      galleryItems.splice(index, 1);
+      this.$emit("input", galleryItems);
     }
   }
 };
