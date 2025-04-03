@@ -56,6 +56,7 @@
       id="image"
       label="Persona image"
       :file-id="image_file_id"
+      :errors="errors"
     >
       <template slot="after-error-message">
         <gov-error-message
