@@ -18,5 +18,10 @@ export default {
     color: $govuk-text-colour;
     background-color: $govuk-canvas-background-colour;
   }
+
+  &--green {
+    color: #ffffff;
+    background-color: #006435;
+  }
 }
 </style>
