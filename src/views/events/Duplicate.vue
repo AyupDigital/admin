@@ -120,6 +120,7 @@ import http from "@/http";
 import Form from "@/classes/Form";
 import DetailsTab from "@/views/events/forms/DetailsTab";
 import TaxonomiesTab from "@/views/events/forms/TaxonomiesTab";
+import Auth from "@/classes/Auth";
 
 export default {
   name: "OrganisationEventEdit",
@@ -206,9 +207,9 @@ export default {
         homepage: false,
         location_id: this.event.location_id,
         image_file_id: null,
-        category_taxonomies: this.event.category_taxonomies.map(
+        category_taxonomies: Auth.isSuperAdmin ? this.event.category_taxonomies.map(
           (taxonomy) => taxonomy.id
-        ),
+        ) : [],
       });
 
       this.loading = false;
