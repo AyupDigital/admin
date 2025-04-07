@@ -74,9 +74,9 @@
                 View </gov-link
               >&nbsp;
             </span>
-            <gov-tag v-if="page.page_type === 'landing'">Landing page</gov-tag
+            <gov-tag class="govuk-tag--green" v-if="page.page_type === 'landing'">Landing page</gov-tag
             >&nbsp;
-            <gov-tag v-if="page.page_type === 'topic'">Topic page</gov-tag
+            <gov-tag class="govuk-tag--green" v-if="page.page_type === 'topic'">Topic page</gov-tag
             >&nbsp;
             <gov-tag v-if="!page.enabled" class="govuk-tag--grey"
               >disabled</gov-tag

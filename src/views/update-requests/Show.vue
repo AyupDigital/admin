@@ -2,7 +2,7 @@
   <gov-width-container>
     <vue-headful :title="`${appName} - View Update Request`" />
 
-    <gov-back-link :to="{ name: 'update-requests-index' }"
+    <gov-back-link @click="$router.go(-1)"
       >Back to update requests</gov-back-link
     >
     <gov-main-wrapper>
