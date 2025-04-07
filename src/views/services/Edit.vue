@@ -383,7 +383,7 @@ export default {
         return;
       }
 
-      const invalidGalleryImages = this.form.gallery_items.filter(galleryItem => !galleryItem.alt_text || !galleryItem.file_id);
+      const invalidGalleryImages = this.form.gallery_items.filter(galleryItem => (galleryItem.alt_text && galleryItem.alt_text === null) || !galleryItem.file_id);
       invalidGalleryImages.forEach((galleryItem, index) => {
         this.form.$errors.record({
           [`gallery_items.${index}`]: ["Please ensure you've added an image description and pressed 'Upload file' to upload your image."]
