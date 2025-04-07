@@ -1,5 +1,5 @@
 <template>
-  <gov-form-group :invalid="form.$errors.any()">
+  <gov-form-group :invalid="errors.get(['is_private', 'mime_type', 'file', 'image_file_id']) !== null">
     <gov-label :for="id" class="govuk-!-font-weight-bold">
       <slot name="label">{{ label }}</slot>
     </gov-label>
@@ -42,7 +42,7 @@
 
     <gov-error-message
       v-if="errors.any()"
-      v-text="errors.get(['is_private', 'mime_type', 'file'])"
+      v-text="errors.get(['is_private', 'mime_type', 'file', 'image_file_id'])"
       :for="id"
     />
 
@@ -148,6 +148,7 @@ export default {
       this.form.mime_type = mime_type;
       this.form.file = content;
       this.errors.clear("file");
+      this.errors.clear("image_file_id");
     },
     onChangeAltText($event) {
       this.form.alt_text = $event;
