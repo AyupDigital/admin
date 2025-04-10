@@ -39,8 +39,7 @@
           </gov-list>
 
           <gov-warning-text>
-            This form will take about 25 minutes to complete. We cannot save
-            your progress, so please make sure you have enough time.
+            This form will could take a little while to complete depending on how much content you fill in. We cannot save your progress, so please make sure you have enough time.
           </gov-warning-text>
 
           <gov-button :to="{ name: 'services-index' }">
