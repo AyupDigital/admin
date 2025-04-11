@@ -97,7 +97,7 @@
                   return `
                     ${formatDateTime(referral.created_at)}
                     <br>
-                    ${statusLastUpdated(referral)} days remaining
+                    ${statusLastUpdated(referral)}
                   `;
                 }
               }
@@ -200,7 +200,9 @@ export default {
 
       const workingDays = this.diffInBusinessDays(referral.created_at);
 
-      return workingDays >= 10 ? "Due" : 10 - workingDays;
+      return workingDays >= 10
+        ? "Due now"
+        : 10 - workingDays + " days remaining";
     }
   },
   filters: {
