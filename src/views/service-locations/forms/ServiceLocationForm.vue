@@ -22,16 +22,17 @@
 
       <!-- Existing location: select from list -->
       <gov-inset-text v-if="location_type === 'existing'">
-        <ck-loader v-if="loading" />
-        <ck-select-input
-          v-else
+        <ck-text-input id="location_search" :value="locationSearchTerm" label="Search for location" type="text" @input="locationSearchTerm = $event" :error="errors.get('location_search_term')" />
+        <ck-radio-input
+          v-if="locations.length > 0 && !loading"
           :value="location_id"
           @input="onInput({ field: 'location_id', value: $event })"
           id="location_id"
           label="Location"
           :options="locations"
           :error="errors.get('location_id')"
-        />
+          />
+          <ck-loader v-if="loading" />
       </gov-inset-text>
       <!-- /Existing location: select from list -->
 
@@ -385,6 +386,7 @@ export default {
     return {
       loading: false,
       locations: [],
+      locationSearchTerm: "",
       index: 1,
       countries: [
         { text: "Please select", value: null, disabled: true },
@@ -467,24 +469,22 @@ export default {
       this.$emit("clear", `holiday_opening_hours.${index}.${field}`);
     },
     async fetchLocations() {
+      if (this.locationSearchTerm === "") {
+        return;
+      }
       this.loading = true;
-      this.locations = await this.fetchAll("/locations");
+      this.locations = await this.fetchAll("/search/locations?query=" + this.locationSearchTerm, {}, "POST");
       this.locations = this.locations.map(location => {
         return {
-          text: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
+          label: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
           value: location.id
         };
-      });
-      this.locations.unshift({
-        text: "Please select",
-        value: null,
-        disabled: true
       });
       this.loading = false;
     },
     appendLocation(location) {
       this.locations.push({
-        text: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
+        label: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
         value: location.id
       });
     },
@@ -552,6 +552,9 @@ export default {
     this.$root.$on("location-created", this.appendLocation);
   },
   watch: {
+    locationSearchTerm: function () {
+      this.fetchLocations();
+    },
     location_type(newLocationType) {
       if (newLocationType === "new") {
         this.$emit("update:location_id", null);
