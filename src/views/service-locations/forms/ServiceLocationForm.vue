@@ -548,11 +548,10 @@ export default {
   },
   created() {
     this.setDaysInMonth();
-    this.fetchLocations();
     this.$root.$on("location-created", this.appendLocation);
   },
   watch: {
-    locationSearchTerm: function () {
+    locationSearchTerm () {
       this.fetchLocations();
     },
     location_type(newLocationType) {

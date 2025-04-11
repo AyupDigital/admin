@@ -269,7 +269,7 @@
       <ck-location-input
         :location_id="location_id"
         @update:location_id="onInput('location_id', $event)"
-        :error="errors.get('location_id')"
+        :errors="errors"
       />
     </gov-inset-text>
 

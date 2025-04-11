@@ -12,16 +12,37 @@
 
     <!-- Existing location: select from list -->
     <template v-if="locationType === 'existing'">
-      <ck-loader v-if="loading" />
-      <ck-select-input
-        v-else
+      <ck-text-input
+        id="location_search"
+        :value="locationSearchTerm"
+        label="Search for location"
+        type="text"
+        @input="locationSearchTerm = $event"
+        :error="errors.get('location_search_term')"
+      />
+      <ck-radio-input
+        v-if="locations.length > 0 && !loading"
         :value="location_id"
-        @input="$emit('update:location_id', $event)"
+        @input="onInput({ field: 'location_id', value: $event })"
         id="location_id"
         label="Location"
         :options="selectLocations"
-        :error="error"
+        :error="errors.get('location_id')"
       />
+      <ck-radio-input
+        v-if="locations.length === 0 && location"
+        :value="location_id"
+        id="location_id"
+        label="Location"
+        :options="[
+          {
+            label: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
+            value: location_id
+          }
+        ]"
+        :error="errors.get('location_id')"
+      />
+      <ck-loader v-if="loading" />
     </template>
     <!-- /Existing location: select from list -->
 
@@ -59,6 +80,7 @@
 import countries from "@/storage/countries";
 import Form from "@/classes/Form";
 import LocationForm from "@/views/locations/forms/LocationForm";
+import http from "@/http";
 
 export default {
   name: "CkLocationInput",
@@ -67,7 +89,7 @@ export default {
     LocationForm
   },
   props: {
-    error: {
+    errors: {
       required: true
     },
     location_id: {
@@ -119,6 +141,8 @@ export default {
     return {
       loading: false,
       locations: [],
+      location: null,
+      locationSearchTerm: "",
       locationType: "existing",
       form: new Form({
         address_line_1: "",
@@ -149,17 +173,18 @@ export default {
     selectLocations() {
       const locations = this.locations.map(location => {
         return {
-          text: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
+          label: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
           value: location.id
         };
       });
-      locations.unshift({
-        text: "Please select",
-        value: null,
-        disabled: true
-      });
 
       return locations;
+    }
+  },
+
+  watch: {
+    locationSearchTerm() {
+      this.fetchLocations();
     }
   },
 
@@ -169,10 +194,22 @@ export default {
       this.$emit("clear", field);
     },
     async fetchLocations() {
+      if (this.locationSearchTerm === "") {
+        this.locations = [];
+        return;
+      }
       this.loading = true;
-      this.locations = await this.fetchAll("/locations");
+      this.locations = await this.fetchAll(
+        "/search/locations?query=" + this.locationSearchTerm,
+        {},
+        "POST"
+      );
 
       this.loading = false;
+    },
+    async fetchLocation() {
+      const { data } = await http.get("/locations/" + this.location_id);
+      this.location = data.data;
     },
     onSubmit() {
       this.form.post("/locations").then(({ data }) => {
@@ -184,7 +221,9 @@ export default {
   },
 
   created() {
-    this.fetchLocations();
+    if (this.location_id) {
+      this.fetchLocation();
+    }
   }
 };
 </script>
