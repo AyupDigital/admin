@@ -30,12 +30,9 @@
         <gov-button v-if="form.$submitting" disabled type="submit"
           >Updating...</gov-button
         >
-        <gov-button
-          v-else
-          @click="onSubmit"
-          type="submit"
-          >{{ updateButtonText }}</gov-button
-        >
+        <gov-button v-else @click="onSubmit" type="submit">{{
+          updateButtonText
+        }}</gov-button>
 
         <ck-submit-error v-if="form.$errors.any()" />
       </gov-main-wrapper>
@@ -93,12 +90,20 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
-      if (this.imageChanged && (!this.altTextChanged && (!this.page.image || !this.page.image.alt_text))) {
-        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+      if (
+        this.imageChanged &&
+        !this.altTextChanged &&
+        (!this.page.image || !this.page.image.alt_text)
+      ) {
+        this.form.$errors.record({
+          alt_text: ["Please enter alt text for the image."]
+        });
         return;
       }
       if (this.imageChanged) {
-        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        this.form.$errors.record({
+          file: ["Please click 'Upload file' to upload your image."]
+        });
         return;
       }
       const response = await this.form.put(

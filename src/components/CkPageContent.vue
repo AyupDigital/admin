@@ -40,6 +40,13 @@
           @input="onChangeVideo(sectionId, index, $event)"
           :error="errors.get(`content.${sectionId}.content.${index}`)"
         />
+        <ck-page-image
+          v-else-if="content.type === 'image'"
+          :image="content"
+          :id="`${sectionId}-image-${index}`"
+          @input="onChangeImage(sectionId, index, $event)"
+          :error="errors.get(`content.${sectionId}.content.${index}`)"
+        />
         <gov-button type="button" @click="addCopy(sectionId, index)"
           >Add Copy here</gov-button
         >&nbsp;
@@ -48,6 +55,9 @@
         >&nbsp;
         <gov-button type="button" @click="addVideo(sectionId, index)"
           >Add Video here</gov-button
+        >&nbsp;
+        <gov-button type="button" @click="addImage(sectionId, index)"
+          >Add Image here</gov-button
         >&nbsp;
         <span v-if="index > 0">
           <gov-button
@@ -73,6 +83,7 @@
 
 <script>
 import CkCallToAction from "./Ck/CkCallToAction";
+import CkPageImage from "./Ck/CkPageImage.vue";
 import CkVideoEmbed from "./Ck/CkVideoEmbed.vue";
 
 export default {
@@ -80,7 +91,8 @@ export default {
 
   components: {
     CkCallToAction,
-    CkVideoEmbed
+    CkVideoEmbed,
+    CkPageImage
   },
 
   props: {
@@ -152,6 +164,14 @@ export default {
       this.$emit("update", content);
       this.$emit("clear", `content_${section}_content_${index}`);
     },
+    onChangeImage(section, index, image) {
+      const content = Object.assign({}, this.content);
+
+      content[section]["content"][index] = image;
+
+      this.$emit("update", content);
+      this.$emit("clear", `content_${section}_content_${index}`);
+    },
     addCopy(section, index) {
       const content = Object.assign({}, this.content);
 
@@ -186,6 +206,16 @@ export default {
         url: ""
       });
 
+      this.$emit("update", content);
+      this.$emit("clear", `content_${section}_content`);
+    },
+    addImage(section, index) {
+      const content = Object.assign({}, this.content);
+      content[section]["content"].splice(index + 1, 0, {
+        type: "image",
+        id: "",
+        alt_text: ""
+      });
       this.$emit("update", content);
       this.$emit("clear", `content_${section}_content`);
     },

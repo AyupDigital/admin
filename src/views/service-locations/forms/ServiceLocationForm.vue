@@ -22,7 +22,14 @@
 
       <!-- Existing location: select from list -->
       <gov-inset-text v-if="location_type === 'existing'">
-        <ck-text-input id="location_search" :value="locationSearchTerm" label="Search for location" type="text" @input="locationSearchTerm = $event" :error="errors.get('location_search_term')" />
+        <ck-text-input
+          id="location_search"
+          :value="locationSearchTerm"
+          label="Search for location"
+          type="text"
+          @input="locationSearchTerm = $event"
+          :error="errors.get('location_search_term')"
+        />
         <ck-radio-input
           v-if="locations.length > 0 && !loading"
           :value="location_id"
@@ -31,8 +38,8 @@
           label="Location"
           :options="locations"
           :error="errors.get('location_id')"
-          />
-          <ck-loader v-if="loading" />
+        />
+        <ck-loader v-if="loading" />
       </gov-inset-text>
       <!-- /Existing location: select from list -->
 
@@ -473,7 +480,11 @@ export default {
         return;
       }
       this.loading = true;
-      this.locations = await this.fetchAll("/search/locations?query=" + this.locationSearchTerm, {}, "POST");
+      this.locations = await this.fetchAll(
+        "/search/locations?query=" + this.locationSearchTerm,
+        {},
+        "POST"
+      );
       this.locations = this.locations.map(location => {
         return {
           label: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
@@ -551,7 +562,7 @@ export default {
     this.$root.$on("location-created", this.appendLocation);
   },
   watch: {
-    locationSearchTerm () {
+    locationSearchTerm() {
       this.fetchLocations();
     },
     location_type(newLocationType) {

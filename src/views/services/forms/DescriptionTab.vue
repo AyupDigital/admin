@@ -68,25 +68,25 @@ import CkOfferingsInput from "@/views/services/inputs/OfferingsInput.vue";
 export default {
   name: "DescriptionTab",
   components: {
-    CkOfferingsInput,
+    CkOfferingsInput
   },
   props: {
     errors: {
-      required: true,
+      required: true
     },
     type: {
       required: true,
-      type: String,
+      type: String
     },
     intro: {
-      required: true,
+      required: true
     },
     offerings: {
-      required: true,
+      required: true
     },
     description: {
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     descriptionHint() {
@@ -95,7 +95,7 @@ export default {
         hint += ` Follow <a href='${this.appServiceBestPracticeGuidanceUrl}' target='_blank'>best practice guidance</a> when writing about your service.`;
       }
       return hint;
-    },
-  },
+    }
+  }
 };
 </script>

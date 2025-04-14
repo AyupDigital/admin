@@ -113,10 +113,14 @@ export default {
     },
     async onSubmit() {
       if (this.imageChanged && !this.altTextChanged) {
-        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        this.form.$errors.record({
+          alt_text: ["Please enter alt text for the image."]
+        });
       }
       if (this.imageChanged) {
-        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        this.form.$errors.record({
+          file: ["Please click 'Upload file' to upload your image."]
+        });
       }
       if (this.form.$errors.any()) {
         return;

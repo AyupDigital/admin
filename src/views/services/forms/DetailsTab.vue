@@ -82,8 +82,6 @@
           :error="errors.get('url')"
         />
 
-        
-
         <ck-select-input
           :value="score"
           @input="
@@ -138,8 +136,14 @@
             $emit('update:logo_file_id', $event.file_id);
             $emit('update:logo', $event.image);
           "
-          @image-changed="$emit('image-changed', $event); $emit('clear', 'file');"
-          @alt-text-changed="$emit('alt-text-changed', $event); $emit('clear', 'alt_text');"
+          @image-changed="
+            $emit('image-changed', $event);
+            $emit('clear', 'file');
+          "
+          @alt-text-changed="
+            $emit('alt-text-changed', $event);
+            $emit('clear', 'alt_text');
+          "
           id="logo"
           :label="`Upload your ${type} logo`"
           :file-id="logo_file_id"
@@ -256,7 +260,7 @@ export default {
       required: true
     },
     national: {
-      default: false,
+      default: false
     },
     attending_type: {
       required: false
@@ -319,13 +323,13 @@ export default {
         { text: "Referral", value: "referral" },
         { text: "Appointment", value: "appointment" },
         { text: "Drop-in", value: "drop_in" },
-        { text: "Membership", value: "membership" },
+        { text: "Membership", value: "membership" }
       ],
       attendingTypeOptions: [
         { text: "Phone", value: "phone" },
         { text: "Venue", value: "venue" },
         { text: "Home", value: "home" },
-        { text: "Online", value: "online" },
+        { text: "Online", value: "online" }
       ]
     };
   },
@@ -338,13 +342,16 @@ export default {
     },
     nationalOptions() {
       return [
-        { value: true, label: `Yes - The ${this.type} is a national ${this.type}` },
+        {
+          value: true,
+          label: `Yes - The ${this.type} is a national ${this.type}`
+        },
         {
           value: false,
           label: `No - The ${this.type} is a local ${this.type}`
         }
       ];
-    },
+    }
   },
   methods: {
     async fetchOrganisations() {

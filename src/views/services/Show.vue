@@ -134,7 +134,10 @@ export default {
   },
   computed: {
     canDelete() {
-      return this.auth.canDelete("service") || this.auth.isOrganisationAdmin(this.service.organisation_id);
+      return (
+        this.auth.canDelete("service") ||
+        this.auth.isOrganisationAdmin(this.service.organisation_id)
+      );
     }
   }
 };

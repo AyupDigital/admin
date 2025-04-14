@@ -1,5 +1,9 @@
 <template>
-  <gov-form-group :invalid="errors.get(['is_private', 'mime_type', 'file', 'image_file_id']) !== null">
+  <gov-form-group
+    :invalid="
+      errors.get(['is_private', 'mime_type', 'file', 'image_file_id']) !== null
+    "
+  >
     <gov-label :for="id" class="govuk-!-font-weight-bold">
       <slot name="label">{{ label }}</slot>
     </gov-label>
@@ -68,7 +72,11 @@
         :disabled="!form.file || !form.alt_text || !form.mime_type"
         >{{ fileId ? "Update" : "Upload" }} file</gov-button
       >&nbsp;
-      <gov-button v-if="form.file || gallery" @click="onRemove" type="button" error
+      <gov-button
+        v-if="form.file || gallery"
+        @click="onRemove"
+        type="button"
+        error
         >Remove file</gov-button
       >
     </div>
@@ -110,12 +118,12 @@ export default {
       default: false
     },
     errors: {
-      required: false,
+      required: false
     },
     gallery: {
       required: false,
       type: Boolean,
-      default: false,
+      default: false
     }
   },
   data() {
@@ -161,7 +169,7 @@ export default {
     async onUpload() {
       // Upload the file and retrieve the ID.
       const {
-        data: { id }
+        data: { id, url }
       } = await this.form.post("/files");
       if (!this.form.$errors.any()) {
         this.success = true;
@@ -172,7 +180,9 @@ export default {
         // Emit the file ID.
         this.$emit("input", {
           file_id: id,
-          image: this.form.file
+          image: this.form.file,
+          alt_text: this.form.alt_text,
+          url: url
         });
       }
     },
@@ -191,7 +201,7 @@ export default {
       this.imageChanged = false;
       this.$emit("image-changed", false);
       this.$emit("input", { file_id: false, image: null, alt: null });
-      this.$emit("removed")
+      this.$emit("removed");
     },
     async loadFile(fileId) {
       const { data: file } = await http.get(`files/${fileId}`);

@@ -185,12 +185,20 @@ export default {
       if (!this.event) {
         return;
       }
-      if (this.imageChanged && (!this.altTextChanged && (!this.event.image || !this.event.image.alt_text))) {
-        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+      if (
+        this.imageChanged &&
+        !this.altTextChanged &&
+        (!this.event.image || !this.event.image.alt_text)
+      ) {
+        this.form.$errors.record({
+          alt_text: ["Please enter alt text for the image."]
+        });
         return;
       }
       if (this.imageChanged) {
-        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        this.form.$errors.record({
+          file: ["Please click 'Upload file' to upload your image."]
+        });
         return;
       }
       const response = await this.form.put(
@@ -272,12 +280,12 @@ export default {
             delete data.homepage;
           }
           // Remove the logo from the request if null, or delete if false.
-          if (
-            this.event.image &&
-            data.image_file_id === this.event.image.id
-          ) {
+          if (this.event.image && data.image_file_id === this.event.image.id) {
             delete data.image_file_id;
-          } else if (data.image_file_id === false || data.logo_file_id === null) {
+          } else if (
+            data.image_file_id === false ||
+            data.logo_file_id === null
+          ) {
             data.image_file_id = null;
           }
         }

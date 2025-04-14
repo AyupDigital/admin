@@ -39,6 +39,13 @@
                 :title="contentItem.title"
               />
             </div>
+            <div v-if="contentItem.type === 'image'">
+              <img
+                :src="contentItem.url"
+                :alt="contentItem.alt_text"
+                class="ck-logo"
+              />
+            </div>
           </div>
         </gov-table-cell>
       </gov-table-row>

@@ -83,7 +83,7 @@
               {
                 heading: 'Service name',
                 sort: 'name',
-                render: (service) => {
+                render: service => {
                   return service.name + ' ' + this.hasUpdateRequest(service);
                 }
               },
@@ -125,7 +125,6 @@
 <script>
 import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 import CkTableFilters from "@/components/Ck/CkTableFilters.vue";
-import http from "@/http";
 
 export default {
   name: "ListServices",
@@ -222,7 +221,7 @@ export default {
         }
         return `<a href="/update-requests/${service.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
       }
-      return '';
+      return "";
     }
   }
 };

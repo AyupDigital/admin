@@ -39,11 +39,7 @@
           <gov-button v-if="form.$submitting" disabled type="submit"
             >Creating...</gov-button
           >
-          <gov-button
-            v-else
-            @click="onSubmit"
-            type="submit"
-          >
+          <gov-button v-else @click="onSubmit" type="submit">
             Create
           </gov-button>
           <ck-submit-error v-if="form.$errors.any()" />
@@ -81,11 +77,15 @@ export default {
   methods: {
     async onSubmit() {
       if (this.imageChanged && !this.altTextChanged) {
-        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        this.form.$errors.record({
+          alt_text: ["Please enter alt text for the image."]
+        });
         return;
       }
       if (this.imageChanged) {
-        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        this.form.$errors.record({
+          file: ["Please click 'Upload file' to upload your image."]
+        });
         return;
       }
       await this.form.post("/collections/personas", (config, data) => {

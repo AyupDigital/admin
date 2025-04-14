@@ -45,10 +45,7 @@
             <gov-button v-if="form.$submitting" disabled type="submit"
               >Updating...</gov-button
             >
-            <gov-button
-              v-else
-              @click="onSubmit"
-              type="submit"
+            <gov-button v-else @click="onSubmit" type="submit"
               >Update</gov-button
             >
             <ck-submit-error v-if="form.$errors.any()" />
@@ -81,7 +78,7 @@ export default {
       collection: null,
       form: null,
       imageChanged: false,
-      altTextChanged: false,
+      altTextChanged: false
     };
   },
   methods: {
@@ -110,19 +107,30 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
-      if (this.imageChanged && (!this.altTextChanged && (!this.collection.image || !this.collection.image.alt_text))) {
-        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+      if (
+        this.imageChanged &&
+        !this.altTextChanged &&
+        (!this.collection.image || !this.collection.image.alt_text)
+      ) {
+        this.form.$errors.record({
+          alt_text: ["Please enter alt text for the image."]
+        });
         return;
       }
       if (this.imageChanged) {
-        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        this.form.$errors.record({
+          file: ["Please click 'Upload file' to upload your image."]
+        });
         return;
       }
       await this.form.put(
         `/collections/personas/${this.collection.id}`,
         (config, data) => {
           // Unset the image field if not provided.
-          if (this.collection.image && this.collection.image.id === data.image_file_id) {
+          if (
+            this.collection.image &&
+            this.collection.image.id === data.image_file_id
+          ) {
             delete data.image_file_id;
           }
 

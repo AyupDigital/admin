@@ -168,7 +168,7 @@ export default {
     }
   },
   watch: {
-    referral_method(newReferralMethod, oldReferralMethod) {
+    referral_method(newReferralMethod) {
       if (newReferralMethod === null || newReferralMethod === "none") {
         this.$emit("update:referral_button_text", "");
         this.$emit("update:referral_email", "");

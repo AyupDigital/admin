@@ -374,19 +374,33 @@ export default {
       this.loading = false;
     },
     async onSubmit(preview = false) {
-      if (this.imageChanged && (!this.altTextChanged && (!this.service.image || !this.service.image.alt_text))) {
-        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+      if (
+        this.imageChanged &&
+        !this.altTextChanged &&
+        (!this.service.image || !this.service.image.alt_text)
+      ) {
+        this.form.$errors.record({
+          alt_text: ["Please enter alt text for the image."]
+        });
         return;
       }
       if (this.imageChanged) {
-        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        this.form.$errors.record({
+          file: ["Please click 'Upload file' to upload your image."]
+        });
         return;
       }
 
-      const invalidGalleryImages = this.form.gallery_items.filter(galleryItem => (galleryItem.alt_text && galleryItem.alt_text === null) || !galleryItem.file_id);
+      const invalidGalleryImages = this.form.gallery_items.filter(
+        galleryItem =>
+          (galleryItem.alt_text && galleryItem.alt_text === null) ||
+          !galleryItem.file_id
+      );
       invalidGalleryImages.forEach((galleryItem, index) => {
         this.form.$errors.record({
-          [`gallery_items.${index}`]: ["Please ensure you've added an image description and pressed 'Upload file' to upload your image."]
+          [`gallery_items.${index}`]: [
+            "Please ensure you've added an image description and pressed 'Upload file' to upload your image."
+          ]
         });
       });
       if (this.form.$errors.any()) {
@@ -531,7 +545,10 @@ export default {
             (this.service.image === null && data.logo_file_id === null)
           ) {
             delete data.logo_file_id;
-          } else if (data.logo_file_id === false || data.logo_file_id === null) {
+          } else if (
+            data.logo_file_id === false ||
+            data.logo_file_id === null
+          ) {
             data.logo_file_id = null;
           }
 

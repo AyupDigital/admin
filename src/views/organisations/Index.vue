@@ -53,7 +53,8 @@
               {
                 heading: 'Organisation name',
                 sort: 'name',
-                render: organisation => organisation.name + ' ' + this.hasUpdateRequest(organisation)
+                render: organisation =>
+                  organisation.name + ' ' + this.hasUpdateRequest(organisation)
               },
               {
                 heading: 'Web address URL',
@@ -94,7 +95,7 @@ export default {
     return {
       filters: {
         name: ""
-      },
+      }
     };
   },
   computed: {
@@ -125,7 +126,7 @@ export default {
         }
         return `<a href="/update-requests/${organisation.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
       }
-      return '';
+      return "";
     }
   }
 };

@@ -28,12 +28,7 @@
     <gov-button v-if="form.$submitting" disabled type="submit"
       >Creating...</gov-button
     >
-    <gov-button
-      v-else
-      @click="onSubmit"
-      type="submit"
-      >Create</gov-button
-    >
+    <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
 
     <ck-submit-error v-if="form.$errors.any()" />
   </gov-width-container>
@@ -47,14 +42,14 @@ export default {
   name: "CreatePage",
 
   components: {
-    PageForm,
+    PageForm
   },
 
   props: {
     type: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
 
   data() {
@@ -68,7 +63,7 @@ export default {
         page_type: this.type,
         image_file_id: null,
         collections: [],
-        enabled: false,
+        enabled: false
       }),
 
       contentTypes: {
@@ -82,10 +77,10 @@ export default {
             content: [
               {
                 type: "copy",
-                value: "",
-              },
-            ],
-          },
+                value: ""
+              }
+            ]
+          }
         },
         landing: {
           introduction: {
@@ -95,9 +90,9 @@ export default {
             content: [
               {
                 type: "copy",
-                value: "",
-              },
-            ],
+                value: ""
+              }
+            ]
           },
           about: {
             order: 2,
@@ -106,9 +101,9 @@ export default {
             content: [
               {
                 type: "copy",
-                value: "",
-              },
-            ],
+                value: ""
+              }
+            ]
           },
           info_pages: {
             order: 3,
@@ -118,9 +113,9 @@ export default {
             content: [
               {
                 type: "copy",
-                value: "",
-              },
-            ],
+                value: ""
+              }
+            ]
           },
           collections: {
             order: 4,
@@ -130,10 +125,10 @@ export default {
             content: [
               {
                 type: "copy",
-                value: "",
-              },
-            ],
-          },
+                value: ""
+              }
+            ]
+          }
         },
         information: {
           introduction: {
@@ -144,11 +139,11 @@ export default {
             content: [
               {
                 type: "copy",
-                value: "",
-              },
-            ],
-          },
-        },
+                value: ""
+              }
+            ]
+          }
+        }
       },
       imageChanged: false,
       altTextChanged: false
@@ -158,11 +153,15 @@ export default {
   methods: {
     async onSubmit() {
       if (this.imageChanged && !this.altTextChanged) {
-        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        this.form.$errors.record({
+          alt_text: ["Please enter alt text for the image."]
+        });
         return;
       }
       if (this.imageChanged) {
-        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        this.form.$errors.record({
+          file: ["Please click 'Upload file' to upload your image."]
+        });
         return;
       }
       const response = await this.form.post("/pages");
@@ -171,23 +170,23 @@ export default {
       if (this.auth.isSuperAdmin && pageId) {
         this.$router.push({
           name: "pages-show",
-          params: { page: pageId },
+          params: { page: pageId }
         });
       } else if (!this.form.$errors.any()) {
         this.$router.push({
-          name: "pages-updated",
+          name: "pages-updated"
         });
       }
     },
     onUpdateTitle(title) {
       this.form.title = title;
       this.form.slug = this.slugify(title);
-    },
+    }
   },
 
   created() {
     this.form.content = this.contentTypes[this.form.page_type];
-  },
+  }
 };
 </script>
 

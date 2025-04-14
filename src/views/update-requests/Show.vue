@@ -270,6 +270,7 @@ export default {
               params: { organisation: updateable_id }
             });
             break;
+          // eslint-disable-next-line no-case-declarations
           case "organisation_sign_up_form":
             // GET new organisation by slug
             const { data } = await http.get(

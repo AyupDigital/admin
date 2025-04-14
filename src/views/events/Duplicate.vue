@@ -12,14 +12,15 @@
           <gov-grid-column width="full">
             <gov-heading size="xl">Events</gov-heading>
             <template v-if="updateRequestCreated">
-              <gov-heading size="m" tag="h3">Duplicate event request</gov-heading>
+              <gov-heading size="m" tag="h3"
+                >Duplicate event request</gov-heading
+              >
               <gov-body>{{ updateRequestMessage }}</gov-body>
               <gov-back-link :to="{ name: 'events-index' }"
                 >Back to events</gov-back-link
               >
             </template>
-            
-            
+
             <template v-else>
               <gov-heading size="m">Duplicate event</gov-heading>
               <gov-body
@@ -131,7 +132,7 @@ export default {
     return {
       tabs: [
         { id: "details", heading: "Details", active: true },
-        { id: "taxonomies", heading: "Taxonomies", active: false },
+        { id: "taxonomies", heading: "Taxonomies", active: false }
       ],
       organisations: [{ text: "Please select", value: null }],
       updateRequestCreated: false,
@@ -140,7 +141,7 @@ export default {
       event: null,
       form: null,
       imageChanged: false,
-      altTextChanged: false,
+      altTextChanged: false
     };
   },
 
@@ -148,7 +149,7 @@ export default {
     allowedTabs() {
       if (!this.auth.isGlobalAdmin) {
         const taxonomiesTabIndex = this.tabs.findIndex(
-          (tab) => tab.id === "taxonomies"
+          tab => tab.id === "taxonomies"
         );
         const tabs = this.tabs.slice();
         tabs.splice(taxonomiesTabIndex, 1);
@@ -160,16 +161,16 @@ export default {
     },
     updateButtonText() {
       return this.auth.isSuperAdmin ? "Duplicate" : "Request duplicate";
-    },
+    }
   },
 
   methods: {
     async fetchOrganisations() {
       this.loading = true;
       let fetchedOrganisations = await this.fetchAll("/organisations", {
-        "filter[has_permission]": true,
+        "filter[has_permission]": true
       });
-      fetchedOrganisations = fetchedOrganisations.map((organisation) => {
+      fetchedOrganisations = fetchedOrganisations.map(organisation => {
         return { text: organisation.name, value: organisation.id };
       });
       this.organisations = [...this.organisations, ...fetchedOrganisations];
@@ -207,9 +208,9 @@ export default {
         homepage: false,
         location_id: this.event.location_id,
         image_file_id: null,
-        category_taxonomies: Auth.isSuperAdmin ? this.event.category_taxonomies.map(
-          (taxonomy) => taxonomy.id
-        ) : [],
+        category_taxonomies: Auth.isSuperAdmin
+          ? this.event.category_taxonomies.map(taxonomy => taxonomy.id)
+          : []
       });
 
       this.loading = false;
@@ -221,13 +222,13 @@ export default {
       }
       if (this.imageChanged && !this.altTextChanged) {
         this.form.$errors.record({
-          alt_text: ["Please enter alt text for the image."],
+          alt_text: ["Please enter alt text for the image."]
         });
         return;
       }
       if (this.imageChanged) {
         this.form.$errors.record({
-          file: ["Please click 'Upload file' to upload your image."],
+          file: ["Please click 'Upload file' to upload your image."]
         });
         return;
       }
@@ -238,7 +239,7 @@ export default {
       if (this.auth.isSuperAdmin && eventId) {
         this.$router.push({
           name: "events-show",
-          params: { event: eventId },
+          params: { event: eventId }
         });
       } else if (!this.form.$errors.any()) {
         this.updateRequestCreated = true;
@@ -246,25 +247,25 @@ export default {
       }
     },
     onTabChange({ index }) {
-      this.tabs.forEach((tab) => (tab.active = false));
+      this.tabs.forEach(tab => (tab.active = false));
       const tabId = this.allowedTabs[index].id;
-      this.tabs.find((tab) => tab.id === tabId).active = true;
+      this.tabs.find(tab => tab.id === tabId).active = true;
     },
     isTabActive(id) {
-      const tab = this.allowedTabs.find((tab) => tab.id === id);
+      const tab = this.allowedTabs.find(tab => tab.id === id);
 
       return tab === undefined ? false : tab.active;
     },
     onUpdateTitle(title) {
       this.form.title = title;
       this.form.slug = this.slugify(title);
-    },
+    }
   },
 
   created() {
     this.fetchEvent();
     this.fetchOrganisations();
-  },
+  }
 };
 </script>
 

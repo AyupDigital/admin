@@ -72,7 +72,8 @@
               {
                 heading: 'Title',
                 sort: 'title',
-                render: event => event.title + ' ' + this.hasUpdateRequest(event)
+                render: event =>
+                  event.title + ' ' + this.hasUpdateRequest(event)
               },
               {
                 heading: 'Start',
@@ -235,7 +236,7 @@ export default {
         }
         return `<a href="/update-requests/${event.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
       }
-      return '';
+      return "";
     }
   },
 

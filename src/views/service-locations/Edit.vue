@@ -92,12 +92,20 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
-      if (this.imageChanged && !this.altTextChanged && (!this.serviceLocation.image || !this.serviceLocation.image.alt_text)) {
-        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+      if (
+        this.imageChanged &&
+        !this.altTextChanged &&
+        (!this.serviceLocation.image || !this.serviceLocation.image.alt_text)
+      ) {
+        this.form.$errors.record({
+          alt_text: ["Please enter alt text for the image."]
+        });
         return;
       }
       if (this.imageChanged) {
-        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        this.form.$errors.record({
+          file: ["Please click 'Upload file' to upload your image."]
+        });
         return;
       }
       const response = await this.form.put(
@@ -120,9 +128,15 @@ export default {
             delete data.holiday_opening_hours;
           }
           // Remove the logo from the request if null, or delete if false.
-          if (this.serviceLocation.image && this.serviceLocation.image.id === data.image_file_id) {
+          if (
+            this.serviceLocation.image &&
+            this.serviceLocation.image.id === data.image_file_id
+          ) {
             delete data.image_file_id;
-          } else if (data.image_file_id === false || data.image_file_id === null) {
+          } else if (
+            data.image_file_id === false ||
+            data.image_file_id === null
+          ) {
             data.image_file_id = null;
           }
         }

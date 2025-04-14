@@ -112,7 +112,7 @@
               {
                 heading: 'First name',
                 sort: 'first_name',
-                render: (user) => user.first_name
+                render: user => user.first_name
               },
               {
                 heading: 'Last name',

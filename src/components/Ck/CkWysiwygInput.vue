@@ -27,7 +27,6 @@
         :count="count"
         :max-length="maxlength"
       />
-      
     </ck-character-count-group>
 
     <slot name="after-input" />
@@ -48,7 +47,7 @@ import {
   ListItem,
   Bold,
   Italic,
-  Link,
+  Link
 } from "tiptap-extensions";
 
 export default {
@@ -57,31 +56,31 @@ export default {
   props: {
     value: {
       required: true,
-      type: String,
+      type: String
     },
     label: {
       required: true,
-      type: String,
+      type: String
     },
     hint: {
       required: false,
-      type: String,
+      type: String
     },
     error: {
-      required: true,
+      required: true
     },
     id: {
       required: true,
-      type: String,
+      type: String
     },
     large: {
       required: false,
       type: Boolean,
-      deafult: false,
+      deafult: false
     },
     maxlength: {
       required: false,
-      type: Number,
+      type: Number
     },
     extensions: {
       required: false,
@@ -95,20 +94,20 @@ export default {
           new ListItem(),
           new Bold(),
           new Italic(),
-          new Link(),
+          new Link()
         ];
-      },
-    },
+      }
+    }
   },
   data() {
     return {
-      count: 0,
+      count: 0
     };
   },
   methods: {
     onCount(count) {
       this.count = count;
-    },
-  },
+    }
+  }
 };
 </script>

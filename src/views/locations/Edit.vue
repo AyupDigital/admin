@@ -47,12 +47,9 @@
             <gov-button v-if="form.$submitting" disabled type="submit"
               >Requesting...</gov-button
             >
-            <gov-button
-              v-else
-              @click="onSubmit"
-              type="submit"
-              >{{ updateButtonText }}</gov-button
-            >
+            <gov-button v-else @click="onSubmit" type="submit">{{
+              updateButtonText
+            }}</gov-button>
             <ck-submit-error v-if="form.$errors.any()" />
           </gov-grid-column>
         </gov-grid-row>
@@ -109,12 +106,20 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
-      if (this.imageChanged && (!this.altTextChanged && (!this.location.image || !this.location.image.alt_text))) {
-        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+      if (
+        this.imageChanged &&
+        !this.altTextChanged &&
+        (!this.location.image || !this.location.image.alt_text)
+      ) {
+        this.form.$errors.record({
+          alt_text: ["Please enter alt text for the image."]
+        });
         return;
       }
       if (this.imageChanged) {
-        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        this.form.$errors.record({
+          file: ["Please click 'Upload file' to upload your image."]
+        });
         return;
       }
       const response = await this.form.put(
@@ -163,10 +168,13 @@ export default {
           // Remove the logo from the request if null, or delete if false.
           if (
             this.location.image &&
-              data.image_file_id === this.location.image.id
+            data.image_file_id === this.location.image.id
           ) {
             delete data.image_file_id;
-          } else if (data.image_file_id === false || data.image_file_id === null) {
+          } else if (
+            data.image_file_id === false ||
+            data.image_file_id === null
+          ) {
             data.image_file_id = null;
           }
         }

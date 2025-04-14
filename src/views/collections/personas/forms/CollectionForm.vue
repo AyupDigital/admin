@@ -52,8 +52,14 @@
 
     <ck-image-input
       @input="onInput('image_file_id', $event.file_id)"
-      @image-changed="$emit('image-changed', $event); $emit('clear', 'file')"
-      @alt-text-changed="$emit('alt-text-changed', $event); $emit('clear', 'alt_text');"
+      @image-changed="
+        $emit('image-changed', $event);
+        $emit('clear', 'file');
+      "
+      @alt-text-changed="
+        $emit('alt-text-changed', $event);
+        $emit('clear', 'alt_text');
+      "
       id="image"
       label="Persona image"
       :file-id="image_file_id"
@@ -130,7 +136,7 @@ export default {
       required: true
     },
     slug: {
-      required: true,
+      required: true
     },
     intro: {
       required: true

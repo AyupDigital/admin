@@ -9,8 +9,14 @@
         :id="`Ck::GalleryItemImage::${galleryItem.file_id}`"
         label="Upload an item to the gallery"
         :file-id="galleryItem.file_id"
-        @image-changed="$emit('image-changed', $event); $emit('clear', `gallery_items.${index}.file_id`);"
-        @alt-text-changed="alt_text = $event; $emit('clear', `gallery_items.${index}.alt_text`);"
+        @image-changed="
+          $emit('image-changed', $event);
+          $emit('clear', `gallery_items.${index}.file_id`);
+        "
+        @alt-text-changed="
+          alt_text = $event;
+          $emit('clear', `gallery_items.${index}.alt_text`);
+        "
         @removed="remove(index)"
         :errors="errors"
         :gallery="true"
@@ -30,14 +36,8 @@
         :for="`Ck::GalleryItem::${galleryItem.file_id}`"
       />
       <gov-error-message
-        v-if="
-          errors.has(`gallery_items`)
-        "
-        v-text="
-          errors.get([
-            `gallery_items`,
-          ])
-        "
+        v-if="errors.has(`gallery_items`)"
+        v-text="errors.get([`gallery_items`])"
       />
     </gov-inset-text>
 

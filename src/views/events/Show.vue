@@ -27,21 +27,18 @@
                 >Edit event</gov-button
               >
             </gov-grid-column>
-            
           </gov-grid-row>
 
           <event-details :event="event" />
 
-              <gov-button
-                :to="{ name: 'events-duplicate', params: { event: event.id } }"
-                :success="true"
-                >Duplicate event</gov-button
-              >
+          <gov-button
+            :to="{ name: 'events-duplicate', params: { event: event.id } }"
+            :success="true"
+            >Duplicate event</gov-button
+          >
 
           <template v-if="auth.canDelete('event')">
             <gov-section-break size="l" />
-
-            
 
             <gov-body
               >Please be certain of the action before deleting an

@@ -115,7 +115,7 @@ export default {
       required: true
     },
     slug: {
-      required: true,
+      required: true
     },
     intro: {
       required: true

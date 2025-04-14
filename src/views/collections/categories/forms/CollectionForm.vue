@@ -50,8 +50,14 @@
 
     <ck-image-input
       @input="onInput('image_file_id', $event.file_id)"
-      @image-changed="$emit('image-changed', $event); $emit('clear', 'file')"
-      @alt-text-changed="$emit('alt-text-changed', $event); $emit('clear', 'alt_text');"
+      @image-changed="
+        $emit('image-changed', $event);
+        $emit('clear', 'file');
+      "
+      @alt-text-changed="
+        $emit('alt-text-changed', $event);
+        $emit('clear', 'alt_text');
+      "
       id="image"
       label="Category image"
       :file-id="image_file_id"
@@ -108,7 +114,7 @@ import CkTaxonomyInput from "@/components/Ck/CkTaxonomyInput";
 import CkSideboxesInput from "@/views/collections/inputs/SideboxesInput";
 import CollectionEnabledInput from "@/views/collections/inputs/CollectionEnabledInput";
 import CollectionHomepageInput from "@/views/collections/inputs/CollectionHomepageInput";
-import http from "@/http"
+import http from "@/http";
 
 export default {
   name: "CollectionForm",
@@ -156,18 +162,18 @@ export default {
       required: true
     },
     parent_uuid: {
-      required: false,
+      required: false
     },
     showParent: {
-      default: false,
+      default: false
     }
   },
-  data () {
+  data() {
     return {
       loading: false,
       categories: [],
       categoryOptions: []
-    }
+    };
   },
   methods: {
     onInput(field, value) {
@@ -198,12 +204,12 @@ export default {
         const text = "-".repeat(depth) + " " + category.name;
         parsed.push({ text, value: category.id });
 
-        if ((category.children && category.children.length > 0) && depth < 4) {
+        if (category.children && category.children.length > 0 && depth < 4) {
           parsed = this.parseCategories(category.children, parsed, depth + 1);
         }
-      })
+      });
       return parsed;
-    },
+    }
   },
   created() {
     this.fetchCategories();

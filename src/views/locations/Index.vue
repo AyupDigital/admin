@@ -63,7 +63,10 @@
               {
                 heading: 'Address line 1',
                 sort: 'address_line_1',
-                render: location => location.address_line_1 + ' ' + this.hasUpdateRequest(location)
+                render: location =>
+                  location.address_line_1 +
+                  ' ' +
+                  this.hasUpdateRequest(location)
               },
               {
                 heading: 'City',
@@ -141,7 +144,7 @@ export default {
         }
         return `<a href="/update-requests/${location.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
       }
-      return '';
+      return "";
     }
   }
 };

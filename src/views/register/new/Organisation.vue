@@ -68,23 +68,23 @@
 export default {
   model: {
     prop: "form",
-    event: "update",
+    event: "update"
   },
   props: {
     form: {
       type: Object,
-      required: true,
+      required: true
     },
     errors: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     fieldsEmpty() {
       const requiredFields = ["name", "description"];
-      return requiredFields.some((field) => !this.form.organisation[field]);
-    },
-  },
+      return requiredFields.some(field => !this.form.organisation[field]);
+    }
+  }
 };
 </script>
