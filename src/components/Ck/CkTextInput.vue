@@ -18,6 +18,7 @@
       :hint="hint"
       :disabled="disabled"
       :autocomplete="autocomplete"
+      :described-by="hint ? `${id}-hint` : `${id}-error`"
     />
 
     <slot name="after-input" />

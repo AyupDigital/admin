@@ -113,7 +113,7 @@ export default {
   methods: {
     dateSelected(e) {
       this.formatError = null;
-      if (!isNaN(Date.parse(e.detail.value))) {
+      if (!isNaN(Date.parse(e.detail.value)) && e.detail.value.length > 5) {
         this.$emit("input", e.detail.value);
       }
     },
@@ -134,8 +134,10 @@ export default {
         // Valid ISO-8601 date return new Date object
         return new Date(dateStr);
       }
-      // Not a valid date string, set error message and return null
-      this.formatError = "Invalid date format. Use dd/mm/yyyy";
+      if (dateStr.length > 5) {
+        // Give the user time to enter a date
+        this.formatError = "Invalid date format. Use dd/mm/yyyy";
+      }
       return null;
     },
     formatDate(dateObj) {
