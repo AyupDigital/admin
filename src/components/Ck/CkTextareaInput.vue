@@ -69,3 +69,8 @@ export default {
   }
 };
 </script>
+<style>
+.govuk-textarea {
+  margin-bottom: 0px;
+}
+</style>
