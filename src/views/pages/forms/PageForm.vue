@@ -1,6 +1,6 @@
 <template>
   <div>
-    <gov-heading tag="h3" size="m">{{ pageTypes[page_type] }}</gov-heading>
+    <gov-heading tag="h1" size="m">{{ pageTypes[page_type] }}</gov-heading>
 
     <ck-loader v-if="loading" />
 

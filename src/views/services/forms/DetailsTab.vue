@@ -1,6 +1,6 @@
 <template>
   <div>
-    <gov-heading size="l">{{ type | ucfirst }} details</gov-heading>
+    <gov-heading tag="h2" size="l">{{ type | ucfirst }} details</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
         <gov-body>

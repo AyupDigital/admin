@@ -1,6 +1,6 @@
 <template>
   <div>
-    <gov-heading size="m">Search</gov-heading>
+    <gov-heading tag="h2" size="m">Search</gov-heading>
 
     <form @submit.prevent="$emit('search')">
       <slot />

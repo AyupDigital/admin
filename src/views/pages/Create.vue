@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`Add Page - ${appName}`" />
+    <vue-headful :title="`Add ${type} page - ${appName}`" />
 
     <gov-back-link :to="{ name: 'pages-index' }">Back to pages</gov-back-link>
 
