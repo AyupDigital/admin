@@ -181,14 +181,14 @@
           v-if="auth.isGlobalAdmin"
         />
 
-        <ck-date-input
+        <ck-date-picker
           id="ends_at"
           :value="ends_at"
+          :error="errors.get('end_date')"
           @input="
             $emit('update:ends_at', $event);
             $emit('clear', 'ends_at');
           "
-          :error="errors.get('ends_at')"
           label="End date"
           :hint="`The date which this ${type} should be made inactive`"
         />
@@ -229,7 +229,7 @@
 
 <script>
 import CkImageInput from "@/components/Ck/CkImageInput";
-import CkDateInput from "@/components/Ck/CkDateInput";
+import CkDatePicker from "@/components/Ck/CkDatePicker";
 import CkGalleryItemsInput from "@/views/services/inputs/GalleryItemsInput";
 import TagInput from "@/views/services/inputs/TagInput";
 
@@ -238,7 +238,7 @@ export default {
   components: {
     CkImageInput,
     CkGalleryItemsInput,
-    CkDateInput,
+    CkDatePicker,
     TagInput
   },
   props: {
