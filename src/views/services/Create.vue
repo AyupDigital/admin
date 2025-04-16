@@ -94,6 +94,18 @@
                 <gov-button @click="onNext" start>Next</gov-button>
               </details-tab>
 
+              <service-locations-tab
+                v-if="isTabActive('locations')"
+                @clear="
+                  form.$errors.clear($event);
+                  errors = {};
+                "
+                :errors="form.$errors"
+                :service-locations.sync="form.service_locations"
+              >
+                <gov-button @click="onNext" start>Next</gov-button>
+              </service-locations-tab>
+
               <additional-info-tab
                 v-if="isTabActive('additional-info')"
                 @clear="
@@ -212,6 +224,7 @@ import UsefulInfoTab from "@/views/services/forms/UsefulInfoTab";
 import EligibilityTab from "@/views/services/forms/EligibilityTab";
 import ReferralTab from "@/views/services/forms/ReferralTab";
 import TaxonomiesTab from "@/views/services/forms/TaxonomiesTab";
+import ServiceLocationsTab from "@/views/services/forms/ServiceLocationsTab";
 
 export default {
   name: "CreateService",
@@ -222,7 +235,8 @@ export default {
     UsefulInfoTab,
     EligibilityTab,
     ReferralTab,
-    TaxonomiesTab
+    TaxonomiesTab,
+    ServiceLocationsTab
   },
   data() {
     return {
@@ -281,11 +295,13 @@ export default {
           taxonomies: [],
           custom: {}
         },
-        logo_file_id: null
+        logo_file_id: null,
+        service_locations: []
       }),
       errors: {},
       tabs: [
         { id: "details", heading: "Details", active: true },
+        { id: "locations", heading: "Locations", active: false },
         { id: "additional-info", heading: "Additional info", active: false },
         { id: "useful-info", heading: "Good to know", active: false },
         { id: "eligibility", heading: "Eligibility", active: false },
@@ -366,8 +382,11 @@ export default {
         if (!this.appServiceTagsActive) {
           delete data.tags;
         }
+
       });
       const serviceId = response.data.id;
+
+      
 
       // Refetch the user as new permissions added for the new service.
       await this.auth.fetchUser();

@@ -33,7 +33,7 @@
         <ck-radio-input
           v-if="locations.length > 0 && !loading"
           :value="location_id"
-          @input="onInput({ field: 'location_id', value: $event })"
+          @input="onLocationSelected($event)"
           id="location_id"
           label="Location"
           :options="locations"
@@ -488,15 +488,44 @@ export default {
       this.locations = this.locations.map(location => {
         return {
           label: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
-          value: location.id
+          value: location.id,
+          ...location
         };
       });
       this.loading = false;
     },
+    async fetchLocationById(locationId) {
+      if (!locationId) return;
+      
+      try {
+        this.loading = true;
+        const response = await this.fetchAll(`/locations/${locationId}`, {}, "GET");
+        if (response && response.data) {
+          const location = response.data;
+          
+          // Add to locations array if not already there
+          if (!this.locations.some(loc => loc.value === location.id)) {
+            this.locations.push({
+              label: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
+              value: location.id,
+              ...location
+            });
+          }
+          
+          // Set the search term to show the selected location
+          this.locationSearchTerm = `${location.address_line_1}, ${location.city}, ${location.postcode}`;
+        }
+      } catch (error) {
+        console.error("Error fetching location:", error);
+      } finally {
+        this.loading = false;
+      }
+    },
     appendLocation(location) {
       this.locations.push({
         label: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
-        value: location.id
+        value: location.id,
+        ...location
       });
     },
     onAddRegularOpeningHour() {
@@ -555,6 +584,25 @@ export default {
       let holidayOpeningHours = this.cloneHolidayOpeningHours();
       holidayOpeningHours.splice(index, 1);
       this.$emit("update:holiday_opening_hours", holidayOpeningHours);
+    },
+    onLocationSelected(locationId) {
+      const selectedLocation = this.locations.find(location => location.value === locationId);
+      if (selectedLocation) {
+        this.$emit('update:location_id', locationId);
+        this.$emit('update:address_line_1', selectedLocation.address_line_1);
+        this.$emit('update:address_line_2', selectedLocation.address_line_2);
+        this.$emit('update:address_line_3', selectedLocation.address_line_3);
+        this.$emit('update:city', selectedLocation.city);
+        this.$emit('update:county', selectedLocation.county);
+        this.$emit('update:postcode', selectedLocation.postcode);
+        this.$emit('update:country', selectedLocation.country);
+        this.$emit('update:has_wheelchair_access', selectedLocation.has_wheelchair_access);
+        this.$emit('update:has_induction_loop', selectedLocation.has_induction_loop);
+        this.$emit('update:has_accessible_toilet', selectedLocation.has_accessible_toilet);
+        this.$emit('update:accessibility_info', selectedLocation.accessibility_info);
+        
+        this.$emit('location-selected', selectedLocation);
+      }
     }
   },
   created() {
@@ -564,6 +612,14 @@ export default {
   watch: {
     locationSearchTerm() {
       this.fetchLocations();
+    },
+    location_id: {
+      immediate: true,
+      handler(newLocationId) {
+        if (newLocationId && this.location_type === 'existing') {
+          this.fetchLocationById(newLocationId);
+        }
+      }
     },
     location_type(newLocationType) {
       if (newLocationType === "new") {
