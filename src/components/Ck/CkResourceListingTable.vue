@@ -42,7 +42,7 @@
           </gov-table-cell>
         </gov-table-row>
         <gov-table-row v-if="resources.length === 0">
-          <gov-table-cell :colspan="columns.length + 1"
+          <gov-table-cell :colspan="columns.length + 1" role="status"
             >None found</gov-table-cell
           >
         </gov-table-row>

@@ -1,5 +1,5 @@
 <template>
-  <div class="govuk-error-summary" role="alert" tabindex="-1">
+  <div class="govuk-error-summary" role="alert" aria-atomic="true">
     <slot name="title">
       <h2 class="govuk-error-summary__title">
         {{ title }}
