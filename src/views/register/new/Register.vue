@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - Register`" />
+    <vue-headful :title="`Register - ${appName}`" />
 
     <gov-error-summary v-if="form.$errors.any()" title="Check for errors">
       <gov-list>

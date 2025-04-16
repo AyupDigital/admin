@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vue-headful :title="`${appName} - Admin: Taxonomies`" />
+    <vue-headful :title="`Admin: Taxonomies - ${appName}`" />
 
     <gov-tabs :tabs="tabs">
       <router-view />

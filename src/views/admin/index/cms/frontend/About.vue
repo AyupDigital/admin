@@ -1,5 +1,6 @@
 <template>
   <gov-grid-row>
+    <vue-headful :title="`About - ${appName}`" />
     <gov-grid-column width="two-thirds">
       <gov-heading size="l">About</gov-heading>
 
@@ -53,6 +54,11 @@ export default {
 
     errors: {
       type: Object,
+      required: true
+    },
+
+    appName: {
+      type: String,
       required: true
     }
   },

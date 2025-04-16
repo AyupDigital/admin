@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - Dashboard`" />
+    <vue-headful :title="`Dashboard - ${appName}`" />
 
     <gov-main-wrapper>
       <gov-grid-row>

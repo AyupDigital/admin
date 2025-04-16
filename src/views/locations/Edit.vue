@@ -3,7 +3,7 @@
     <ck-loader v-if="loading" />
     <template v-else>
       <vue-headful
-        :title="`${appName} - Edit Location: ${location.address_line_1}`"
+        :title="`Edit Location: ${location.address_line_1} - ${appName}`"
       />
 
       <gov-back-link

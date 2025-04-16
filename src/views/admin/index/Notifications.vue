@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vue-headful :title="`${appName} - Admin: Notifications`" />
+    <vue-headful :title="`Admin: Notifications - ${appName}`" />
 
     <gov-heading size="l">Notifications</gov-heading>
     <ck-loader v-if="loading" />

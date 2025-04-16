@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - Add Service Eligibility`" />
+    <vue-headful :title="`Add Service Eligibility - ${appName}`" />
 
     <gov-back-link
       :to="{ name: 'admin-index-taxonomies-service-eligibilities' }"

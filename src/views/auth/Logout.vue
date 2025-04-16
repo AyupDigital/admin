@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - Logout`" />
+    <vue-headful :title="`Logout - ${appName}`" />
 
     <gov-main-wrapper>
       <gov-grid-row>

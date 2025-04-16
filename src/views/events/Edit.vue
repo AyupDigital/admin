@@ -2,7 +2,7 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <vue-headful :title="`${appName} - Edit Event`" />
+      <vue-headful :title="`Edit Event - ${appName}`" />
 
       <gov-back-link :to="{ name: 'events-index' }"
         >Back to events</gov-back-link

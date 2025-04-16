@@ -8,10 +8,10 @@
       <gov-grid-row v-else>
         <vue-headful
           :title="
-            `${appName} - Page Feedback: ${pageFeedback.feedback.substr(
+            `Page Feedback: ${pageFeedback.feedback.substr(
               0,
               10
-            )}...`
+            )}... - ${appName}`
           "
         />
 

@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - List Organisations`" />
+    <vue-headful :title="`List Organisations - ${appName}`" />
 
     <gov-back-link :to="{ name: 'dashboard' }">Back to dashboard</gov-back-link>
     <gov-main-wrapper>

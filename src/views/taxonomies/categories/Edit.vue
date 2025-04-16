@@ -3,7 +3,7 @@
     <ck-loader v-if="loading" />
     <template v-else>
       <vue-headful
-        :title="`${appName} - Edit Taxonomy Category: ${taxonomy.name}`"
+        :title="`Edit Taxonomy Category: ${taxonomy.name} - ${appName}`"
       />
 
       <gov-back-link :to="{ name: 'admin-index-taxonomies' }"

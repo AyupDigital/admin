@@ -4,7 +4,7 @@
     <template v-else>
       <vue-headful
         :title="
-          `${appName} - Edit Service Location: ${serviceLocation.name || '-'}`
+          `Edit Service Location: ${serviceLocation.name || '-'} - ${appName}`
         "
       />
 

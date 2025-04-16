@@ -3,7 +3,7 @@
     <ck-loader v-if="loading" />
     <template v-else>
       <vue-headful
-        :title="`${appName} - Service Location: ${serviceLocation.name || '-'}`"
+        :title="`Service Location: ${serviceLocation.name || '-'} - ${appName}`"
       />
 
       <gov-back-link

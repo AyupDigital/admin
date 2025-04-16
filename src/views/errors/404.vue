@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - Page Not Found`" />
+    <vue-headful :title="`Page Not Found - ${appName}`" />
 
     <gov-main-wrapper>
       <gov-grid-row>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vue-headful :title="`${appName} - Pages`" />
+    <vue-headful :title="`Pages - ${appName}`" />
 
     <gov-heading size="xl">Pages</gov-heading>
     <gov-section-break size="m" />
