@@ -1,24 +1,29 @@
 <template>
-  <gov-form-group :invalid="error !== null">
-    <gov-label>{{ opens_at_label }} / {{ closes_at_label }}</gov-label>
-    <gov-select
-      :value="opens_at"
-      @input="$emit('update:opens_at', $event)"
-      :id="`${id}.opens_at`"
-      :name="`${id}.opens_at`"
-      :options="hours"
-      class="govuk-!-width-one-quarter"
-    />&nbsp;<!--
-  --><gov-select
-      :value="closes_at"
-      @input="$emit('update:closes_at', $event)"
-      :id="`${id}.closes_at`"
-      :name="`${id}.closes_at`"
-      :options="hours"
-      class="govuk-!-width-one-quarter"
-    />
+  <div>
+    <gov-form-group :invalid="error !== null">
+      <gov-label :for="`${id}.opens_at`">{{ opens_at_label }}</gov-label>
+      <gov-select
+        :value="opens_at"
+        @input="$emit('update:opens_at', $event)"
+        :id="`${id}.opens_at`"
+        :name="`${id}.opens_at`"
+        :options="hours"
+        class="govuk-!-width-one-quarter"
+      />
+    </gov-form-group>
+    <gov-form-group :invalid="error !== null">
+      <gov-label :for="`${id}.closes_at`">{{ closes_at_label }}</gov-label>
+      <gov-select
+        :value="closes_at"
+        @input="$emit('update:closes_at', $event)"
+        :id="`${id}.closes_at`"
+        :name="`${id}.closes_at`"
+        :options="hours"
+        class="govuk-!-width-one-quarter"
+      />
+    </gov-form-group>
     <gov-error-message v-if="error" v-text="error" :for="`${id}.opens_at`" />
-  </gov-form-group>
+  </div>
 </template>
 
 <script>
