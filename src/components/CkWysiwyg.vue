@@ -144,6 +144,18 @@ export default {
       content: this.toHtml(this.value),
       onUpdate: ({ getHTML }) => {
         this.onEdit(getHTML());
+      },
+      onInit: () => {
+        window.setTimeout(() => {
+          const divEditor = document.querySelector(
+            "#description > div.ck-wysiwyg__content > div"
+          );
+          if (divEditor) {
+            divEditor.setAttribute("role", "textbox");
+            divEditor.setAttribute("aria-labelledby", "wysiwyg-label");
+            divEditor.setAttribute("aria-describedby", "wysiwyg-hint");
+          }
+        }, 20);
       }
     });
   },
@@ -166,6 +178,8 @@ export default {
     element.innerHTML = this.editor.getHTML();
     const markdown = this.toMarkdown(this.editor.getHTML());
     this.$emit("count", markdown.length);
+
+    
   },
 
   beforeDestroy() {
