@@ -42,6 +42,7 @@
       hint="Describe the image for visually impaired visitors"
       type="text"
       :error="errors.get('alt_text')"
+      :required="true"
     />
 
     <gov-error-message

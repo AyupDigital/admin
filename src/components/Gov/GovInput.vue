@@ -12,6 +12,7 @@
     :min="min"
     :aria-describedby="describedBy ? describedBy : ariaDescribedBy"
     :autocomplete="autocomplete"
+    :required="required ? true : null"
   />
 </template>
 
@@ -58,6 +59,11 @@ export default {
       type: String,
       required: false,
       default: null
+    },
+    required: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {

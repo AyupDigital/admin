@@ -28,6 +28,7 @@
           :label="`What is the name of your ${service.type}?`"
           type="text"
           :error="errors.get(['service.name', 'service.slug'])"
+          :required="true"
         >
           <gov-hint slot="hint" for="name">
             The name of your {{ service.type }} must be unique. The URL of your
@@ -46,6 +47,7 @@
           "
           type="url"
           :error="errors.get('service.url')"
+          :required="true"
         />
 
         <slot />

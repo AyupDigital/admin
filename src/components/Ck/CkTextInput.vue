@@ -1,7 +1,7 @@
 <template>
   <gov-form-group :invalid="error !== null">
     <gov-label :for="id" class="govuk-!-font-weight-bold">
-      <slot name="label">{{ label }}</slot>
+      <slot name="label">{{ label }} {{ required ? "*" : "(Optional)" }}</slot>
     </gov-label>
 
     <slot name="hint">
@@ -19,6 +19,7 @@
       :disabled="disabled"
       :autocomplete="autocomplete"
       :described-by="hint ? `${id}-hint` : `${id}-error`"
+      :required="required"
     />
 
     <slot name="after-input" />
@@ -68,6 +69,10 @@ export default {
       required: false,
       type: String,
       default: null
+    },
+    required: {
+      type: Boolean,
+      default: false
     }
   }
 };
