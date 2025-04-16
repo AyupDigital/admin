@@ -205,11 +205,11 @@ export default {
         title = "last updated a month ago";
       }
       if (difference >= 6) {
-        return `<div class="app-freshness app-freshness--old" title="Old (${title})"></div>`;
+        return `<div class="app-freshness app-freshness--old" title="Old (${title})"><span class="visually-hidden">Old (${title})</span></div>`;
       } else if (difference >= 3) {
-        return `<div class="app-freshness app-freshness--stale" title="Stale (${title})"></div>`;
+        return `<div class="app-freshness app-freshness--stale" title="Stale (${title})"><span class="visually-hidden">Stale (${title})</span></div>`;
       }
-      return `<div class="app-freshness app-freshness--fresh" title="Fresh (${title})"></div>`;
+      return `<div class="app-freshness app-freshness--fresh" title="Fresh (${title})"><span class="visually-hidden">Fresh (${title})</span></div>`;
     },
     displayReferralMethod(referralMethod) {
       return referralMethod.charAt(0).toUpperCase() + referralMethod.substr(1);
@@ -241,5 +241,14 @@ export default {
   &.app-freshness--fresh {
     background-color: green;
   }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  word-wrap: normal;
 }
 </style>
