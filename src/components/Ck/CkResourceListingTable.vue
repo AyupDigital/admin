@@ -15,7 +15,7 @@
               {{ sortText(column) }}
             </template>
           </gov-table-header>
-          <gov-table-header> </gov-table-header>
+          <gov-table-header>Action</gov-table-header>
         </gov-table-row>
       </template>
       <template slot="body">
@@ -29,6 +29,13 @@
             <gov-link
               @click="onAction(resource)"
               :to="viewRoute ? viewRoute(resource) : null"
+              :label="
+                'View ' +
+                  uri
+                    .replace('/', '')
+                    .replace('-', ' ')
+                    .slice(0, -1)
+              "
             >
               {{ actionText }}
             </gov-link>

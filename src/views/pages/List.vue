@@ -70,6 +70,7 @@
                   name: 'pages-show',
                   params: { page: page.id }
                 }"
+                label="View page"
               >
                 View </gov-link
               >&nbsp;

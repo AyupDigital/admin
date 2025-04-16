@@ -6,7 +6,7 @@
         <gov-table-header scope="col">Address Line 1</gov-table-header>
         <gov-table-header scope="col">City</gov-table-header>
         <gov-table-header scope="col">Postcode</gov-table-header>
-        <gov-table-header scope="col" right></gov-table-header>
+        <gov-table-header scope="col" right>Action</gov-table-header>
       </gov-table-row>
     </template>
     <template slot="body">
@@ -26,6 +26,7 @@
               name: 'service-locations-show',
               params: { serviceLocation: serviceLocation.id }
             }"
+            label="View location"
             >View</gov-link
           >
         </gov-table-cell>
