@@ -7,7 +7,11 @@
           class="govuk-header__link govuk-header__link--homepage"
         >
           <span class="govuk-header__logotype">
-            <img :src="logo" class="govuk-header__logotype-crown" />
+            <img
+              :src="logo"
+              class="govuk-header__logotype-crown"
+              :alt="appName + ' - homepage'"
+            />
           </span>
         </router-link>
       </div>
