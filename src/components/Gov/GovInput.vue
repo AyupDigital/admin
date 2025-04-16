@@ -10,7 +10,7 @@
     :type="type"
     :max="max"
     :min="min"
-    :aria-describedby="ariaDescribedBy"
+    :aria-describedby="hint ? ariaDescribedBy : null"
   />
 </template>
 
@@ -44,6 +44,10 @@ export default {
     },
     max: {
       type: [String, Number]
+    },
+    hint: {
+      type: String,
+      required: false
     }
   },
   computed: {

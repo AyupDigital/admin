@@ -15,6 +15,7 @@
       :name="id"
       :type="type"
       :maxlength="maxlength"
+      :hint="hint"
       :disabled="disabled"
     />
 

@@ -6,7 +6,7 @@
     :name="name"
     type="file"
     ref="file"
-    :aria-describedby="ariaDescribedBy"
+    :aria-describedby="hint ? ariaDescribedBy : null"
   />
 </template>
 
@@ -21,6 +21,10 @@ export default {
     name: {
       type: String,
       required: true
+    },
+    hint: {
+      type: String,
+      required: false
     }
   },
   data() {

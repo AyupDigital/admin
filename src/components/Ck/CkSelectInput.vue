@@ -16,6 +16,7 @@
       :name="id"
       :options="options"
       :width="width"
+      :hint="hint"
       :class="{ 'govuk-select--icons': hasIcons }"
       :disabled="disabled"
     />
@@ -28,6 +29,7 @@
       :name="id"
       :width="width"
       :class="{ 'govuk-select--icons': hasIcons }"
+      :hint="hint"
       :disabled="disabled"
     >
       <slot />
