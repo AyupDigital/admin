@@ -17,6 +17,7 @@
       :maxlength="maxlength"
       :hint="hint"
       :disabled="disabled"
+      :autocomplete="autocomplete"
     />
 
     <slot name="after-input" />
@@ -61,6 +62,11 @@ export default {
       required: false,
       type: Boolean,
       default: false
+    },
+    autocomplete: {
+      required: false,
+      type: String,
+      default: null
     }
   }
 };

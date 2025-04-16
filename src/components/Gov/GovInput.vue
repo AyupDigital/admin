@@ -11,6 +11,7 @@
     :max="max"
     :min="min"
     :aria-describedby="hint ? ariaDescribedBy : null"
+    :autocomplete="autocomplete"
   />
 </template>
 
@@ -48,7 +49,11 @@ export default {
     hint: {
       type: String,
       required: false
-    }
+    },
+    autocomplete: {
+      type: String,
+      required: false
+    },
   },
   computed: {
     computedClass() {
