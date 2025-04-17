@@ -1,5 +1,6 @@
 <template>
   <gov-grid-row>
+    <vue-headful :title="`Contact - ${appName}`" />
     <gov-grid-column width="two-thirds">
       <gov-heading size="l">Contact</gov-heading>
 

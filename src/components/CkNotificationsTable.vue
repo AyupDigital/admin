@@ -39,6 +39,7 @@
               name: 'notifications-show',
               params: { notification: notification.id }
             }"
+            label="View notification"
             >View</gov-link
           >
         </gov-table-cell>

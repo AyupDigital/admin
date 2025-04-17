@@ -3,7 +3,7 @@
     <ck-loader v-if="loading" />
     <template v-else>
       <vue-headful
-        :title="`${appName} - Edit Collection Persona: ${collection.name}`"
+        :title="`Edit Collection Persona: ${collection.name} - ${appName}`"
       />
 
       <gov-back-link :to="{ name: 'admin-index-collections-personas' }"

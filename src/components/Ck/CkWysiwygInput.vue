@@ -1,11 +1,11 @@
 <template>
   <gov-form-group :invalid="error !== null">
-    <gov-label :for="id" class="govuk-!-font-weight-bold">
+    <gov-label id="wysiwyg-label" :for="id" class="govuk-!-font-weight-bold">
       <slot name="label">{{ label }}</slot>
     </gov-label>
 
     <slot name="hint">
-      <gov-hint v-if="hint" :for="id"><div v-html="hint"></div></gov-hint>
+      <gov-hint v-if="hint" for="wysiwyg-hint"><div v-html="hint"></div></gov-hint>
     </slot>
 
     <ck-character-count-group>

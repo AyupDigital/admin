@@ -2,11 +2,13 @@
   <div>
     <gov-inset-text
       v-for="(galleryItem, index) in galleryItems"
-      :key="`Ck::GalleryItem::${galleryItem.file_id}`"
+      :key="`Ck::GalleryItem::${galleryItem.$index}`"
     >
       <ck-image-input
+        ref="galleryInputs"
+        :ref-key="`galleryInput-${index}`"
         @input="onGalleryItemInput($event, index)"
-        :id="`Ck::GalleryItemImage::${galleryItem.file_id}`"
+        :id="`Ck::GalleryItemImage::${galleryItem.$index}`"
         label="Upload an item to the gallery"
         :file-id="galleryItem.file_id"
         @image-changed="
@@ -110,6 +112,21 @@ export default {
         alt_text: null
       });
       this.$emit("input", galleryItems);
+
+      this.$nextTick(() => {
+        setTimeout(() => {
+          const galleryInputs = this.$refs.galleryInputs;
+          if (!galleryInputs || galleryInputs.length === 0) return;
+
+          const newInput = galleryInputs[galleryItems.length - 1];
+          if (newInput) {
+            const fileInput = newInput.$el.querySelector('input[type="file"]');
+            if (fileInput) {
+              fileInput.focus();
+            }
+          }
+        }, 20);
+      });
 
       this.index++;
     },

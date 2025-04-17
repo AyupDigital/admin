@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - Import Services`" />
+    <vue-headful :title="`Import Services - ${appName}`" />
 
     <gov-back-link :to="{ name: 'services-index' }"
       >Back to Services</gov-back-link

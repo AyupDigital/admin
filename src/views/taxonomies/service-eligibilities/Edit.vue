@@ -4,7 +4,7 @@
     <template v-else>
       <vue-headful
         :title="
-          `${appName} - Edit Service Eligibility: ${serviceEligibility.name}`
+          `Edit Service Eligibility: ${serviceEligibility.name} - ${appName}`
         "
       />
 

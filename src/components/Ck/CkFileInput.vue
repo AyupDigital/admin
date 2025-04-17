@@ -10,6 +10,7 @@
 
     <gov-file-upload
       :value="value"
+      :hint="hint"
       @change="
         $emit('input', $event);
         removeExisting = false;

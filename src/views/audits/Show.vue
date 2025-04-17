@@ -5,7 +5,7 @@
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
         <vue-headful
-          :title="`${appName} - Audit: ${audit.description.substr(0, 10)}...`"
+          :title="`Audit: ${audit.description.substr(0, 10)}... - ${appName}`"
         />
 
         <gov-grid-column width="two-thirds">

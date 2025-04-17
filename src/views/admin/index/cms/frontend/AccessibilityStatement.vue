@@ -1,5 +1,6 @@
 <template>
   <gov-grid-row>
+    <vue-headful :title="`Accessibility Statement - ${appName}`" />
     <gov-grid-column width="two-thirds">
       <gov-heading size="l">Accessibility Statement</gov-heading>
 

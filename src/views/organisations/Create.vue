@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - Add Organisation`" />
+    <vue-headful :title="`Add Organisation - ${appName}`" />
 
     <gov-back-link :to="{ name: 'organisations-index' }"
       >Back to organisations</gov-back-link

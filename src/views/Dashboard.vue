@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - Dashboard`" />
+    <vue-headful :title="`Dashboard - ${appName}`" />
 
     <gov-main-wrapper>
       <gov-grid-row>
@@ -27,7 +27,7 @@
 
       <gov-grid-row>
         <gov-grid-column width="one-half" v-if="auth.canView('services')">
-          <gov-heading size="l">Services</gov-heading>
+          <gov-heading tag="h2" size="l">Services</gov-heading>
           <gov-body>Add or edit your pages on {{ appName }}.</gov-body>
           <gov-button start :to="{ name: 'services-index' }">
             Go to services
@@ -36,7 +36,7 @@
         </gov-grid-column>
 
         <gov-grid-column width="one-half" v-if="auth.canView('locations')">
-          <gov-heading size="l">Locations</gov-heading>
+          <gov-heading tag="h2" size="l">Locations</gov-heading>
           <gov-body>View and edit service locations in the area.</gov-body>
           <gov-button start :to="{ name: 'locations-index' }">
             Go to locations
@@ -45,7 +45,7 @@
         </gov-grid-column>
 
         <gov-grid-column width="one-half" v-if="auth.canView('referrals')">
-          <gov-heading size="l">Referrals</gov-heading>
+          <gov-heading tag="h2" size="l">Referrals</gov-heading>
           <gov-body>View and respond to referrals to your service(s).</gov-body>
           <gov-button start :to="{ name: 'referrals-index' }">
             Go to referrals
@@ -54,7 +54,7 @@
         </gov-grid-column>
 
         <gov-grid-column width="one-half" v-if="auth.canView('organisations')">
-          <gov-heading size="l">Organisations</gov-heading>
+          <gov-heading tag="h2" size="l">Organisations</gov-heading>
           <gov-body>Add or edit organisations on {{ appName }}.</gov-body>
           <gov-button start :to="{ name: 'organisations-index' }">
             Go to organisations
@@ -63,7 +63,7 @@
         </gov-grid-column>
 
         <gov-grid-column width="one-half" v-if="auth.canView('events')">
-          <gov-heading size="l">Events</gov-heading>
+          <gov-heading tag="h2" size="l">Events</gov-heading>
           <gov-body>Add or edit events on {{ appName }}.</gov-body>
           <gov-button start :to="{ name: 'events-index' }">
             Go to events
@@ -72,7 +72,7 @@
         </gov-grid-column>
 
         <gov-grid-column width="one-half" v-if="auth.canView('users')">
-          <gov-heading size="l">Users</gov-heading>
+          <gov-heading tag="h2" size="l">Users</gov-heading>
           <gov-body>View, add and edit users in your organisation.</gov-body>
           <gov-button start :to="{ name: 'users-index' }">
             Go to users
@@ -81,7 +81,7 @@
         </gov-grid-column>
 
         <gov-grid-column width="one-half" v-if="auth.canView('reports')">
-          <gov-heading size="l">Reports</gov-heading>
+          <gov-heading tag="h2" size="l">Reports</gov-heading>
           <gov-body> Download reports of activity on {{ appName }}. </gov-body>
           <gov-button start :to="{ name: 'reports-index' }">
             Go to reports
@@ -90,7 +90,7 @@
         </gov-grid-column>
 
         <gov-grid-column width="one-half" v-if="auth.canView('pages')">
-          <gov-heading size="l">Pages</gov-heading>
+          <gov-heading tag="h2" size="l">Pages</gov-heading>
           <gov-body>Manage pages on the platform.</gov-body>
           <gov-button start :to="{ name: 'pages-index' }">
             Go to pages
@@ -98,7 +98,7 @@
         </gov-grid-column>
 
         <gov-grid-column width="one-half" v-if="auth.canView('admin')">
-          <gov-heading size="l">Admin</gov-heading>
+          <gov-heading tag="h2" size="l">Admin</gov-heading>
           <gov-body>Admin tools for maintaining the site.</gov-body>
           <gov-button start :to="{ name: 'admin-index' }">
             Go to admin
@@ -109,7 +109,7 @@
           width="one-half"
           v-if="auth.canView('update requests')"
         >
-          <gov-heading size="l">Update Requests</gov-heading>
+          <gov-heading tag="h2" size="l">Update Requests</gov-heading>
           <gov-body>View, approve and reject update requests.</gov-body>
           <gov-button start :to="{ name: 'update-requests-index' }">
             Go to update requests

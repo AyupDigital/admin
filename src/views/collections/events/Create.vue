@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - Add Event Collection`" />
+    <vue-headful :title="`Add Event Collection - ${appName}`" />
 
     <gov-back-link :to="{ name: 'admin-index-collections-events' }"
       >Back to event collections</gov-back-link

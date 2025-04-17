@@ -3,7 +3,7 @@
     <ck-loader v-if="loading" />
     <template v-else>
       <vue-headful
-        :title="`${appName} - Edit User: ${user.first_name} ${user.last_name}`"
+        :title="`Edit User: ${user.first_name} ${user.last_name} - ${appName}`"
       />
 
       <gov-back-link :to="{ name: 'users-show', params: { user: user.id } }"

@@ -1,5 +1,6 @@
 <template>
   <gov-grid-row>
+    <vue-headful :title="`Get Involved - ${appName}`" />
     <gov-grid-column width="two-thirds">
       <gov-heading size="l">Get Involved</gov-heading>
 

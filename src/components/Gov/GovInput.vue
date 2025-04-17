@@ -10,7 +10,9 @@
     :type="type"
     :max="max"
     :min="min"
-    :aria-describedby="ariaDescribedBy"
+    :aria-describedby="describedBy ? describedBy : ariaDescribedBy"
+    :autocomplete="autocomplete"
+    :required="required ? true : null"
   />
 </template>
 
@@ -44,6 +46,24 @@ export default {
     },
     max: {
       type: [String, Number]
+    },
+    hint: {
+      type: String,
+      required: false
+    },
+    autocomplete: {
+      type: String,
+      required: false
+    },
+    describedBy: {
+      type: String,
+      required: false,
+      default: null
+    },
+    required: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {

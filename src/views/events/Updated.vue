@@ -2,7 +2,7 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <vue-headful :title="`${appName} - Event Updated: ${event.title}`" />
+      <vue-headful :title="`Event Updated: ${event.title} - ${appName}`" />
 
       <gov-back-link :to="{ name: 'events-show', params: { event: event.id } }"
         >Back to event</gov-back-link

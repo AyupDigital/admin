@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vue-headful :title="`${appName} - Admin: Search Engine`" />
+    <vue-headful :title="`Search Engine - Admin: ${appName}`" />
 
     <gov-tabs :tabs="tabs">
       <router-view />

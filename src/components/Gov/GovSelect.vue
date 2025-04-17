@@ -6,7 +6,7 @@
     class="govuk-select"
     :class="computedClasses"
     :name="name"
-    :aria-describedby="ariaDescribedBy"
+    :aria-describedby="hint ? ariaDescribedBy : null"
   >
     <slot />
     <template v-if="options">
@@ -44,7 +44,11 @@ export default {
     width: {
       type: Number,
       required: false
-    }
+    },
+    hint: {
+      type: String,
+      required: false
+    },
   },
   computed: {
     ariaDescribedBy() {

@@ -1,7 +1,7 @@
 <template>
   <gov-form-group :invalid="error !== null">
     <gov-label :for="id" class="govuk-!-font-weight-bold">
-      <slot name="label">{{ label }}</slot>
+      <slot name="label">{{ label }} {{ required ? "*" : "(Optional)" }}</slot>
     </gov-label>
 
     <slot name="hint">
@@ -65,7 +65,17 @@ export default {
     maxlength: {
       required: false,
       type: Number
+    },
+    required: {
+      required: false,
+      type: Boolean,
+      default: false
     }
   }
 };
 </script>
+<style>
+.govuk-textarea {
+  margin-bottom: 0px;
+}
+</style>

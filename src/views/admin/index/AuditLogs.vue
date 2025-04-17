@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vue-headful :title="`${appName} - Admin: Audits`" />
+    <vue-headful :title="`Admin: Audits - ${appName}`" />
 
     <gov-heading size="l">Audit logs</gov-heading>
 

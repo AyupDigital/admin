@@ -8,10 +8,10 @@
       <gov-grid-row v-else>
         <vue-headful
           :title="
-            `${appName} - Notification: ${notification.message.substr(
+            `Notification: ${notification.message.substr(
               0,
               10
-            )}...`
+            )}... - ${appName}`
           "
         />
 

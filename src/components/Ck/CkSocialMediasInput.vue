@@ -89,6 +89,20 @@ export default {
       });
       this.$emit("input", socialMedias);
 
+      this.$nextTick(() => {
+        setTimeout(() => {
+          const typeInputs = this.$el.querySelectorAll(
+            'select[id^="social_media"]'
+          );
+          if (!typeInputs || typeInputs.length === 0) return;
+
+          const newInput = typeInputs[socialMedias.length - 1];
+          if (newInput) {
+            newInput.focus();
+          }
+        }, 20);
+      });
+
       this.socialMediasIndex++;
     },
     onDeleteSocialMedia(deleteIndex) {
