@@ -7,7 +7,7 @@
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
         <vue-headful
-          :title="`${appName} - Location: ${location.address_line_1}`"
+          :title="`Location: ${location.address_line_1} - ${appName}`"
         />
 
         <gov-grid-column width="two-thirds">

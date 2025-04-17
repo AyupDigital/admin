@@ -26,8 +26,7 @@
               Provide an indication of how long someone may have to wait to
               access your {{ type }} after initial contact has been made. You
               can amend this in future as and when circumstances change.
-            </gov-hint>
-            <gov-hint for="wait_time">
+              <br /><br />
               If this is not relevant to your {{ type }}, please skip this
               question.
             </gov-hint>
@@ -49,9 +48,9 @@
             <gov-hint for="is_free">
               Indicates whether your {{ type }} is completely free, or if some
               elements of the service must be paid for. Users can filter their
-              searches based on the answer you provide.
-            </gov-hint>
-            <gov-hint for="is_free">
+              searches based on the answer you provide.<br />
+              <br />
+
               If the cost of your {{ type }} varies, you may want to split these
               into different {{ type }} listings.
             </gov-hint>
@@ -125,9 +124,8 @@
           <template slot="hint">
             <gov-hint for="testimonial">
               Please enter a quote from a service user highlighting a positive
-              outcome to help promote your good work. For example:
-            </gov-hint>
-            <gov-hint for="testimonial">
+              outcome to help promote your good work. For example: <br />
+              <br />
               This {{ type }} changed my life!
             </gov-hint>
           </template>
@@ -148,11 +146,11 @@
             <gov-hint for="video_embed">
               If you have a short video (less than 5 minutes) showcasing your
               {{ type }}, please add a link below to the site that hosts it.
-            </gov-hint>
-            <gov-hint for="video_embed">
+              <br />
+              <br />
               Youtube and Vimeo links are accepted.
-            </gov-hint>
-            <gov-hint for="video_embed">
+              <br />
+              <br />
               <gov-link :href="videoEmbedHelpHref">
                 Need help editing or creating a {{ type }} video?
               </gov-link>
@@ -205,9 +203,8 @@
           <template slot="hint">
             <gov-hint for="contact_phone">
               Please provide a <strong>public facing</strong> phone number for
-              people to contact you on.
-            </gov-hint>
-            <gov-hint for="contact_phone">
+              people to contact you on.<br />
+              <br />
               Please use the following formatting:
               <br />
               0208XXXXXXX for landline or 07XXXXXXXXX for mobile.

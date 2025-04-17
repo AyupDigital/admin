@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - View Update Request`" />
+    <vue-headful :title="`View Update Request - ${appName}`" />
 
     <gov-back-link @click="$router.go(-1)"
       >Back to update requests</gov-back-link

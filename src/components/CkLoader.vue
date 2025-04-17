@@ -1,5 +1,5 @@
 <template>
-  <gov-body>
+  <gov-body role="status" aria-live="polite">
     <slot>Loading</slot><span v-for="(dot, index) in dots" :key="index">.</span>
   </gov-body>
 </template>

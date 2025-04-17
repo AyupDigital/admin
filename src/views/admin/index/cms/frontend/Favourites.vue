@@ -1,5 +1,6 @@
 <template>
   <gov-grid-row>
+    <vue-headful :title="`Favourites - ${appName}`" />
     <gov-grid-column width="two-thirds">
       <gov-heading size="l">Favourites</gov-heading>
 

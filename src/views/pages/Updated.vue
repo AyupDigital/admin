@@ -4,9 +4,9 @@
     <template v-else>
       <vue-headful
         v-if="page"
-        :title="`${appName} - Page Updated: ${page.title}`"
+        :title="`Page Updated: ${page.title} - ${appName}`"
       />
-      <vue-headful v-else :title="`${appName} - New Page`" />
+      <vue-headful v-else :title="`New Page - ${appName}`" />
 
       <gov-back-link
         v-if="page"

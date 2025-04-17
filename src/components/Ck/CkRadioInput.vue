@@ -1,14 +1,15 @@
 <template>
   <gov-form-group :invalid="error !== null">
-    <gov-radios>
-      <gov-label :for="id" class="govuk-!-font-weight-bold">
-        <slot name="label">{{ label }}</slot>
-      </gov-label>
+    <gov-fieldset class="govuk-radios">
+      <gov-legend>
+        <gov-label :for="id" class="govuk-!-font-weight-bold">
+          <slot name="label">{{ label }}</slot>
+        </gov-label>
 
-      <slot name="hint">
-        <gov-hint v-if="hint" :for="id" v-text="hint" />
-      </slot>
-
+        <slot name="hint">
+          <gov-hint v-if="hint" :for="id" v-text="hint" />
+        </slot>
+      </gov-legend>
       <gov-radio
         v-for="(option, index) in options"
         :key="index"
@@ -24,13 +25,20 @@
       <slot name="after-input" />
 
       <gov-error-message v-if="error !== null" v-text="error" :for="id" />
-    </gov-radios>
+    </gov-fieldset>
   </gov-form-group>
 </template>
 
 <script>
+import GovFieldset from "../Gov/GovFieldset.vue";
+import GovLegend from "../Gov/GovLegend.vue";
+
 export default {
   name: "CkRadioInput",
+  components: {
+    GovFieldset,
+    GovLegend
+  },
   props: {
     value: {
       required: true

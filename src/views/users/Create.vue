@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - Add User`" />
+    <vue-headful :title="`Add User - ${appName}`" />
 
     <gov-back-link :to="{ name: 'users-index' }">Back to users</gov-back-link>
     <gov-main-wrapper>

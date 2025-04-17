@@ -1,6 +1,6 @@
 <template>
   <div>
-    <gov-heading size="l">{{ type | ucfirst }} details</gov-heading>
+    <gov-heading tag="h2" size="l">{{ type | ucfirst }} details</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
         <gov-body>
@@ -30,6 +30,7 @@
           :label="`What is the name of your ${type}?`"
           type="text"
           :error="errors.get('name')"
+          :required="true"
         />
 
         <ck-text-input
@@ -43,6 +44,7 @@
           type="text"
           :error="errors.get('slug')"
           v-if="auth.isGlobalAdmin"
+          :required="true"
         >
           <gov-hint slot="hint" for="slug">
             This will be used to access the {{ type }} page.<br />
@@ -64,6 +66,7 @@
             :hint="`Which organisation hosts this ${type}?`"
             :options="organisations"
             :error="errors.get('organisation_id')"
+            :required="true"
           />
         </template>
 
@@ -117,6 +120,7 @@
           label="Attending type"
           :options="attendingTypeOptions"
           :error="errors.get('attending_type')"
+          :required="true"
         />
 
         <ck-select-input
@@ -129,6 +133,7 @@
           label="Attending access"
           :options="attendingAccessOptions"
           :error="errors.get('attending_access')"
+          :required="true"
         />
 
         <ck-image-input
@@ -181,14 +186,14 @@
           v-if="auth.isGlobalAdmin"
         />
 
-        <ck-date-input
+        <ck-date-picker
           id="ends_at"
           :value="ends_at"
+          :error="errors.get('end_date')"
           @input="
             $emit('update:ends_at', $event);
             $emit('clear', 'ends_at');
           "
-          :error="errors.get('ends_at')"
           label="End date"
           :hint="`The date which this ${type} should be made inactive`"
         />
@@ -229,7 +234,7 @@
 
 <script>
 import CkImageInput from "@/components/Ck/CkImageInput";
-import CkDateInput from "@/components/Ck/CkDateInput";
+import CkDatePicker from "@/components/Ck/CkDatePicker";
 import CkGalleryItemsInput from "@/views/services/inputs/GalleryItemsInput";
 import TagInput from "@/views/services/inputs/TagInput";
 
@@ -238,7 +243,7 @@ export default {
   components: {
     CkImageInput,
     CkGalleryItemsInput,
-    CkDateInput,
+    CkDatePicker,
     TagInput
   },
   props: {

@@ -8,6 +8,7 @@
     :name="name"
     :rows="rows"
     :aria-describedby="ariaDescribedBy"
+    :required="required ? true : false"
   ></textarea>
 </template>
 
@@ -31,6 +32,11 @@ export default {
       type: Number,
       required: false,
       default: 5
+    },
+    required: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {

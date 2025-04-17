@@ -226,6 +226,19 @@ export default {
       });
       this.$emit("input", roles);
       this.$emit("clear", "roles");
+
+      this.$nextTick(() => {
+        setTimeout(() => {
+          const roleInputs = this.$el.querySelectorAll('select[id^="roles_"]');
+          if (!roleInputs || roleInputs.length === 0) return;
+
+          const newInput = roleInputs[roles.length - 1];
+          if (newInput) {
+            newInput.focus();
+          }
+        }, 20);
+      });
+
       this.roleIndex++;
     },
     onRemovePermission(index) {

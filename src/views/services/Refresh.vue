@@ -3,7 +3,7 @@
     <ck-loader v-if="loading" />
 
     <template v-else>
-      <vue-headful :title="`${appName} - Refresh Service: ${service.name}`" />
+      <vue-headful :title="`Refresh Service: ${service.name} - ${appName}`" />
 
       <gov-back-link
         :to="{

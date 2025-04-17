@@ -6,7 +6,7 @@
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
-        <vue-headful :title="`${appName} - Service: ${service.name}`" />
+        <vue-headful :title="`Service: ${service.name} - ${appName}`" />
 
         <gov-grid-column width="full">
           <gov-grid-row>

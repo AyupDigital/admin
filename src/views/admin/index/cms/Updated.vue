@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - Admin: CMS Updated`" />
+    <vue-headful :title="`CMS Updated - Admin: ${appName}`" />
 
     <gov-main-wrapper>
       <gov-grid-row>

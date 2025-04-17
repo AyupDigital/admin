@@ -7,6 +7,7 @@
       label="First name"
       type="text"
       :error="errors.get('first_name')"
+      autocomplete="none"
     />
 
     <ck-text-input
@@ -16,6 +17,7 @@
       label="Last name"
       type="text"
       :error="errors.get('last_name')"
+      autocomplete="none"
     />
 
     <ck-text-input
@@ -25,6 +27,7 @@
       label="Email"
       type="email"
       :error="errors.get('email')"
+      autocomplete="none"
     />
 
     <ck-text-input
@@ -34,6 +37,7 @@
       label="Mobile Phone"
       type="tel"
       :error="errors.get('phone')"
+      autocomplete="none"
     />
 
     <ck-password

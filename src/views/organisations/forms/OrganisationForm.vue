@@ -7,6 +7,7 @@
       label="Organisation name"
       type="text"
       :error="errors.get('name')"
+      req
     />
 
     <ck-text-input

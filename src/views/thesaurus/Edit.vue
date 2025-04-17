@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - Edit Thesaurus`" />
+    <vue-headful :title="`Edit Thesaurus - ${appName}`" />
 
     <gov-back-link :to="{ name: 'admin-index-search-engine' }"
       >Back to thesaurus</gov-back-link

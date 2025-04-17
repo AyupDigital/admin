@@ -4,7 +4,7 @@
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
-        <vue-headful :title="`${appName} - Show Page ${page.title}`" />
+        <vue-headful :title="`Show Page ${page.title} - ${appName}`" />
 
         <gov-grid-column width="full">
           <gov-grid-row>

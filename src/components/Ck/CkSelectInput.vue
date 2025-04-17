@@ -1,7 +1,7 @@
 <template>
   <gov-form-group :invalid="error !== null">
     <gov-label :for="id" class="govuk-!-font-weight-bold">
-      <slot name="label">{{ label }}</slot>
+      <slot name="label">{{ label }} {{ required ? "*" : "(Optional)" }}</slot>
     </gov-label>
 
     <slot name="hint">
@@ -16,8 +16,10 @@
       :name="id"
       :options="options"
       :width="width"
+      :hint="hint"
       :class="{ 'govuk-select--icons': hasIcons }"
       :disabled="disabled"
+      :required="required"
     />
 
     <gov-select
@@ -28,7 +30,9 @@
       :name="id"
       :width="width"
       :class="{ 'govuk-select--icons': hasIcons }"
+      :hint="hint"
       :disabled="disabled"
+      :required="required"
     >
       <slot />
     </gov-select>
@@ -77,6 +81,11 @@ export default {
     disabled: {
       required: false,
       type: Boolean,
+      default: false
+    },
+    required: {
+      type: Boolean,
+      required: false,
       default: false
     }
   }

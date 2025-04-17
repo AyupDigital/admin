@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`${appName} - View Referral`" />
+    <vue-headful :title="`View Referral - ${appName}`" />
 
     <gov-back-link :to="{ name: 'referrals-index' }"
       >Back to referrals</gov-back-link
