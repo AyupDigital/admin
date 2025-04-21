@@ -20,6 +20,15 @@
         :error="null"
       />
 
+      <gov-radio
+        v-for="option in locationTypeOptions"
+        :key="option.value"
+        :value="option.value"
+        v-model="location_type"
+        :name="`location_type_${index}`"
+        :label="option.text"
+      />
+
       <!-- Existing location: select from list -->
       <gov-inset-text v-if="location_type === 'existing'">
         <ck-text-input
@@ -307,6 +316,7 @@ import TimePeriodInput from "@/components/Ck/CkTimePeriodInput";
 import IsClosedInput from "@/views/services/inputs/IsClosedInput";
 import LocationForm from "@/views/locations/forms/LocationForm";
 import CkImageInput from "@/components/Ck/CkImageInput";
+import http from "@/http";
 
 export default {
   name: "ServiceLocationForm",
@@ -387,6 +397,11 @@ export default {
     id: {
       required: false,
       type: String
+    },
+    index: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   data() {
@@ -394,7 +409,6 @@ export default {
       loading: false,
       locations: [],
       locationSearchTerm: "",
-      index: 1,
       countries: [
         { text: "Please select", value: null, disabled: true },
         ...countries
@@ -493,6 +507,20 @@ export default {
       });
       this.loading = false;
     },
+    async fetchLocationById(locationId) {
+      if (!locationId) {
+        return;
+      }
+      this.loading = true;
+      const { data } = await http.get(`/locations/${locationId}`);
+      this.locations = [
+        {
+          label: `${data.data.address_line_1}, ${data.data.city}, ${data.data.postcode}`,
+          value: data.data.id
+        }
+      ];
+      this.loading = false;
+    },
     appendLocation(location) {
       this.locations.push({
         label: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
@@ -560,6 +588,9 @@ export default {
   created() {
     this.setDaysInMonth();
     this.$root.$on("location-created", this.appendLocation);
+    if (this.location_id) {
+      this.fetchLocationById(this.location_id);
+    }
   },
   watch: {
     locationSearchTerm() {
@@ -581,6 +612,10 @@ export default {
         this.$emit("update:has_wheelchair_access", false);
         this.$emit("update:has_induction_loop", false);
         this.$emit("update:has_accessible_toilet", false);
+
+        if (this.location_id) {
+          this.fetchLocationById(this.location_id);
+        }
       }
     },
     regular_opening_hours(newValue, oldValue) {
