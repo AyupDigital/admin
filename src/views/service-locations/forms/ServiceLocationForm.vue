@@ -20,6 +20,15 @@
         :error="null"
       />
 
+      <gov-radio
+        v-for="option in locationTypeOptions"
+        :key="option.value"
+        :value="option.value"
+        v-model="location_type"
+        :name="`location_type_${index}`"
+        :label="option.text"
+      />
+
       <!-- Existing location: select from list -->
       <gov-inset-text v-if="location_type === 'existing'">
         <ck-text-input
@@ -33,7 +42,7 @@
         <ck-radio-input
           v-if="locations.length > 0 && !loading"
           :value="location_id"
-          @input="onLocationSelected($event)"
+          @input="onInput({ field: 'location_id', value: $event })"
           id="location_id"
           label="Location"
           :options="locations"
@@ -307,6 +316,7 @@ import TimePeriodInput from "@/components/Ck/CkTimePeriodInput";
 import IsClosedInput from "@/views/services/inputs/IsClosedInput";
 import LocationForm from "@/views/locations/forms/LocationForm";
 import CkImageInput from "@/components/Ck/CkImageInput";
+import http from "@/http";
 
 export default {
   name: "ServiceLocationForm",
@@ -387,6 +397,11 @@ export default {
     id: {
       required: false,
       type: String
+    },
+    index: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   data() {
@@ -394,7 +409,6 @@ export default {
       loading: false,
       locations: [],
       locationSearchTerm: "",
-      index: 1,
       countries: [
         { text: "Please select", value: null, disabled: true },
         ...countries
@@ -488,44 +502,29 @@ export default {
       this.locations = this.locations.map(location => {
         return {
           label: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
-          value: location.id,
-          ...location
+          value: location.id
         };
       });
       this.loading = false;
     },
     async fetchLocationById(locationId) {
-      if (!locationId) return;
-      
-      try {
-        this.loading = true;
-        const response = await this.fetchAll(`/locations/${locationId}`, {}, "GET");
-        if (response && response.data) {
-          const location = response.data;
-          
-          // Add to locations array if not already there
-          if (!this.locations.some(loc => loc.value === location.id)) {
-            this.locations.push({
-              label: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
-              value: location.id,
-              ...location
-            });
-          }
-          
-          // Set the search term to show the selected location
-          this.locationSearchTerm = `${location.address_line_1}, ${location.city}, ${location.postcode}`;
-        }
-      } catch (error) {
-        console.error("Error fetching location:", error);
-      } finally {
-        this.loading = false;
+      if (!locationId) {
+        return;
       }
+      this.loading = true;
+      const { data } = await http.get(`/locations/${locationId}`);
+      this.locations = [
+        {
+          label: `${data.data.address_line_1}, ${data.data.city}, ${data.data.postcode}`,
+          value: data.data.id
+        }
+      ];
+      this.loading = false;
     },
     appendLocation(location) {
       this.locations.push({
         label: `${location.address_line_1}, ${location.city}, ${location.postcode}`,
-        value: location.id,
-        ...location
+        value: location.id
       });
     },
     onAddRegularOpeningHour() {
@@ -584,42 +583,18 @@ export default {
       let holidayOpeningHours = this.cloneHolidayOpeningHours();
       holidayOpeningHours.splice(index, 1);
       this.$emit("update:holiday_opening_hours", holidayOpeningHours);
-    },
-    onLocationSelected(locationId) {
-      const selectedLocation = this.locations.find(location => location.value === locationId);
-      if (selectedLocation) {
-        this.$emit('update:location_id', locationId);
-        this.$emit('update:address_line_1', selectedLocation.address_line_1);
-        this.$emit('update:address_line_2', selectedLocation.address_line_2);
-        this.$emit('update:address_line_3', selectedLocation.address_line_3);
-        this.$emit('update:city', selectedLocation.city);
-        this.$emit('update:county', selectedLocation.county);
-        this.$emit('update:postcode', selectedLocation.postcode);
-        this.$emit('update:country', selectedLocation.country);
-        this.$emit('update:has_wheelchair_access', selectedLocation.has_wheelchair_access);
-        this.$emit('update:has_induction_loop', selectedLocation.has_induction_loop);
-        this.$emit('update:has_accessible_toilet', selectedLocation.has_accessible_toilet);
-        this.$emit('update:accessibility_info', selectedLocation.accessibility_info);
-        
-        this.$emit('location-selected', selectedLocation);
-      }
     }
   },
   created() {
     this.setDaysInMonth();
     this.$root.$on("location-created", this.appendLocation);
+    if (this.location_id) {
+      this.fetchLocationById(this.location_id);
+    }
   },
   watch: {
     locationSearchTerm() {
       this.fetchLocations();
-    },
-    location_id: {
-      immediate: true,
-      handler(newLocationId) {
-        if (newLocationId && this.location_type === 'existing') {
-          this.fetchLocationById(newLocationId);
-        }
-      }
     },
     location_type(newLocationType) {
       if (newLocationType === "new") {
@@ -637,6 +612,10 @@ export default {
         this.$emit("update:has_wheelchair_access", false);
         this.$emit("update:has_induction_loop", false);
         this.$emit("update:has_accessible_toilet", false);
+
+        if (this.location_id) {
+          this.fetchLocationById(this.location_id);
+        }
       }
     },
     regular_opening_hours(newValue, oldValue) {

@@ -1,8 +1,9 @@
 <template>
   <div>
-    <gov-heading size="m">Service locations</gov-heading>
+    <gov-heading size="m">Service location</gov-heading>
     <gov-body>
-      Add locations where your service operates. You can add multiple locations.
+      Add locations where your service operates. You can add your first location
+      here, and any more locations can be added afterwards.
     </gov-body>
 
     <div
@@ -12,7 +13,6 @@
     >
       <gov-section-break size="l" />
       <gov-heading size="s">Location {{ index + 1 }}</gov-heading>
-
       <service-location-form
         :errors="getLocationErrors(index)"
         :location-errors="locationErrors[index]"
@@ -39,14 +39,7 @@
         @image-changed="location.image_changed = true"
         @location-selected="onLocationSelected($event, index)"
       />
-
-      <gov-button @click="removeLocation(index)" error
-        >Remove location</gov-button
-      >
     </div>
-
-    <gov-button @click="addLocation" success>Add another location</gov-button>
-
     <slot />
   </div>
 </template>
@@ -55,6 +48,7 @@
 import ServiceLocationForm from "@/views/service-locations/forms/ServiceLocationForm";
 import Errors from "@/classes/Errors";
 import Form from "@/classes/Form";
+import http from "@/http";
 
 export default {
   name: "ServiceLocationsTab",
@@ -83,7 +77,7 @@ export default {
       const allErrors = this.errors.all();
       Object.keys(allErrors).forEach(key => {
         if (key.startsWith(`service_locations.${index}.`)) {
-          const newKey = key.replace(`service_locations.${index}.`, '');
+          const newKey = key.replace(`service_locations.${index}.`, "");
           locationErrors.record({ [newKey]: allErrors[key] });
         }
       });
@@ -125,7 +119,6 @@ export default {
       this.locationErrors[index].clear(field);
     },
     initializeLocationErrors() {
-      // Ensure we have an Errors instance for each location
       this.serviceLocations.forEach((_, index) => {
         if (!this.locationErrors[index]) {
           this.$set(this.locationErrors, index, new Errors());
@@ -133,9 +126,8 @@ export default {
       });
     },
     async onLocationSelected(location, index) {
-      // Store the selected location's details in the service location object
       const serviceLocation = this.serviceLocations[index];
-      serviceLocation.location_type = 'existing';
+      serviceLocation.location_type = "existing";
       serviceLocation.location_id = location.value;
       serviceLocation.address_line_1 = location.address_line_1;
       serviceLocation.address_line_2 = location.address_line_2;
@@ -148,19 +140,17 @@ export default {
       serviceLocation.has_induction_loop = location.has_induction_loop;
       serviceLocation.has_accessible_toilet = location.has_accessible_toilet;
       serviceLocation.accessibility_info = location.accessibility_info;
-      
-      // Force a reactive update
+
       this.$set(this.serviceLocations, index, { ...serviceLocation });
     },
     async fetchLocationDetails(locationId, index) {
       if (!locationId) return;
-      
+
       try {
-        const response = await this.fetchAll(`/locations/${locationId}`, {}, "GET");
+        const response = await http.get(`/locations/${locationId}`);
         if (response && response.data) {
           const location = response.data;
-          
-          // Update the service location with the fetched details
+
           const serviceLocation = this.serviceLocations[index];
           serviceLocation.address_line_1 = location.address_line_1;
           serviceLocation.address_line_2 = location.address_line_2;
@@ -169,12 +159,13 @@ export default {
           serviceLocation.county = location.county;
           serviceLocation.postcode = location.postcode;
           serviceLocation.country = location.country;
-          serviceLocation.has_wheelchair_access = location.has_wheelchair_access;
+          serviceLocation.has_wheelchair_access =
+            location.has_wheelchair_access;
           serviceLocation.has_induction_loop = location.has_induction_loop;
-          serviceLocation.has_accessible_toilet = location.has_accessible_toilet;
+          serviceLocation.has_accessible_toilet =
+            location.has_accessible_toilet;
           serviceLocation.accessibility_info = location.accessibility_info;
-          
-          // Force a reactive update
+
           this.$set(this.serviceLocations, index, { ...serviceLocation });
         }
       } catch (error) {
@@ -187,10 +178,9 @@ export default {
       this.addLocation();
     }
     this.initializeLocationErrors();
-    
-    // Initialize existing locations with their details
+
     this.serviceLocations.forEach((location, index) => {
-      if (location.location_id && location.location_type === 'existing') {
+      if (location.location_id && location.location_type === "existing") {
         this.fetchLocationDetails(location.location_id, index);
       }
     });
@@ -204,4 +194,4 @@ export default {
     }
   }
 };
-</script> 
+</script>

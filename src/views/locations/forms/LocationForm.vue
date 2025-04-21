@@ -199,6 +199,11 @@ export default {
     id: {
       required: false,
       type: String
+    },
+    index: {
+      required: false,
+      type: Number,
+      default: 1
     }
   },
   methods: {

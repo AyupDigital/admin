@@ -93,19 +93,21 @@
               >
                 <gov-button @click="onNext" start>Next</gov-button>
               </details-tab>
-
-              <service-locations-tab
-                v-if="isTabActive('locations')"
-                @clear="
-                  form.$errors.clear($event);
-                  errors = {};
-                "
-                :errors="form.$errors"
-                :service-locations.sync="form.service_locations"
-              >
-                <gov-button @click="onNext" start>Next</gov-button>
-              </service-locations-tab>
-
+              <keep-alive>
+                <service-locations-tab
+                  :is="
+                    isTabActive('locations') ? 'service-locations-tab' : false
+                  "
+                  @clear="
+                    form.$errors.clear($event);
+                    errors = {};
+                  "
+                  :errors="form.$errors"
+                  :service-locations.sync="form.service_locations"
+                >
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </service-locations-tab>
+              </keep-alive>
               <additional-info-tab
                 v-if="isTabActive('additional-info')"
                 @clear="
@@ -356,9 +358,38 @@ export default {
           ]
         });
       });
+      const newServiceLocations = this.form.service_locations.filter(
+        location => location.location_type === "new"
+      );
+      if (newServiceLocations.length > 0) {
+        for (const [index, location] of newServiceLocations.entries()) {
+          const locationForm = new Form({
+            address_line_1: location.address_line_1,
+            address_line_2: location.address_line_2,
+            address_line_3: location.address_line_3,
+            city: location.city,
+            county: location.county,
+            postcode: location.postcode,
+            country: location.country,
+            has_induction_loop: location.has_induction_loop,
+            has_wheelchair_access: location.has_wheelchair_access,
+            has_accessible_toilet: location.has_accessible_toilet,
+            image_file_id: location.image_file_id,
+            accessibility_info: ""
+          });
+          const { data } = await locationForm.post("/locations");
+          this.form.service_locations[index] = {
+            ...this.form.service_locations[index],
+            location_id: data.id,
+            location_type: "existing"
+          };
+        }
+      }
+
       if (this.form.$errors.any()) {
         return;
       }
+      console.log("fired");
       const response = await this.form.post("/services", (config, data) => {
         // Append time to end date (set to morning).
         if (data.ends_at !== "") {
@@ -382,11 +413,8 @@ export default {
         if (!this.appServiceTagsActive) {
           delete data.tags;
         }
-
       });
       const serviceId = response.data.id;
-
-      
 
       // Refetch the user as new permissions added for the new service.
       await this.auth.fetchUser();
