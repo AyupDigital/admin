@@ -54,7 +54,7 @@
 
         <gov-table-row>
           <gov-table-header top scope="row">Description</gov-table-header>
-          <gov-table-cell>{{ organisation.description }}</gov-table-cell>
+          <gov-table-cell><div v-html="toHtml(organisation.description)" /></gov-table-cell>
         </gov-table-row>
 
         <gov-table-row>

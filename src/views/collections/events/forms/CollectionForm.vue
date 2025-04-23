@@ -2,12 +2,27 @@
   <div>
     <ck-text-input
       :value="name"
-      @input="onInput('name', $event)"
+      @input="onNameInput($event)"
       id="name"
       label="Name"
       type="text"
       :error="errors.get('name')"
     />
+
+    <ck-text-input
+      :value="slug"
+      @input="onInput('slug', $event)"
+      id="slug"
+      label="Unique slug"
+      type="text"
+      :error="errors.get('slug')"
+      v-if="auth.isSuperAdmin"
+    >
+      <gov-hint slot="hint" for="slug">
+        This will be used to access the collection.<br />
+        e.g. /collections/{{ slug }}
+      </gov-hint>
+    </ck-text-input>
 
     <ck-textarea-input
       :value="intro"
@@ -99,6 +114,9 @@ export default {
     name: {
       required: true
     },
+    slug: {
+      required: true,
+    },
     intro: {
       required: true
     },
@@ -122,6 +140,14 @@ export default {
     onInput(field, value) {
       this.$emit(`update:${field}`, value);
       this.$emit("clear", field);
+    },
+    onNameInput(name) {
+      this.$emit(`update:name`, name);
+      this.$emit("clear", "name");
+      if (this.auth.isGlobalAdmin) {
+        this.$emit("update:slug", this.slugify(name));
+        this.$emit("clear", "slug");
+      }
     }
   }
 };

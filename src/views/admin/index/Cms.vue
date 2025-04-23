@@ -48,8 +48,8 @@ export default {
           to: { name: "admin-index-cms" }
         },
         {
-          heading: "Home",
-          to: { name: "admin-index-cms-frontend-home" }
+          heading: "Campaigns",
+          to: { name: "admin-index-cms-frontend-campaign" }
         },
         {
           heading: "Terms and Conditions",
@@ -58,6 +58,10 @@ export default {
         {
           heading: "Privacy Policy",
           to: { name: "admin-index-cms-frontend-privacy-policy" }
+        },
+        {
+          heading: "Cookie Policy",
+          to: { name: "admin-index-cms-frontend-cookie-policy" }
         },
         {
           heading: "Accessibility Statement",
@@ -79,10 +83,6 @@ export default {
           heading: "Favourites",
           to: { name: "admin-index-cms-frontend-favourites" }
         },
-        {
-          heading: "Banner",
-          to: { name: "admin-index-cms-frontend-banner" }
-        }
       ],
       settings: null,
       loading: false

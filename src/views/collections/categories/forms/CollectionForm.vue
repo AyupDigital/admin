@@ -1,32 +1,32 @@
 <template>
   <div>
     <ck-text-input
-      :value="slug"
-      @input="onInput('slug', $event)"
-      id="slug"
-      label="Unique slug"
-      type="text"
-      :error="errors.get('slug')"
-      v-if="auth.isSuperAdmin && showEditSlug"
-    >
-      <gov-hint slot="hint" for="slug">
-        This will be used to access the category collection.<br />
-        e.g. /collections/{{ slug }}
-      </gov-hint>
-    </ck-text-input>
-
-    <ck-text-input
       :value="name"
-      @input="onInput('name', $event)"
+      @input="onNameInput($event)"
       id="name"
       label="Name"
       type="text"
       :error="errors.get('name')"
     />
 
+    <ck-text-input
+      :value="slug"
+      @input="onInput('slug', $event)"
+      id="slug"
+      label="Unique slug"
+      type="text"
+      :error="errors.get('slug')"
+      v-if="auth.isSuperAdmin"
+    >
+      <gov-hint slot="hint" for="slug">
+        This will be used to access the collection.<br />
+        e.g. /collections/{{ slug }}
+      </gov-hint>
+    </ck-text-input>
+
     <ck-loader v-if="loading" />
     <ck-select-input
-      v-else
+      v-else-if="!loading && appShowParentIdOnCollections"
       :value="parent_uuid"
       @input="onInput('parent_uuid', $event)"
       id="parent_uuid"
@@ -50,18 +50,13 @@
 
     <ck-image-input
       @input="onInput('image_file_id', $event.file_id)"
-      @image-changed="$emit('image-changed', $event)"
+      @image-changed="$emit('image-changed', $event); $emit('clear', 'file')"
+      @alt-text-changed="$emit('alt-text-changed', $event); $emit('clear', 'alt_text');"
       id="image"
       label="Category image"
       :file-id="image_file_id"
+      :errors="errors"
     >
-      <template slot="after-error-message">
-        <gov-error-message
-          v-if="errors.get('image_file_id')"
-          v-text="errors.get('image_file_id')"
-          for="image"
-        />
-      </template>
     </ck-image-input>
 
     <collection-homepage-input
@@ -136,9 +131,6 @@ export default {
     slug: {
       required: true
     },
-    showEditSlug: {
-      default: false
-    },
     name: {
       required: true
     },
@@ -181,6 +173,14 @@ export default {
     onInput(field, value) {
       this.$emit(`update:${field}`, value);
       this.$emit("clear", field);
+    },
+    onNameInput(name) {
+      this.$emit(`update:name`, name);
+      this.$emit("clear", "name");
+      if (this.auth.isGlobalAdmin) {
+        this.$emit("update:slug", this.slugify(name));
+        this.$emit("clear", "slug");
+      }
     },
     async fetchCategories() {
       this.loading = true;

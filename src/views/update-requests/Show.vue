@@ -2,7 +2,7 @@
   <gov-width-container>
     <vue-headful :title="`${appName} - View Update Request`" />
 
-    <gov-back-link :to="{ name: 'update-requests-index' }"
+    <gov-back-link @click="$router.go(-1)"
       >Back to update requests</gov-back-link
     >
     <gov-main-wrapper>
@@ -268,6 +268,16 @@ export default {
             this.$router.push({
               name: "organisations-" + routeAction,
               params: { organisation: updateable_id }
+            });
+            break;
+          case "organisation_sign_up_form":
+            // GET new organisation by slug
+            const { data } = await http.get(
+              `/organisations/${this.updateRequest.data.organisation.slug}`
+            );
+            this.$router.push({
+              name: "organisations-" + routeAction,
+              params: { organisation: data.data.id }
             });
             break;
           case "locations":

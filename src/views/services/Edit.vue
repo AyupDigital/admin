@@ -59,6 +59,7 @@
                   "
                   @update:logo="form.logo = $event"
                   @image-changed="imageChanged = $event"
+                  @alt-text-changed="altTextChanged = true"
                 >
                   <gov-button @click="onNext" start>Next</gov-button>
                 </details-tab>
@@ -159,7 +160,6 @@
                   :is-super-admin="auth.isSuperAdmin"
                   :original-data="form.$originalData"
                   :type="form.type"
-                  :show_referral_disclaimer.sync="form.show_referral_disclaimer"
                   :referral_method.sync="form.referral_method"
                   :referral_button_text.sync="form.referral_button_text"
                   :referral_email.sync="form.referral_email"
@@ -287,7 +287,8 @@ export default {
       service: null,
       loading: false,
       updateRequest: null,
-      imageChanged: false
+      imageChanged: false,
+      altTextChanged: false
     };
   },
   computed: {
@@ -336,7 +337,6 @@ export default {
         contact_phone: this.service.contact_phone || "",
         contact_email: this.service.contact_email || "",
         cqc_location_id: this.service.cqc_location_id || "",
-        show_referral_disclaimer: this.service.show_referral_disclaimer,
         referral_method: this.service.referral_method,
         referral_button_text: this.service.referral_button_text || "",
         referral_email: this.service.referral_email || "",
@@ -374,6 +374,24 @@ export default {
       this.loading = false;
     },
     async onSubmit(preview = false) {
+      if (this.imageChanged && (!this.altTextChanged && (!this.service.image || !this.service.image.alt_text))) {
+        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        return;
+      }
+      if (this.imageChanged) {
+        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        return;
+      }
+
+      const invalidGalleryImages = this.form.gallery_items.filter(galleryItem => (galleryItem.alt_text && galleryItem.alt_text === null) || !galleryItem.file_id);
+      invalidGalleryImages.forEach((galleryItem, index) => {
+        this.form.$errors.record({
+          [`gallery_items.${index}`]: ["Please ensure you've added an image description and pressed 'Upload file' to upload your image."]
+        });
+      });
+      if (this.form.$errors.any()) {
+        return;
+      }
       const response = await this.form.put(
         `/services/${this.service.id}`,
         (config, data) => {
@@ -449,12 +467,6 @@ export default {
           ) {
             delete data.cqc_location_id;
           }
-          if (
-            data.show_referral_disclaimer ===
-            this.service.show_referral_disclaimer
-          ) {
-            delete data.show_referral_disclaimer;
-          }
           if (data.referral_method === this.service.referral_method) {
             delete data.referral_method;
           }
@@ -519,7 +531,7 @@ export default {
             (this.service.image === null && data.logo_file_id === null)
           ) {
             delete data.logo_file_id;
-          } else if (data.logo_file_id === false) {
+          } else if (data.logo_file_id === false || data.logo_file_id === null) {
             data.logo_file_id = null;
           }
 

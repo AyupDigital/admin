@@ -40,6 +40,8 @@
               @update:image_file_id="form.image_file_id = $event"
               @clear="form.$errors.clear($event)"
               @clear-location="locationForm.$errors.clear($event)"
+              @alt-text-changed="altTextChanged = true"
+              @image-changed="imageChanged = true"
             />
 
             <gov-section-break size="l" />
@@ -94,7 +96,9 @@ export default {
       }),
       service: null,
       loading: false,
-      submitting: false
+      submitting: false,
+      altTextChanged: false,
+      imageChanged: false
     };
   },
   methods: {
@@ -108,6 +112,15 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
+      if (this.imageChanged && !this.altTextChanged) {
+        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+      }
+      if (this.imageChanged) {
+        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+      }
+      if (this.form.$errors.any()) {
+        return;
+      }
       try {
         this.submitting = true;
 

@@ -22,6 +22,7 @@
           :enabled.sync="form.enabled"
           @clear="form.$errors.clear($event)"
           @image-changed="imageChanged = $event"
+          @alt-text-changed="altTextChanged = true"
         />
 
         <gov-section-break size="l" />
@@ -32,7 +33,6 @@
         <gov-button
           v-else
           @click="onSubmit"
-          :disabled="imageChanged"
           type="submit"
           >{{ updateButtonText }}</gov-button
         >
@@ -60,7 +60,8 @@ export default {
       loading: false,
       page: null,
       form: null,
-      imageChanged: false
+      imageChanged: false,
+      altTextChanged: false
     };
   },
   computed: {
@@ -92,6 +93,14 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
+      if (this.imageChanged && (!this.altTextChanged && (!this.page.image || !this.page.image.alt_text))) {
+        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        return;
+      }
+      if (this.imageChanged) {
+        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        return;
+      }
       const response = await this.form.put(
         `/pages/${this.page.id}`,
         (config, data) => {
@@ -127,7 +136,7 @@ export default {
           }
 
           // Convert false to null if removed
-          if (data.image_file_id === false) {
+          if (data.image_file_id === false || data.image_file_id === null) {
             data.image_file_id = null;
           }
 

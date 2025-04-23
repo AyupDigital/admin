@@ -19,6 +19,7 @@
         :enabled.sync="form.enabled"
         @clear="form.$errors.clear($event)"
         @image-changed="imageChanged = $event"
+        @alt-text-changed="altTextChanged = true"
       />
     </gov-main-wrapper>
 
@@ -29,7 +30,6 @@
     >
     <gov-button
       v-else
-      :disabled="form.$errors.any() || imageChanged"
       @click="onSubmit"
       type="submit"
       >Create</gov-button
@@ -151,11 +151,20 @@ export default {
         },
       },
       imageChanged: false,
+      altTextChanged: false
     };
   },
 
   methods: {
     async onSubmit() {
+      if (this.imageChanged && !this.altTextChanged) {
+        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        return;
+      }
+      if (this.imageChanged) {
+        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        return;
+      }
       const response = await this.form.post("/pages");
 
       const pageId = response.data.id;

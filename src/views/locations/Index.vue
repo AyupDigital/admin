@@ -63,7 +63,7 @@
               {
                 heading: 'Address line 1',
                 sort: 'address_line_1',
-                render: location => location.address_line_1
+                render: location => location.address_line_1 + ' ' + this.hasUpdateRequest(location)
               },
               {
                 heading: 'City',
@@ -133,6 +133,15 @@ export default {
     },
     onAddLocation() {
       this.$router.push({ name: "locations-create" });
+    },
+    hasUpdateRequest(location) {
+      if (location.pending_update_requests.length) {
+        if (location.pending_update_requests.length > 1) {
+          return `<a href="/update-requests/${location.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${location.pending_update_requests.length})</span></a>`;
+        }
+        return `<a href="/update-requests/${location.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+      }
+      return '';
     }
   }
 };

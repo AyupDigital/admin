@@ -67,12 +67,12 @@
             ref="eventsTable"
             uri="/organisation-events"
             :params="params"
-            default-sort="start_date"
+            default-sort="-start_date"
             :columns="[
               {
                 heading: 'Title',
                 sort: 'title',
-                render: event => event.title
+                render: event => event.title + ' ' + this.hasUpdateRequest(event)
               },
               {
                 heading: 'Start',
@@ -155,6 +155,8 @@ export default {
         params["filter[ends_before]"] = this.filters.end_date;
       }
 
+      params["filter[ends_after]"] = "2020-01-01";
+
       return params;
     },
 
@@ -225,6 +227,15 @@ export default {
       this.$nextTick(function() {
         this.onSearch();
       });
+    },
+    hasUpdateRequest(event) {
+      if (event.pending_update_requests.length) {
+        if (event.pending_update_requests.length > 1) {
+          return `<a href="/update-requests/${event.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${event.pending_update_requests.length})</span></a>`;
+        }
+        return `<a href="/update-requests/${event.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+      }
+      return '';
     }
   },
 

@@ -83,7 +83,9 @@
               {
                 heading: 'Service name',
                 sort: 'name',
-                render: service => service.name
+                render: (service) => {
+                  return service.name + ' ' + this.hasUpdateRequest(service);
+                }
               },
               {
                 heading: 'Organisation',
@@ -123,6 +125,7 @@
 <script>
 import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 import CkTableFilters from "@/components/Ck/CkTableFilters.vue";
+import http from "@/http";
 
 export default {
   name: "ListServices",
@@ -211,6 +214,15 @@ export default {
     },
     displayReferralMethod(referralMethod) {
       return referralMethod.charAt(0).toUpperCase() + referralMethod.substr(1);
+    },
+    hasUpdateRequest(service) {
+      if (service.pending_update_requests.length) {
+        if (service.pending_update_requests.length > 1) {
+          return `<a href="/update-requests/${service.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${service.pending_update_requests.length})</span></a>`;
+        }
+        return `<a href="/update-requests/${service.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+      }
+      return '';
     }
   }
 };

@@ -88,6 +88,8 @@
                 "
                 @update:logo_file_id="form.logo_file_id = $event"
                 @image-changed="imageChanged = $event"
+                @alt-text-changed="altTextChanged = true"
+                @update:gallery_items="galleryItemsChanged = true"
               >
                 <gov-button @click="onNext" start>Next</gov-button>
               </details-tab>
@@ -180,7 +182,6 @@
                 :is-global-admin="auth.isGlobalAdmin"
                 :is-super-admin="auth.isSuperAdmin"
                 :type="form.type"
-                :show_referral_disclaimer.sync="form.show_referral_disclaimer"
                 :referral_method.sync="form.referral_method"
                 :referral_button_text.sync="form.referral_button_text"
                 :referral_email.sync="form.referral_email"
@@ -192,7 +193,6 @@
                 <gov-button
                   v-else
                   @click="onSubmit"
-                  :disabled="imageChanged"
                   type="submit"
                   >Create</gov-button
                 >
@@ -250,14 +250,13 @@ export default {
         contact_phone: "",
         contact_email: "",
         cqc_location_id: "",
-        show_referral_disclaimer: false,
         referral_method: "none",
         referral_button_text: "",
         referral_email: "",
         referral_url: "",
         national: false,
-        attending_type: "",
-        attending_access: "",
+        attending_type: "venue",
+        attending_access: "drop_in",
         ends_at: "",
         criteria: {
           age_group: "",
@@ -299,7 +298,10 @@ export default {
       ],
       updateRequestCreated: false,
       updateRequestMessage: null,
-      imageChanged: false
+      imageChanged: false,
+      altTextChanged: false,
+      galleryImageChanged: false,
+      galleryAltTextChanged: false
     };
   },
   computed: {
@@ -319,6 +321,23 @@ export default {
   },
   methods: {
     async onSubmit() {
+      if (this.imageChanged && !this.altTextChanged) {
+        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        return;
+      }
+      if (this.imageChanged) {
+        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        return;
+      }
+      const invalidGalleryImages = this.form.gallery_items.filter(galleryItem => !galleryItem.alt_text || !galleryItem.file_id);
+      invalidGalleryImages.forEach((galleryItem, index) => {
+        this.form.$errors.record({
+          [`gallery_items.${index}`]: ["Please ensure you've added an image description and pressed 'Upload file' to upload your image."]
+        });
+      });
+      if (this.form.$errors.any()) {
+        return;
+      }
       const response = await this.form.post("/services", (config, data) => {
         // Append time to end date (set to morning).
         if (data.ends_at !== "") {

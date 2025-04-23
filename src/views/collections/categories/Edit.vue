@@ -39,6 +39,7 @@
               :parent_uuid.sync="form.parent_uuid"
               @clear="form.$errors.clear($event)"
               @image-changed="imageChanged = $event"
+              @alt-text-changed="altTextChanged = true"
             />
 
             <gov-button v-if="form.$submitting" disabled type="submit"
@@ -47,7 +48,6 @@
             <gov-button
               v-else
               @click="onSubmit"
-              :disabled="imageChanged"
               type="submit"
               >Update</gov-button
             >
@@ -80,7 +80,8 @@ export default {
       loading: false,
       collection: null,
       form: null,
-      imageChanged: false
+      imageChanged: false,
+      altTextChanged: false,
     };
   },
   methods: {
@@ -92,8 +93,8 @@ export default {
       );
       this.collection = response.data.data;
       this.form = new Form({
-        slug: this.collection.slug,
         name: this.collection.name,
+        slug: this.collection.slug,
         intro: this.collection.intro,
         image_file_id: this.collection.image ? this.collection.image.id : null,
         order: this.collection.order,
@@ -109,6 +110,14 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
+      if (this.imageChanged && (!this.altTextChanged && (!this.collection.image || !this.collection.image.alt_text))) {
+        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        return;
+      }
+      if (this.imageChanged) {
+        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        return;
+      }
       await this.form.put(`/collections/categories/${this.collection.id}`);
       this.$router.push({ name: "admin-index-collections" });
     },

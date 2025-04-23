@@ -53,7 +53,7 @@
               {
                 heading: 'Organisation name',
                 sort: 'name',
-                render: organisation => organisation.name
+                render: organisation => organisation.name + ' ' + this.hasUpdateRequest(organisation)
               },
               {
                 heading: 'Web address URL',
@@ -94,7 +94,7 @@ export default {
     return {
       filters: {
         name: ""
-      }
+      },
     };
   },
   computed: {
@@ -117,6 +117,15 @@ export default {
     },
     onAddOrganisation() {
       this.$router.push({ name: "organisations-create" });
+    },
+    hasUpdateRequest(organisation) {
+      if (organisation.pending_update_requests.length) {
+        if (organisation.pending_update_requests.length > 1) {
+          return `<a href="/update-requests/${organisation.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${organisation.pending_update_requests.length})</span></a>`;
+        }
+        return `<a href="/update-requests/${organisation.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+      }
+      return '';
     }
   }
 };

@@ -65,12 +65,13 @@
       :error="errors.get(['start_time', 'end_time'])"
     />
 
-    <ck-text-input
+    <ck-textarea-input
       :value="intro"
       @input="onInput('intro', $event)"
       id="intro"
       label="Event summary*"
       type="text"
+      :maxlength="255"
       :error="errors.get('intro')"
     />
 
@@ -276,14 +277,16 @@
 
     <ck-image-input
       @input="onInput('image_file_id', $event.file_id)"
-      @image-changed="$emit('image-changed', $event)"
+      @image-changed="$emit('image-changed', $event);"
+      @alt-text-changed="$emit('alt-text-changed', $event);"
       id="image"
       label="Event image"
       :file-id="image_file_id"
+      :errors="errors"
     />
 
     <event-homepage-input
-      v-if="auth.isGlobalAdmin"
+      v-if="auth.isGlobalAdmin && !appHideEventOnHomepage"
       :value="homepage"
       @input="onInput('homepage', $event)"
       id="homepage"
@@ -299,6 +302,7 @@ import CkImageInput from "@/components/Ck/CkImageInput";
 import CkLocationInput from "@/components/Ck/CkLocationInput";
 import CkTimePeriodInput from "@/components/Ck/CkTimePeriodInput";
 import EventHomepageInput from "@/views/events/inputs/EventHomepageInput";
+import CkTextareaInput from "@/components/Ck/CkTextareaInput";
 
 export default {
   name: "OrganisationEventDetailsTab",
@@ -308,7 +312,8 @@ export default {
     CkImageInput,
     CkLocationInput,
     CkTimePeriodInput,
-    EventHomepageInput
+    EventHomepageInput,
+    CkTextareaInput
   },
 
   props: {

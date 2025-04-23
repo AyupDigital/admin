@@ -195,6 +195,20 @@ Vue.mixin({
     },
     appServiceBestPracticeGuidanceUrl() {
       return process.env.VUE_APP_SERVICE_BEST_PRACTICE_GUIDANCE_URL;
+    },
+    appHideEventOnHomepage() {
+      return process.env.hasOwnProperty(
+        "VUE_APP_HIDE_EVENT_ON_HOMEPAGE"
+      )
+        ? process.env.VUE_APP_HIDE_EVENT_ON_HOMEPAGE === "true"
+        : false;
+    },
+    appShowParentIdOnCollections() {
+      return process.env.hasOwnProperty(
+        "VUE_APP_SHOW_PARENT_ID_ON_COLLECTIONS"
+      )
+        ? process.env.VUE_APP_SHOW_PARENT_ID_ON_COLLECTIONS === "true"
+        : false;
     }
   },
   methods: {

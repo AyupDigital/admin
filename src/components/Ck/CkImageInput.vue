@@ -1,5 +1,5 @@
 <template>
-  <gov-form-group :invalid="form.$errors.any()">
+  <gov-form-group :invalid="errors.get(['is_private', 'mime_type', 'file', 'image_file_id']) !== null">
     <gov-label :for="id" class="govuk-!-font-weight-bold">
       <slot name="label">{{ label }}</slot>
     </gov-label>
@@ -37,12 +37,12 @@
       label="Image description"
       hint="Describe the image for visually impaired visitors"
       type="text"
-      :error="form.$errors.get('alt_text')"
+      :error="errors.get('alt_text')"
     />
 
     <gov-error-message
-      v-if="form.$errors.any()"
-      v-text="form.$errors.get(['is_private', 'mime_type', 'file'])"
+      v-if="errors.any()"
+      v-text="errors.get(['is_private', 'mime_type', 'file', 'image_file_id'])"
       :for="id"
     />
 
@@ -68,7 +68,7 @@
         :disabled="!form.file || !form.alt_text || !form.mime_type"
         >{{ fileId ? "Update" : "Upload" }} file</gov-button
       >&nbsp;
-      <gov-button v-if="form.file" @click="onRemove" type="button" error
+      <gov-button v-if="form.file || gallery" @click="onRemove" type="button" error
         >Remove file</gov-button
       >
     </div>
@@ -108,6 +108,14 @@ export default {
       required: false,
       type: Boolean,
       default: false
+    },
+    errors: {
+      required: false,
+    },
+    gallery: {
+      required: false,
+      type: Boolean,
+      default: false,
     }
   },
   data() {
@@ -139,12 +147,16 @@ export default {
       // Set the variables in the form.
       this.form.mime_type = mime_type;
       this.form.file = content;
+      this.errors.clear("file");
+      this.errors.clear("image_file_id");
     },
     onChangeAltText($event) {
       this.form.alt_text = $event;
+      this.errors.clear("alt_text");
       // Set the outstanding changes flag
       this.imageChanged = true;
       this.$emit("image-changed", true);
+      this.$emit("alt-text-changed", $event);
     },
     async onUpload() {
       // Upload the file and retrieve the ID.
@@ -179,6 +191,7 @@ export default {
       this.imageChanged = false;
       this.$emit("image-changed", false);
       this.$emit("input", { file_id: false, image: null, alt: null });
+      this.$emit("removed")
     },
     async loadFile(fileId) {
       const { data: file } = await http.get(`files/${fileId}`);

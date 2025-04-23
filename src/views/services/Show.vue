@@ -36,7 +36,7 @@
             <router-view :service="service" />
           </gov-tabs>
 
-          <template v-if="auth.canDelete('service')">
+          <template v-if="canDelete">
             <gov-body
               >Please be certain of the action before deleting a
               {{ service.type }}</gov-body
@@ -131,6 +131,11 @@ export default {
     this.updated = this.$route.query.updated || false;
     this.fetchService();
     this.auth.fetchUser();
+  },
+  computed: {
+    canDelete() {
+      return this.auth.canDelete("service") || this.auth.isOrganisationAdmin(this.service.organisation_id);
+    }
   }
 };
 </script>

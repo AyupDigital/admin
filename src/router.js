@@ -92,6 +92,12 @@ let router = new Router({
       meta: { auth: true },
     },
     {
+      path: "/events/:event/duplicate",
+      name: "events-duplicate",
+      component: () => import("@/views/events/Duplicate"),
+      meta: { auth: true },
+    },
+    {
       path: "/events/:event/updated",
       name: "events-updated",
       component: () => import("@/views/events/Updated"),
@@ -394,12 +400,6 @@ let router = new Router({
                 import("@/views/admin/index/taxonomies/Categories"),
             },
             {
-              path: "organisations",
-              name: "admin-index-taxonomies-organisations",
-              component: () =>
-                import("@/views/admin/index/taxonomies/Organisations"),
-            },
-            {
               path: "service-eligibilities",
               name: "admin-index-taxonomies-service-eligibilities",
               component: () =>
@@ -459,9 +459,9 @@ let router = new Router({
                 import("@/views/admin/index/cms/frontend/Global"),
             },
             {
-              path: "frontend/home",
-              name: "admin-index-cms-frontend-home",
-              component: () => import("@/views/admin/index/cms/frontend/Home"),
+              path: "frontend/campaigns",
+              name: "admin-index-cms-frontend-campaign",
+              component: () => import("@/views/admin/index/cms/frontend/Campaign"),
             },
             {
               path: "frontend/terms-and-conditions",
@@ -474,6 +474,12 @@ let router = new Router({
               name: "admin-index-cms-frontend-privacy-policy",
               component: () =>
                 import("@/views/admin/index/cms/frontend/PrivacyPolicy"),
+            },
+            {
+              path: "frontend/cookie-policy",
+              name: "admin-index-cms-frontend-cookie-policy",
+              component: () =>
+                import("@/views/admin/index/cms/frontend/CookiePolicy"),
             },
             {
               path: "frontend/accessibility-statement",
@@ -505,12 +511,6 @@ let router = new Router({
               name: "admin-index-cms-frontend-favourites",
               component: () =>
                 import("@/views/admin/index/cms/frontend/Favourites"),
-            },
-            {
-              path: "frontend/banner",
-              name: "admin-index-cms-frontend-banner",
-              component: () =>
-                import("@/views/admin/index/cms/frontend/Banner"),
             },
           ],
         },
@@ -549,18 +549,6 @@ let router = new Router({
       path: "/taxonomies/categories/:taxonomy/edit",
       name: "taxonomies-categories-edit",
       component: () => import("@/views/taxonomies/categories/Edit"),
-      meta: { auth: true },
-    },
-    {
-      path: "/taxonomies/organisations/create",
-      name: "taxonomies-organisations-create",
-      component: () => import("@/views/taxonomies/organisations/Create"),
-      meta: { auth: true },
-    },
-    {
-      path: "/taxonomies/organisations/:taxonomy/edit",
-      name: "taxonomies-organisations-edit",
-      component: () => import("@/views/taxonomies/organisations/Edit"),
       meta: { auth: true },
     },
     {

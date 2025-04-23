@@ -18,6 +18,38 @@ $govuk-error-colour: #d23a49;
   width: 100%;
 }
 
+.govuk-tabs {
+  .govuk-tabs__list {
+    display: flex; // Use flexbox for consistent alignment
+    flex-wrap: wrap; // Allow tabs to wrap to the next line if needed
+    padding: 0; // Reset padding for the list
+    margin: 0; // Reset margin for the list
+    list-style: none; // Remove default list styling
+  }
+
+  .govuk-tabs__tab {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 5px 0 0;
+    box-sizing: border-box;
+    min-width: 100px; // Ensure consistent minimum width for all tabs
+    text-align: center; // Center-align text within tabs
+
+    &--bar {
+      color: $govuk-link-colour !important;
+      font-weight: bold;
+      padding: 10px 20px;
+      margin: 0 5px 0 0 !important;
+      border: 0;
+    }
+
+    &.govuk-tabs__tab--active {
+      color: $govuk-link-colour;
+      border-bottom: 5px solid $govuk-link-colour; // Keep GOV.UK-style blue border
+      background: govuk-colour("grey-4");
+    }
+  }
+}
 img {
   max-width: 100%;
 }

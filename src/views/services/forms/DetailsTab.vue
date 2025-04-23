@@ -138,10 +138,12 @@
             $emit('update:logo_file_id', $event.file_id);
             $emit('update:logo', $event.image);
           "
-          @image-changed="$emit('image-changed', $event)"
+          @image-changed="$emit('image-changed', $event); $emit('clear', 'file');"
+          @alt-text-changed="$emit('alt-text-changed', $event); $emit('clear', 'alt_text');"
           id="logo"
           :label="`Upload your ${type} logo`"
           :file-id="logo_file_id"
+          :errors="errors"
         >
           <template slot="hint">
             <gov-hint for="logo">

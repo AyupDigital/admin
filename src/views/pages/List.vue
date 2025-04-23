@@ -74,13 +74,14 @@
                 View </gov-link
               >&nbsp;
             </span>
-            <gov-tag v-if="page.page_type === 'landing'">Landing page</gov-tag
+            <gov-tag class="govuk-tag--green" v-if="page.page_type === 'landing'">Landing page</gov-tag
             >&nbsp;
-            <gov-tag v-if="page.page_type === 'topic'">Topic page</gov-tag
+            <gov-tag class="govuk-tag--green" v-if="page.page_type === 'topic'">Topic page</gov-tag
             >&nbsp;
             <gov-tag v-if="!page.enabled" class="govuk-tag--grey"
               >disabled</gov-tag
             >
+            <span v-html="hasUpdateRequest(page)" />
           </li>
         </gov-list>
         <ck-tree-list
@@ -162,6 +163,7 @@ export default {
       if (this.filters.page_type) {
         params["filter[page_type]"] = this.filters.page_type;
       }
+      params["include"] = "pendingUpdateRequests";
       return params;
     },
     showView() {
@@ -252,6 +254,15 @@ export default {
     orderUpdateRequestMessage(orderWas, page) {
       return `An update request has been created to change the order of page ${page.title} from ${orderWas} to ${page.order}`;
     },
+    hasUpdateRequest(page) {
+      if (page.pending_update_requests.length) {
+        if (page.pending_update_requests.length > 1) {
+          return `<a href="/update-requests/${page.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending (${page.pending_update_requests.length})</span></a>`;
+        }
+        return `<a href="/update-requests/${page.pending_update_requests[0].id}"><span class="govuk-tag govuk-tag--yellow">Update Pending</span></a>`;
+      }
+      return '';
+    }
   },
   created() {
     this.fetchPages();
