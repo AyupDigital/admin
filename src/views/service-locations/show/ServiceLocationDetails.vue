@@ -107,11 +107,7 @@
         <gov-table-header top scope="row">Image</gov-table-header>
         <gov-table-cell>
           <img
-            :src="
-              apiUrl(
-                `/service-locations/${serviceLocation.id}/image.png?v=${serviceLocation.created_at}`
-              )
-            "
+            :src="serviceLocation.image.url"
             alt="Service location image"
             class="ck-logo"
           />
