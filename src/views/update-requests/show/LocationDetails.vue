@@ -115,11 +115,7 @@
             />
             <img
               v-else-if="location.id"
-              :src="
-                apiUrl(
-                  `/locations/${location.id}/image.png?update_request_id=${updateRequestId}`
-                )
-              "
+              :src="location.image.url"
               alt="Location image"
               class="ck-logo"
             />

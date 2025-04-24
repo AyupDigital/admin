@@ -298,9 +298,7 @@
       @input="onInput({ field: 'image_file_id', value: $event.file_id })"
       id="image"
       label="Service location image"
-      :existing-url="
-        id ? apiUrl(`/service-locations/${id}/image.png?v=${now}`) : undefined
-      "
+      :existing-url="id && image ? image.url : undefined"
       :errors="errors"
       @alt-text-changed="$emit('alt-text-changed', $event)"
       @image-changed="$emit('image-changed', $event)"
@@ -402,6 +400,10 @@ export default {
       type: Number,
       required: false,
       default: 1
+    },
+    image: {
+      type: Object,
+      required: false
     }
   },
   data() {

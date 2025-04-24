@@ -27,6 +27,7 @@
               :name.sync="form.name"
               :regular_opening_hours.sync="form.regular_opening_hours"
               :holiday_opening_hours.sync="form.holiday_opening_hours"
+              :image="serviceLocation.image"
               @update:image_file_id="form.image_file_id = $event"
               @clear="form.$errors.clear($event)"
               @alt-text-changed="altTextChanged = true"
