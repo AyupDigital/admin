@@ -39,33 +39,29 @@
         type="email"
       />
 
-      <ck-text-input
-        :value="frontend.global.twitter_handle"
-        @input="onInput({ field: 'twitter_handle', value: $event })"
-        label="Twitter Handle"
-        hint="Without the @ infront."
-        :error="errors.get('cms.frontend.global.twitter_handle')"
-        id="cms.frontend.global.twitter_handle"
-      />
-
-      <ck-text-input
-        :value="frontend.global.facebook_handle"
-        @input="onInput({ field: 'facebook_handle', value: $event })"
-        label="Facebook Handle"
-        :error="errors.get('cms.frontend.global.facebook_handle')"
-        id="cms.frontend.global.facebook_handle"
+      <ck-social-medias-input
+        :social-medias="frontend.global.social_medias"
+        @input="onInput({ field: 'social_medias', value: $event })"
+        :errors="errors"
+        id="cms.frontend.global.social_medias"
       />
     </gov-grid-column>
   </gov-grid-row>
 </template>
 
 <script>
+import CkSocialMediasInput from "@/components/Ck/CkSocialMediasInput.vue";
+
 export default {
   name: "CmsFrontendGlobal",
 
   model: {
     prop: "frontend",
     event: "input"
+  },
+
+  components: {
+    CkSocialMediasInput
   },
 
   props: {

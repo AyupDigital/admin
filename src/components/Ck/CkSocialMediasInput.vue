@@ -62,6 +62,10 @@ export default {
         { text: "TikTok", value: "tiktok" },
         { text: "YouTube", value: "youtube" },
         { text: "SnapChat", value: "snapchat" },
+        { text: "LinkedIn", value: "linkedin" },
+        { text: "WhatsApp", value: "whatsapp" },
+        { text: "BlueSky", value: "bluesky" },
+        { text: "NextDoor", value: "nextdoor" },
         { text: "Other", value: "other" }
       ],
       exampleSocialMediaUrls: {
@@ -71,6 +75,10 @@ export default {
         tiktok: "https://tiktok.com/@example",
         youtube: "https://www.youtube.com/channel/example-channelId",
         snapchat: "https://www.snapchat.com/add/example",
+        linkedin: "https://www.linkedin.com/in/example",
+        whatsapp: "https://wa.me/1234567890",
+        bluesky: "https://bsky.app/profile/example",
+        nextdoor: "https://nextdoor.com/profile/example",
         other: "the public link from your social media account"
       },
       socialMediasIndex: 1
