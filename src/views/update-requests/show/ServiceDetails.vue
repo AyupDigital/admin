@@ -784,6 +784,14 @@ export default {
           return "TikTok";
         case "youtube":
           return "YouTube";
+        case "linkedin":
+          return "LinkedIn";
+        case "whatsapp":
+          return "WhatsApp";
+        case "bluesky":
+          return "BlueSky";
+        case "nextdoor":
+          return "NextDoor";
         case "other":
           return "Other";
       }
