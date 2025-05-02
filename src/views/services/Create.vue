@@ -102,6 +102,9 @@
                     form.$errors.clear($event);
                     errors = {};
                   "
+                  @update:hasLocation="hasLocation = $event"
+                  :hasLocation="hasLocation"
+                  :type="form.type"
                   :errors="form.$errors"
                   :service-locations.sync="form.service_locations"
                 >
@@ -116,6 +119,7 @@
                 "
                 :errors="form.$errors"
                 :type="form.type"
+                :hasLocation.sync="hasLocation"
                 :wait_time.sync="form.wait_time"
                 :is_free.sync="form.is_free"
                 :fees_text.sync="form.fees_text"
@@ -242,6 +246,7 @@ export default {
   },
   data() {
     return {
+      hasLocation: false,
       form: new Form({
         id: null,
         organisation_id: null,
@@ -389,7 +394,7 @@ export default {
       if (this.form.$errors.any()) {
         return;
       }
-      console.log("fired");
+
       const response = await this.form.post("/services", (config, data) => {
         // Append time to end date (set to morning).
         if (data.ends_at !== "") {
@@ -412,6 +417,10 @@ export default {
 
         if (!this.appServiceTagsActive) {
           delete data.tags;
+        }
+
+        if (!this.hasLocation) {
+          delete data.service_locations;
         }
       });
       const serviceId = response.data.id;

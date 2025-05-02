@@ -5,8 +5,22 @@
       Add locations where your service operates. You can add your first location
       here, and any more locations can be added afterwards.
     </gov-body>
-
+    <ck-radio-input
+      :value="hasLocation"
+      @input="
+        $emit('update:hasLocation', $event);
+        $emit('clear', 'hasLocation');
+      "
+      id="has_location"
+      :label="`Does your ${type} operate at a physical location?`"
+      :options="[
+        { value: true, label: `Yes - This ${type} operates at a physical location` },
+        { value: false, label: `No - This ${type} does not operate at a physical location` }
+      ]"
+      :error="errors.get('has_location')"
+    />
     <div
+      v-if="hasLocation"
       v-for="(location, index) in serviceLocations"
       :key="index"
       class="mb-4"
@@ -64,11 +78,18 @@ export default {
     serviceLocations: {
       required: true,
       type: Array
+    },
+    type: {
+      required: true
+    },
+    hasLocation: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      locationErrors: []
+      locationErrors: [],
     };
   },
   methods: {
