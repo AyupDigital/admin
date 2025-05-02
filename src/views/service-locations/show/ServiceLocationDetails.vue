@@ -107,6 +107,7 @@
         <gov-table-header top scope="row">Image</gov-table-header>
         <gov-table-cell>
           <img
+            v-if="serviceLocation.image"
             :src="serviceLocation.image.url"
             alt="Service location image"
             class="ck-logo"
