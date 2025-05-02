@@ -7,6 +7,7 @@
       label="Name"
       type="text"
       :error="errors.get('name')"
+      :required="true"
     />
 
     <ck-text-input
@@ -17,6 +18,7 @@
       type="text"
       :error="errors.get('slug')"
       v-if="auth.isSuperAdmin"
+      :required="true"
     >
       <gov-hint slot="hint" for="slug">
         This will be used to access the collection.<br />
@@ -35,6 +37,7 @@
       hint="A short summary detailing what type of events the event collection contains."
       :maxlength="300"
       :error="errors.get('intro')"
+      :required="true"
     />
 
     <ck-image-input

@@ -11,6 +11,7 @@
         label="Platform:"
         :options="socialMediaTypeOptions"
         :error="errors.get(`social_media.${index}.type`)"
+        :required="true"
       />
 
       <ck-text-input
@@ -21,6 +22,7 @@
         :hint="linkHint(socialMedia.type)"
         type="url"
         :error="errors.get(`social_medias.${index}.url`)"
+        :required="true"
       />
 
       <gov-button @click="onDeleteSocialMedia(index)" error>Delete</gov-button>

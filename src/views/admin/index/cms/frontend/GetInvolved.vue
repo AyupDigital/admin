@@ -14,6 +14,7 @@
         label="Title"
         :error="errors.get('cms.frontend.get_involved.title')"
         id="cms.frontend.get_involved.title"
+        :required="true"
       />
 
       <ck-wysiwyg-input
@@ -22,6 +23,7 @@
         label="Content"
         :error="errors.get('cms.frontend.get_involved.content')"
         id="cms.frontend.get_involved.content"
+        :required="true"
       />
     </gov-grid-column>
   </gov-grid-row>

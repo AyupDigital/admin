@@ -5,19 +5,21 @@
         :value="organisation_id"
         @input="onInput('organisation_id', $event)"
         id="organisation_id"
-        label="Organisation*"
+        label="Organisation"
         hint="Which organisation hosts this event?"
         :options="organisations"
         :error="errors.get('organisation_id')"
+        :required="true"
       />
     </template>
     <ck-text-input
       :value="title"
       @input="onInput('title', $event)"
       id="title"
-      label="Event title*"
+      label="Event title"
       type="text"
       :error="errors.get('title')"
+      :required="true"
     />
 
     <ck-text-input
@@ -27,6 +29,7 @@
       label="Unique slug"
       type="text"
       :error="errors.get('slug')"
+      :required="true"
     >
       <gov-hint slot="hint" for="slug">
         This will be used to access the event.<br />
@@ -41,7 +44,7 @@
       :required="true"
       :error="errors.get('start_date')"
       @input="onInput('start_date', $event)"
-      label="Start date*"
+      label="Start date"
     />
 
     <ck-date-picker
@@ -51,15 +54,15 @@
       :required="true"
       :error="errors.get('end_date')"
       @input="onInput('end_date', $event)"
-      label="End date*"
+      label="End date"
     />
 
     <ck-time-period-input
       id="event_times"
       :opens_at="start_time"
       :closes_at="end_time"
-      opens_at_label="Starting time*"
-      closes_at_label="Ending time*"
+      opens_at_label="Starting time"
+      closes_at_label="Ending time"
       @update:opens_at="onInput('start_time', $event)"
       @update:closes_at="onInput('end_time', $event)"
       :error="errors.get(['start_time', 'end_time'])"
@@ -69,32 +72,35 @@
       :value="intro"
       @input="onInput('intro', $event)"
       id="intro"
-      label="Event summary*"
+      label="Event summary"
       type="text"
       :maxlength="255"
       :error="errors.get('intro')"
+      :required="true"
     />
 
     <ck-wysiwyg-input
       :value="description"
       @input="onInput('description', $event)"
       id="description"
-      label="Event description*"
+      label="Event description"
       :hint="
         `Describe the event with any details that attendees will need to decide on, find and attend your event. Use headers, bullets and formatting for the maximum effect.`
       "
       :error="errors.get('description')"
       large
       :maxlength="10000"
+      :required="true"
     />
 
     <ck-radio-input
       :value="is_free"
       @input="onInput('is_free', $event)"
       id="is_free"
-      label="Is the event free?*"
+      label="Is the event free?"
       :options="isFreeOptions"
       :error="errors.get('is_free')"
+      :required="true"
     >
       <template slot="hint">
         <gov-hint for="is_free">
@@ -114,20 +120,21 @@
         :value="fees_text"
         @input="onInput('fees_text', $event)"
         id="fees_text"
-        label="How much does it cost? (if applicable)"
+        label="How much does it cost?"
         :hint="
           `Please indicate the basic cost of the event. If there are multiple price points, please provide an indicative range (eg. &quot;5-10 per session&quot;).`
         "
         type="text"
         :error="errors.get('fees_text')"
         :maxlength="75"
+        :required="true"
       />
 
       <ck-text-input
         :value="fees_url"
         @input="onInput('fees_url', $event)"
         id="fees_url"
-        label="Please provide a link to full pricing table (if applicable)"
+        label="Please provide a link to full pricing table"
         type="url"
         :error="errors.get('fees_url')"
       />
@@ -225,6 +232,7 @@
       hint="Describe the booking process so attendees will know what to expect."
       type="text"
       :error="errors.get('booking_summary')"
+      :required="booking_title && booking_title !== ''"
     />
 
     <ck-text-input
@@ -235,6 +243,7 @@
       hint="This must start with 'http://' or 'https://'. This should be the link to the booking facility for the event."
       type="url"
       :error="errors.get('booking_url')"
+      :required="booking_title && booking_title !== ''"
     />
 
     <ck-text-input
@@ -245,6 +254,7 @@
       hint="The text that will be used for the booking button."
       type="text"
       :error="errors.get('booking_cta')"
+      :required="booking_title && booking_title !== ''"
     />
 
     <gov-section-break size="m" visible />
@@ -253,7 +263,7 @@
       :value="is_virtual"
       @input="onInput('is_virtual', $event)"
       id="is_virtual"
-      label="Is the event virtual?*"
+      label="Is the event virtual?"
       :options="isVirtualOptions"
       :error="errors.get('is_virtual')"
     >
@@ -290,7 +300,7 @@
       :value="homepage"
       @input="onInput('homepage', $event)"
       id="homepage"
-      label="Show the Event on the homepage*"
+      label="Show the Event on the homepage"
       :error="errors.get('homepage')"
     />
   </div>

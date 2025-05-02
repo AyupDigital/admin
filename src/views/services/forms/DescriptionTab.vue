@@ -21,6 +21,7 @@
           :hint="`Write a brief description of what your ${type} does.`"
           :maxlength="300"
           :error="errors.get('intro')"
+          :required="true"
         />
 
         <template v-if="appServiceOfferingsActive">
@@ -39,6 +40,7 @@
             @input="$emit('update:offerings', $event)"
             @clear="$emit('clear', $event)"
             :errors="errors"
+            :required="true"
           />
         </template>
 
@@ -54,6 +56,7 @@
           :error="errors.get('description')"
           large
           :maxlength="10000"
+          :required="true"
         />
 
         <slot />

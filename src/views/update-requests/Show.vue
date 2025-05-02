@@ -133,6 +133,7 @@
               :rows="3"
               :error="form.$errors.get('message')"
               @input="form.message = $event"
+              :required="true"
             />
 
             <gov-section-break size="l" />

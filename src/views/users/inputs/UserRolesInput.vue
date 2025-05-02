@@ -20,6 +20,7 @@
           label="User type"
           :options="userRoleOptions"
           :error="errors.get(`roles.${index}.role`)"
+          :required="true"
         />
         <!-- /Role -->
 
@@ -36,6 +37,7 @@
             label="Organisation"
             :options="organisations"
             :error="errors.get(`roles.${index}.organisation_id`)"
+            :required="true"
           />
           <!-- /Organisation -->
 
@@ -59,6 +61,7 @@
               label="Service"
               :options="services[roles[index].organisation_id].items"
               :error="errors.get(`roles.${index}.service_id`)"
+              :required="true"
             />
             <!-- /Service -->
           </template>

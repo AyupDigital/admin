@@ -7,6 +7,7 @@
       label="Name"
       type="text"
       :error="errors.get('name')"
+      :required="true"
     />
 
     <ck-loader v-if="loading" />

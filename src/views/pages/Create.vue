@@ -74,10 +74,12 @@ export default {
             title: "",
             hint:
               "Title and subtext for the landing pages section of the topic.",
+            required: true,
             content: [
               {
                 type: "copy",
-                value: ""
+                value: "",
+               
               }
             ]
           }
@@ -87,6 +89,7 @@ export default {
             order: 1,
             label: "Introduction",
             hint: "",
+            required: true,
             content: [
               {
                 type: "copy",

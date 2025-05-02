@@ -14,6 +14,7 @@
         label="Title"
         :error="errors.get('cms.frontend.favourites.title')"
         id="cms.frontend.favourites.title"
+        :required="true"
       />
 
       <ck-wysiwyg-input
@@ -22,6 +23,7 @@
         label="Content"
         :error="errors.get('cms.frontend.favourites.content')"
         id="cms.frontend.favourites.content"
+        :required="true"
       />
     </gov-grid-column>
   </gov-grid-row>

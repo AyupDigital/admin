@@ -17,9 +17,10 @@
             $emit('clear', 'wait_time');
           "
           id="wait_time"
-          label="Usual wait time (if applicable)"
+          label="Usual wait time"
           :options="waitTimeOptions"
           :error="errors.get('wait_time')"
+          :required="true"
         >
           <template slot="hint">
             <gov-hint for="wait_time">
@@ -66,7 +67,7 @@
               $emit('clear', 'fees_text');
             "
             id="fees_text"
-            label="How much does it cost? (if applicable)"
+            label="How much does it cost?"
             :hint="
               `Please indicate the basic cost of the ${type}. If there are multiple price points, please provide an indicative range (eg. &quot;5-10 per session&quot;).`
             "
@@ -82,7 +83,7 @@
               $emit('clear', 'fees_url');
             "
             id="fees_url"
-            label="Please provide a link to full pricing table (if applicable)"
+            label="Please provide a link to full pricing table"
             type="url"
             :error="errors.get('fees_url')"
           />

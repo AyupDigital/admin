@@ -7,7 +7,7 @@
       label="Organisation name"
       type="text"
       :error="errors.get('name')"
-      req
+      required="true"
     />
 
     <ck-text-input
@@ -18,6 +18,7 @@
       label="Unique slug"
       type="text"
       :error="errors.get('slug')"
+      :required="true"
     >
       <gov-hint slot="hint" for="slug">
         This will be used to access the organisation page.<br />
@@ -33,6 +34,7 @@
       label="Please provide a one-line summary of organisation"
       hint="This should be a short line or two that summarises who the organisation is and will appear below the Organisation name on it's page."
       :error="errors.get('description')"
+      :required="true"
     />
 
     <ck-text-input

@@ -22,7 +22,7 @@
           "
           :error="errors.get('service.criteria.age_group')"
           id="criteria.age_group"
-          label="Age of service user (if applicable)"
+          label="Age of service user"
           :hint="
             `E.g “This ${service.type} is for people 16+” or “This ${service.type} is aimed at people nearing retirement”`
           "
@@ -40,7 +40,7 @@
           "
           :error="errors.get('service.criteria.disability')"
           id="criteria.disability"
-          label="Disability Requirements / Restrictions (if applicable)"
+          label="Disability Requirements / Restrictions"
           :hint="
             `e.g. &quot;This ${service.type} is for those with MS and their carers&quot;, or &quot;For all people with disabilities and their carers&quot;`
           "
@@ -58,7 +58,7 @@
           "
           :error="errors.get('service.criteria.gender')"
           id="criteria.gender"
-          label="Gender Specific (if applicable)"
+          label="Gender Specific"
           hint='e.g. "Women only"'
         />
         <!-- /Gender -->
@@ -74,7 +74,7 @@
           "
           :error="errors.get('service.criteria.housing')"
           id="criteria.housing"
-          label="Specific Housing status/needs (if applicable)"
+          label="Specific Housing status/needs"
           hint='e.g. "For people who are homeless or at risk of homelessness"'
         />
         <!-- /Housing -->
@@ -90,7 +90,7 @@
           "
           :error="errors.get('service.criteria.income')"
           id="criteria.income"
-          label="Income level (if applicable)"
+          label="Income level"
           :hint="
             `e.g. &quot;This ${service.type} is aimed at people claiming benefits or with Income support&quot;`
           "
@@ -108,7 +108,7 @@
           "
           :error="errors.get('service.criteria.language')"
           id="criteria.language"
-          label="Language accessability (if applicable)"
+          label="Language accessability"
           :hint="
             `E.g. “Instructors speak English, but open to all”, or “This ${service.type} is available in a number of languages - please contact for more information”`
           "

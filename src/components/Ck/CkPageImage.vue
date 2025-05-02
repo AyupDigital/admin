@@ -8,6 +8,7 @@
       id="image_input"
       label="Upload your image"
       :errors="errors"
+      :required="true"
     />
   </div>
 </template>

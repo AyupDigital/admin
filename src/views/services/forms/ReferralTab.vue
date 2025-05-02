@@ -30,6 +30,7 @@
           :options="referralMethodOptions"
           :error="errors.get('referral_method')"
           :disabled="!isGlobalAdmin"
+          :required="true"
         />
 
         <ck-text-input
@@ -44,6 +45,7 @@
           type="text"
           :error="errors.get('referral_button_text')"
           :disabled="!isGlobalAdmin"
+          :required="true"
         >
           <template slot="hint">
             <gov-hint for="referral_button_text">
@@ -79,6 +81,7 @@
           type="email"
           :error="errors.get('referral_email')"
           :disabled="!isGlobalAdmin"
+          :required="true"
         />
 
         <ck-text-input
@@ -94,6 +97,7 @@
           type="url"
           :error="errors.get('referral_url')"
           :disabled="!isGlobalAdmin"
+          :required="true"
         />
 
         <slot />

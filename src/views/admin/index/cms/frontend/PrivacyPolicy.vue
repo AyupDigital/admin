@@ -13,6 +13,7 @@
         label="Title"
         :error="errors.get('cms.frontend.privacy_policy.title')"
         id="cms.frontend.privacy_policy.title"
+        :required="true"
       />
 
       <ck-wysiwyg-input
@@ -21,6 +22,7 @@
         label="Content"
         :error="errors.get('cms.frontend.privacy_policy.content')"
         id="cms.frontend.privacy_policy.content"
+        :required="true"
       />
     </gov-grid-column>
   </gov-grid-row>

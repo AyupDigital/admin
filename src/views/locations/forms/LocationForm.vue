@@ -7,6 +7,7 @@
       label="Address Line 1"
       type="text"
       :error="errors.get('address_line_1')"
+      :required="true"
     />
 
     <ck-text-input
@@ -34,6 +35,7 @@
       label="City"
       type="text"
       :error="errors.get('city')"
+      :required="true"
     />
 
     <ck-text-input
@@ -43,6 +45,7 @@
       label="County"
       type="text"
       :error="errors.get('county')"
+      :required="true"
     />
 
     <ck-text-input
@@ -52,6 +55,7 @@
       label="Postcode"
       type="text"
       :error="errors.get('postcode')"
+      :required="true"
     />
 
     <ck-select-input
@@ -61,6 +65,7 @@
       label="Country"
       :options="countries"
       :error="errors.get('country')"
+      :required="true"
     />
 
     <gov-error-message

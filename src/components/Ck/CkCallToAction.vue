@@ -9,6 +9,7 @@
       label="Title"
       type="text"
       :error="null"
+      :required="true"
     />
     <ck-textarea-input
       :value="callToAction.description"
@@ -16,6 +17,7 @@
       id="cta-description"
       label="Description"
       :error="null"
+      :required="true"
     />
     <ck-text-input
       :value="callToAction.url"
@@ -24,6 +26,7 @@
       label="Link address"
       type="text"
       :error="null"
+      :required="true"
     />
     <ck-text-input
       :value="callToAction.buttonText"
@@ -32,6 +35,7 @@
       label="Button text"
       type="text"
       :error="null"
+      :required="true"
     />
   </div>
 </template>

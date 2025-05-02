@@ -14,6 +14,7 @@
         label="Title"
         :error="errors.get('cms.frontend.contact.title')"
         id="cms.frontend.contact.title"
+        :required="true"
       />
 
       <ck-wysiwyg-input
@@ -22,6 +23,7 @@
         label="Content"
         :error="errors.get('cms.frontend.contact.content')"
         id="cms.frontend.contact.content"
+        :required="true"
       />
     </gov-grid-column>
   </gov-grid-row>

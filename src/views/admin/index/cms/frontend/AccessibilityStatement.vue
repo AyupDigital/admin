@@ -14,6 +14,7 @@
         label="Title"
         :error="errors.get('cms.frontend.accessibility_statement.title')"
         id="cms.frontend.accessibility_statement.title"
+        :required="true"
       />
 
       <ck-wysiwyg-input
@@ -22,6 +23,7 @@
         label="Content"
         :error="errors.get('cms.frontend.accessibility_statement.content')"
         id="cms.frontend.accessibility_statement.content"
+        :required="true"
       />
     </gov-grid-column>
   </gov-grid-row>

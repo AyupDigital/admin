@@ -8,6 +8,7 @@
       type="text"
       :error="errors.get('first_name')"
       autocomplete="none"
+      :required="true"
     />
 
     <ck-text-input
@@ -18,6 +19,7 @@
       type="text"
       :error="errors.get('last_name')"
       autocomplete="none"
+      :required="true"
     />
 
     <ck-text-input
@@ -28,6 +30,7 @@
       type="email"
       :error="errors.get('email')"
       autocomplete="none"
+      :required="true"
     />
 
     <ck-text-input
@@ -38,6 +41,7 @@
       type="tel"
       :error="errors.get('phone')"
       autocomplete="none"
+      :required="true"
     />
 
     <ck-password
@@ -46,6 +50,7 @@
       id="password"
       label="Password"
       :error="errors.get('password')"
+      :required="true"
     />
 
     <gov-section-break size="l" />

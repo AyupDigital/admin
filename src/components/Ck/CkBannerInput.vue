@@ -7,6 +7,7 @@
       help="This text will appear as the large heading on the campaign (70 characters max)"
       :error="errors ? errors.title : null"
       id="banner.title"
+      :required="true"
     />
 
     <ck-wysiwyg-input
@@ -16,6 +17,7 @@
       help="This text will appear as the smaller description text on the campaign (200 characters max)"
       :error="errors ? errors.content : null"
       id="banner.content"
+      :required="true"
     />
 
     <ck-image-input
@@ -38,6 +40,7 @@
       hint='eg. "Find out more" (30 characters max)'
       :error="errors ? errors.button_text : null"
       id="banner.button_text"
+      :required="true"
     />
 
     <ck-text-input
@@ -48,6 +51,7 @@
       :error="errors ? errors.button_url : null"
       id="banner.button_url"
       type="url"
+      :required="true"
     />
     <slot />
   </gov-inset-text>

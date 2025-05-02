@@ -21,6 +21,7 @@
       label="Title"
       type="text"
       :error="errors.get('title')"
+      :required="true"
     />
 
     <ck-text-input
@@ -30,6 +31,7 @@
       label="Unique slug"
       type="text"
       :error="errors.get('slug')"
+      :required="true"
     >
       <gov-hint slot="hint" for="slug">
         This will be used to access the page.<br />
@@ -52,6 +54,7 @@
       @update="onInput('content', $event)"
       @clear="$emit('clear', $event)"
       :errors="errors"
+      :required="true"
     />
 
     <ck-image-input
@@ -82,6 +85,7 @@
       hint="Indicates if the page is enabled or disabled"
       :options="enabledOptions"
       :error="errors.get('enabled')"
+      :required="true"
     />
   </div>
 </template>

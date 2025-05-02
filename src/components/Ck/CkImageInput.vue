@@ -5,7 +5,7 @@
     "
   >
     <gov-label :for="id" class="govuk-!-font-weight-bold">
-      <slot name="label">{{ label }}</slot>
+      <slot name="label">{{ label }} {{ !required ? '(Optional)' : '' }}</slot>
     </gov-label>
 
     <slot name="hint">
@@ -42,7 +42,7 @@
       hint="Describe the image for visually impaired visitors"
       type="text"
       :error="errors.get('alt_text')"
-      :required="true"
+      :required="required"
     />
 
     <gov-error-message
@@ -122,6 +122,11 @@ export default {
       required: false
     },
     gallery: {
+      required: false,
+      type: Boolean,
+      default: false
+    },
+    required: {
       required: false,
       type: Boolean,
       default: false

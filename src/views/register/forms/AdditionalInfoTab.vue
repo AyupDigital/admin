@@ -18,7 +18,7 @@
           :value="service.wait_time"
           @input="$emit('input', { field: 'wait_time', value: $event })"
           id="wait_time"
-          label="Usual wait time (if applicable)"
+          label="Usual wait time"
           :options="waitTimeOptions"
           :error="errors.get('service.wait_time')"
         >
@@ -65,7 +65,7 @@
             :value="service.fees_text"
             @input="$emit('input', { field: 'fees_text', value: $event })"
             id="fees_text"
-            label="How much does it cost? (if applicable)"
+            label="How much does it cost?"
             :hint="
               `Please indicate the basic cost of the ${service.type}. If there are multiple price points, please provide an indicative range (eg. &quot;5-10 per session&quot;).`
             "
@@ -78,7 +78,7 @@
             :value="service.fees_url"
             @input="$emit('input', { field: 'fees_url', value: $event })"
             id="fees_url"
-            label="Please provide a link to full pricing table (if applicable)"
+            label="Please provide a link to full pricing table"
             type="url"
             :error="errors.get('service.fees_url')"
           />

@@ -11,6 +11,7 @@
         label="Pick a title from the drop down:"
         :options="usefulInfoTitleOptions"
         :error="errors.get(`useful_infos.${index}.title`)"
+        :required="true"
       />
 
       <ck-wysiwyg-input
@@ -22,6 +23,7 @@
         :maxlength="1000"
         :error="errors.get(`useful_infos.${index}.description`)"
         :extensions="extensions"
+        :required="true"
       />
 
       <gov-button @click="onDeleteUsefulInfo(index)" error>Delete</gov-button>

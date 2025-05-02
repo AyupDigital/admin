@@ -1,6 +1,6 @@
 <template>
   <gov-form-group :invalid="error !== null">
-    <gov-label :for="id" v-text="label" />
+    <gov-label :for="id" v-text="`${label} ${!required ? ' (Optional)' : ''}`" />
     <duet-date-picker
       :identifier="id"
       :localization.prop="localisation_uk"

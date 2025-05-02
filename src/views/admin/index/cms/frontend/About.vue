@@ -14,6 +14,7 @@
         label="Title"
         :error="errors.get('cms.frontend.about.title')"
         id="cms.frontend.about.title"
+        :required="true"
       />
 
       <ck-wysiwyg-input
@@ -22,6 +23,7 @@
         label="Content"
         :error="errors.get('cms.frontend.about.content')"
         id="cms.frontend.about.content"
+        :required="true"
       />
 
       <ck-text-input

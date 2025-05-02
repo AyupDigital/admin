@@ -10,6 +10,7 @@
         label="Title"
         type="text"
         :error="errors.get(`content_${sectionId}_title`)"
+        :required="section.required"
       />
       <div
         v-for="(content, index) in section.content"
@@ -25,6 +26,7 @@
           :error="errors.get(`content.${sectionId}.content.${index}`)"
           large
           :maxlength="60000"
+          :required="section.required"
         />
         <ck-call-to-action
           v-else-if="content.type === 'cta'"

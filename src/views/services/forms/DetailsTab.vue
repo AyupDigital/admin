@@ -21,6 +21,7 @@
           :hint="`This option changes how your page is described on ${appName}`"
           :options="typeOptions"
           :error="errors.get('type')"
+          :required="true"
         />
 
         <ck-text-input

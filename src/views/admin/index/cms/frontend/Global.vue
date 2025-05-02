@@ -11,6 +11,7 @@
         label="Footer Title"
         :error="errors.get('cms.frontend.global.footer_title')"
         id="cms.frontend.global.footer_title"
+        :required="true"
       />
 
       <ck-wysiwyg-input
@@ -19,6 +20,7 @@
         label="Footer Content"
         :error="errors.get('cms.frontend.global.footer_content')"
         id="cms.frontend.global.footer_content"
+        :required="true"
       />
 
       <ck-text-input
@@ -28,6 +30,7 @@
         :error="errors.get('cms.frontend.global.contact_phone')"
         id="cms.frontend.global.contact_phone"
         type="tel"
+        :required="true"
       />
 
       <ck-text-input
@@ -37,6 +40,7 @@
         :error="errors.get('cms.frontend.global.contact_email')"
         id="cms.frontend.global.contact_email"
         type="email"
+        :required="true"
       />
 
       <ck-social-medias-input

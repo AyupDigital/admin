@@ -38,6 +38,7 @@
           type="text"
           @input="locationSearchTerm = $event"
           :error="errors.get('location_search_term')"
+          :required="true"
         />
         <ck-radio-input
           v-if="locations.length > 0 && !loading"

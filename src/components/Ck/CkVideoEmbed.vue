@@ -9,6 +9,7 @@
       label="Title"
       type="text"
       :error="null"
+      :required="true"
     />
     <ck-text-input
       :value="video.url"
@@ -17,6 +18,7 @@
       label="Video URL"
       type="url"
       :error="null"
+      :required="true"
     >
       <template slot="hint">
         <gov-hint for="video_embed">

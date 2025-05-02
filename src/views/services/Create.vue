@@ -258,7 +258,7 @@ export default {
         intro: "",
         description: "",
         wait_time: null,
-        is_free: null,
+        is_free: true,
         fees_text: "",
         fees_url: "",
         testimonial: "",
@@ -287,11 +287,11 @@ export default {
           other: ""
         },
         useful_infos: [
-          {
-            title: "",
-            description: "",
-            order: 1
-          }
+          // {
+          //   title: "",
+          //   description: "",
+          //   order: 1
+          // }
         ],
         offerings: [],
         social_medias: [],

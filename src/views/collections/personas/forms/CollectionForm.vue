@@ -7,6 +7,7 @@
       label="Name"
       type="text"
       :error="errors.get('name')"
+      :required="true"
     />
 
     <ck-text-input
@@ -17,6 +18,7 @@
       type="text"
       :error="errors.get('slug')"
       v-if="auth.isSuperAdmin"
+      :required="true"
     >
       <gov-hint for="slug">
         This will be used to access the collection.<br />
@@ -35,6 +37,7 @@
       hint="A one line summary of the persona."
       :maxlength="150"
       :error="errors.get('subtitle')"
+      :required="true"
     />
 
     <ck-textarea-input
@@ -48,6 +51,7 @@
       hint="A short summary detailing what type of services the persona includes."
       :maxlength="300"
       :error="errors.get('intro')"
+      :required="true"
     />
 
     <ck-image-input
@@ -64,6 +68,7 @@
       label="Persona image"
       :file-id="image_file_id"
       :errors="errors"
+      :required="true"
     >
     </ck-image-input>
 

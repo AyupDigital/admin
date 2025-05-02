@@ -1,7 +1,7 @@
 <template>
   <gov-form-group :invalid="error !== null">
     <gov-label :for="id" class="govuk-!-font-weight-bold">
-      <slot name="label">{{ label }} {{ required ? "*" : "(Optional)" }}</slot>
+      <slot name="label">{{ label }} {{ required ? "" : "(Optional)" }}</slot>
     </gov-label>
 
     <slot name="hint">
