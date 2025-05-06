@@ -93,24 +93,7 @@
               >
                 <gov-button @click="onNext" start>Next</gov-button>
               </details-tab>
-              <keep-alive>
-                <service-locations-tab
-                  :is="
-                    isTabActive('locations') ? 'service-locations-tab' : false
-                  "
-                  @clear="
-                    form.$errors.clear($event);
-                    errors = {};
-                  "
-                  @update:hasLocation="hasLocation = $event"
-                  :hasLocation="hasLocation"
-                  :type="form.type"
-                  :errors="form.$errors"
-                  :service-locations.sync="form.service_locations"
-                >
-                  <gov-button @click="onNext" start>Next</gov-button>
-                </service-locations-tab>
-              </keep-alive>
+              
               <additional-info-tab
                 v-if="isTabActive('additional-info')"
                 @clear="
@@ -147,6 +130,25 @@
               >
                 <gov-button @click="onNext" start>Next</gov-button>
               </useful-info-tab>
+
+              <keep-alive>
+                <service-locations-tab
+                  :is="
+                    isTabActive('locations') ? 'service-locations-tab' : false
+                  "
+                  @clear="
+                    form.$errors.clear($event);
+                    errors = {};
+                  "
+                  @update:hasLocation="hasLocation = $event"
+                  :hasLocation="hasLocation"
+                  :type="form.type"
+                  :errors="form.$errors"
+                  :service-locations.sync="form.service_locations"
+                >
+                  <gov-button @click="onNext" start>Next</gov-button>
+                </service-locations-tab>
+              </keep-alive>
 
               <eligibility-tab
                 v-if="isTabActive('eligibility')"
@@ -308,9 +310,9 @@ export default {
       errors: {},
       tabs: [
         { id: "details", heading: "Details", active: true },
-        { id: "locations", heading: "Locations", active: false },
         { id: "additional-info", heading: "Additional info", active: false },
         { id: "useful-info", heading: "Good to know", active: false },
+        { id: "locations", heading: "Locations", active: false },
         { id: "eligibility", heading: "Eligibility", active: false },
         { id: "taxonomies", heading: "Taxonomies", active: false },
         { id: "description", heading: "Description", active: false },
