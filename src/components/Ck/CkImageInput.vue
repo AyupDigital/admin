@@ -239,4 +239,8 @@ export default {
 .fade-in-out-leave-to {
   opacity: 0;
 }
+
+.govuk-file-upload {
+  padding-bottom: 1rem;
+}
 </style>

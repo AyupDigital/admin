@@ -66,27 +66,7 @@
         " id="attending_access" label="Attending access" :options="attendingAccessOptions"
           :error="errors.get('attending_access')" :required="true" />
 
-        <ck-image-input @input="
-          $emit('update:logo_file_id', $event.file_id);
-        $emit('update:logo', $event.image);
-        " @image-changed="
-            $emit('image-changed', $event);
-          $emit('clear', 'file');
-          " @alt-text-changed="
-            $emit('alt-text-changed', $event);
-          $emit('clear', 'alt_text');
-          " id="logo" :label="`Upload your ${type} logo`" :file-id="logo_file_id" :errors="errors">
-          <template slot="hint">
-            <gov-hint for="logo">
-              This can be different to the logo of your organisation.
-              <gov-link :href="logoHelpHref">Need help with your logo?</gov-link>
-            </gov-hint>
-            <gov-hint for="logo">
-              If your {{ type }} doesn't have a logo, the site will use the
-              organisation logo if there is one uploaded.
-            </gov-hint>
-          </template>
-        </ck-image-input>
+
 
         <ck-radio-input :value="status" @input="
           $emit('update:status', $event);
@@ -113,6 +93,29 @@
           $emit('update:ends_at', $event);
         $emit('clear', 'ends_at');
         " label="End date" :hint="`The date which this ${type} should be made inactive`" />
+
+        <gov-heading size="m">Service Logo</gov-heading>
+        <ck-image-input @input="
+          $emit('update:logo_file_id', $event.file_id);
+        $emit('update:logo', $event.image);
+        " @image-changed="
+            $emit('image-changed', $event);
+          $emit('clear', 'file');
+          " @alt-text-changed="
+            $emit('alt-text-changed', $event);
+          $emit('clear', 'alt_text');
+          " id="logo" :label="`Upload your ${type} logo`" :file-id="logo_file_id" :errors="errors">
+          <template slot="hint">
+            <gov-hint for="logo">
+              This can be different to the logo of your organisation.
+              <gov-link :href="logoHelpHref">Need help with your logo?</gov-link>
+            </gov-hint>
+            <gov-hint for="logo">
+              If your {{ type }} doesn't have a logo, the site will use the
+              organisation logo if there is one uploaded.
+            </gov-hint>
+          </template>
+        </ck-image-input>
 
         <gov-heading size="m">Gallery items</gov-heading>
 

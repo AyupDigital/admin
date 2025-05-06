@@ -12,14 +12,14 @@
           @input="updateTags({ tag, enabled: $event })"
         />
       </gov-checkboxes>
-      <gov-form-group>
+      <gov-form-group class="tags-form-group">
         <ck-text-input
           id="new-tag"
           v-model="newTag.label"
           label="Create new tag"
           :error="newTagError"
         />
-        <gov-button type="button" @click="updateTags({ tag: newTag })">
+        <gov-button class="tags-button" type="button" @click="updateTags({ tag: newTag })">
           Add tag
         </gov-button>
       </gov-form-group>
@@ -109,4 +109,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tags-form-group {
+  padding-top: 1rem;
+}
+
+.tags-button {
+  margin-top: 1rem;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <gov-heading size="m">Service location</gov-heading>
+    <gov-heading size="l">Service location</gov-heading>
     <gov-body>
       Add locations where your service operates. You can add your first location
       here, and any more locations can be added afterwards.
@@ -26,7 +26,7 @@
       class="mb-4"
     >
       <gov-section-break size="l" />
-      <gov-heading size="s">Location {{ index + 1 }}</gov-heading>
+      <gov-heading size="s">Location</gov-heading>
       <service-location-form
         :errors="getLocationErrors(index)"
         :location-errors="locationErrors[index]"
