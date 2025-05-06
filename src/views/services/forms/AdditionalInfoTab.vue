@@ -307,9 +307,9 @@ export default {
     waitTimeOptions() {
       return [
         { text: `Not applicable for this ${this.type}`, value: null },
-        { text: "One week", value: "one_week" },
-        { text: "Two weeks", value: "two_weeks" },
-        { text: "Three weeks", value: "three_weeks" },
+        { text: "Up to one week", value: "one_week" },
+        { text: "Up to two weeks", value: "two_weeks" },
+        { text: "Up to three weeks", value: "three_weeks" },
         { text: "One month", value: "month" },
         { text: "Longer than a month", value: "longer" }
       ];
