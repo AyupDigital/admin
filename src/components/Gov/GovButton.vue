@@ -85,6 +85,9 @@ export default {
   methods: {
     onClick() {
       this.$emit("click");
+      if (this.start) {
+        window.scrollTo(0,0); 
+      }
     }
   },
   computed: {
