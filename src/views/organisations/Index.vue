@@ -57,10 +57,6 @@
                   organisation.name + ' ' + this.hasUpdateRequest(organisation)
               },
               {
-                heading: 'Web address URL',
-                render: organisation => organisation.url
-              },
-              {
                 heading: 'Phone number',
                 render: organisation => organisation.phone || '-'
               },
