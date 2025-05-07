@@ -62,6 +62,26 @@ export default class Errors {
   }
 
   /**
+   * Returns a new errors object with the errors that are nested in the given field.
+   * This is useful for displaying errors in a nested structure.
+   * For example, if you have a field called "user.name" and you want to get the errors
+   * for the "name" field, you can use this method to get the errors for that field.
+   * @param {string} field 
+   * @returns {Errors}
+   */
+  getNestedAsErrors(field) {
+    let keys = Object.keys(this.errors);
+    const errors = new Errors();
+    for (let key of keys) {
+      if (key.includes(field)) {
+        errors.record({ [key.replace(field, "")]: this.errors[key] });
+      }
+    }
+
+    return errors;
+  }
+
+  /**
    * Record the new errors.
    *
    * @param {object} errors
@@ -78,7 +98,7 @@ export default class Errors {
     });
 
     this.errors = errors;
-    window.scrollTo(0,0); 
+    
   }
 
   /**

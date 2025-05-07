@@ -21,15 +21,12 @@
     />
     <div
       v-if="hasLocation"
-      v-for="(location, index) in serviceLocations"
-      :key="index"
       class="mb-4"
     >
       <gov-section-break size="l" />
       <gov-heading size="s">Location</gov-heading>
       <service-location-form
-        :errors="getLocationErrors(index)"
-        :location-errors="locationErrors[index]"
+        :errors="errors.getNestedAsErrors('service_locations_0_')"
         :location_type.sync="location.location_type"
         :location_id.sync="location.location_id"
         :name.sync="location.name"
@@ -52,6 +49,8 @@
         @alt-text-changed="location.alt_text_changed = true"
         @image-changed="location.image_changed = true"
         @location-selected="onLocationSelected($event, index)"
+        @update:location_type="$emit('clear', 'service_locations_0_location_id')"
+        @update:name="$emit('clear', 'service_locations_0_name')"
       />
     </div>
     <slot />
@@ -61,7 +60,6 @@
 <script>
 import ServiceLocationForm from "@/views/service-locations/forms/ServiceLocationForm";
 import Errors from "@/classes/Errors";
-import Form from "@/classes/Form";
 import http from "@/http";
 
 export default {
@@ -75,9 +73,9 @@ export default {
         return value instanceof Errors;
       }
     },
-    serviceLocations: {
+    location: {
       required: true,
-      type: Array
+      type: Object
     },
     type: {
       required: true
@@ -87,84 +85,23 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      locationErrors: [],
-    };
-  },
   methods: {
-    getLocationErrors(index) {
-      const locationErrors = new Errors();
-      const allErrors = this.errors.all();
-      Object.keys(allErrors).forEach(key => {
-        if (key.startsWith(`service_locations.${index}.`)) {
-          const newKey = key.replace(`service_locations.${index}.`, "");
-          locationErrors.record({ [newKey]: allErrors[key] });
-        }
-      });
-      return locationErrors;
+    async onLocationSelected(location) {
+      this.location.location_type = "existing";
+      this.location.location_id = location.value;
+      this.location.address_line_1 = location.address_line_1;
+      this.location.address_line_2 = location.address_line_2;
+      this.location.address_line_3 = location.address_line_3;
+      this.location.city = location.city;
+      this.location.county = location.county;
+      this.location.postcode = location.postcode;
+      this.location.country = location.country;
+      this.location.has_wheelchair_access = location.has_wheelchair_access;
+      this.location.has_induction_loop = location.has_induction_loop;
+      this.location.has_accessible_toilet = location.has_accessible_toilet;
+      this.location.accessibility_info = location.accessibility_info;
     },
-    addLocation() {
-      const newLocation = new Form({
-        location_type: null,
-        location_id: null,
-        name: "",
-        address_line_1: "",
-        address_line_2: "",
-        address_line_3: "",
-        city: "",
-        county: "",
-        postcode: "",
-        country: "United Kingdom",
-        has_wheelchair_access: false,
-        has_induction_loop: false,
-        has_accessible_toilet: false,
-        accessibility_info: "",
-        regular_opening_hours: [],
-        holiday_opening_hours: [],
-        image_file_id: null,
-        alt_text_changed: false,
-        image_changed: false
-      });
-      this.serviceLocations.push(newLocation);
-      this.locationErrors.push(new Errors());
-    },
-    removeLocation(index) {
-      this.serviceLocations.splice(index, 1);
-      this.locationErrors.splice(index, 1);
-    },
-    clearLocationErrors(index, field) {
-      if (!this.locationErrors[index]) {
-        this.$set(this.locationErrors, index, new Errors());
-      }
-      this.locationErrors[index].clear(field);
-    },
-    initializeLocationErrors() {
-      this.serviceLocations.forEach((_, index) => {
-        if (!this.locationErrors[index]) {
-          this.$set(this.locationErrors, index, new Errors());
-        }
-      });
-    },
-    async onLocationSelected(location, index) {
-      const serviceLocation = this.serviceLocations[index];
-      serviceLocation.location_type = "existing";
-      serviceLocation.location_id = location.value;
-      serviceLocation.address_line_1 = location.address_line_1;
-      serviceLocation.address_line_2 = location.address_line_2;
-      serviceLocation.address_line_3 = location.address_line_3;
-      serviceLocation.city = location.city;
-      serviceLocation.county = location.county;
-      serviceLocation.postcode = location.postcode;
-      serviceLocation.country = location.country;
-      serviceLocation.has_wheelchair_access = location.has_wheelchair_access;
-      serviceLocation.has_induction_loop = location.has_induction_loop;
-      serviceLocation.has_accessible_toilet = location.has_accessible_toilet;
-      serviceLocation.accessibility_info = location.accessibility_info;
-
-      this.$set(this.serviceLocations, index, { ...serviceLocation });
-    },
-    async fetchLocationDetails(locationId, index) {
+    async fetchLocationDetails(locationId) {
       if (!locationId) return;
 
       try {
@@ -172,22 +109,19 @@ export default {
         if (response && response.data) {
           const location = response.data;
 
-          const serviceLocation = this.serviceLocations[index];
-          serviceLocation.address_line_1 = location.address_line_1;
-          serviceLocation.address_line_2 = location.address_line_2;
-          serviceLocation.address_line_3 = location.address_line_3;
-          serviceLocation.city = location.city;
-          serviceLocation.county = location.county;
-          serviceLocation.postcode = location.postcode;
-          serviceLocation.country = location.country;
-          serviceLocation.has_wheelchair_access =
+          this.location.address_line_1 = location.address_line_1;
+          this.location.address_line_2 = location.address_line_2;
+          this.location.address_line_3 = location.address_line_3;
+          this.location.city = location.city;
+          this.location.county = location.county;
+          this.location.postcode = location.postcode;
+          this.location.country = location.country;
+          this.location.has_wheelchair_access =
             location.has_wheelchair_access;
-          serviceLocation.has_induction_loop = location.has_induction_loop;
-          serviceLocation.has_accessible_toilet =
+          this.location.has_induction_loop = location.has_induction_loop;
+          this.location.has_accessible_toilet =
             location.has_accessible_toilet;
-          serviceLocation.accessibility_info = location.accessibility_info;
-
-          this.$set(this.serviceLocations, index, { ...serviceLocation });
+          this.location.accessibility_info = location.accessibility_info;
         }
       } catch (error) {
         console.error("Error fetching location details:", error);
@@ -195,24 +129,9 @@ export default {
     }
   },
   created() {
-    if (this.serviceLocations.length === 0) {
-      this.addLocation();
-    }
-    this.initializeLocationErrors();
-
-    this.serviceLocations.forEach((location, index) => {
-      if (location.location_id && location.location_type === "existing") {
-        this.fetchLocationDetails(location.location_id, index);
+    if (this.location.location_id && this.location.location_type === "existing") {
+        this.fetchLocationDetails(this.location.location_id);
       }
-    });
   },
-  watch: {
-    serviceLocations: {
-      handler() {
-        this.initializeLocationErrors();
-      },
-      deep: true
-    }
-  }
 };
 </script>

@@ -17,7 +17,7 @@
         label="Select location"
         hint="You can select an existing location or create a new one."
         :options="locationTypes"
-        :error="null"
+        :error="errors.get('location_type')"
       />
 
       <gov-radio
@@ -474,6 +474,7 @@ export default {
     },
     onInput({ field, value }) {
       this.$emit(`update:${field}`, value);
+      this.$emit("clear", `service_locations_0_${field}`);
       this.$emit("clear", field);
     },
     onLocationInput({ field, value }) {

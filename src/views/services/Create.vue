@@ -138,13 +138,12 @@
                   "
                   @clear="
                     form.$errors.clear($event);
-                    errors = {};
                   "
                   @update:hasLocation="hasLocation = $event"
                   :hasLocation="hasLocation"
                   :type="form.type"
                   :errors="form.$errors"
-                  :service-locations.sync="form.service_locations"
+                  :location.sync="form.service_location"
                 >
                   <gov-button @click="onNext" start>Next</gov-button>
                 </service-locations-tab>
@@ -306,7 +305,27 @@ export default {
           custom: {}
         },
         logo_file_id: null,
-        service_locations: []
+        service_location: new Form({
+          location_type: null,
+          location_id: null,
+          name: "",
+          address_line_1: "",
+          address_line_2: "",
+          address_line_3: "",
+          city: "",
+          county: "",
+          postcode: "",
+          country: "United Kingdom",
+          has_wheelchair_access: false,
+          has_induction_loop: false,
+          has_accessible_toilet: false,
+          accessibility_info: "",
+          regular_opening_hours: [],
+          holiday_opening_hours: [],
+          image_file_id: null,
+          alt_text_changed: false,
+          image_changed: false
+        }),
       }),
       errors: {},
       tabs: [
@@ -366,12 +385,9 @@ export default {
           ]
         });
       });
-      const newServiceLocations = this.form.service_locations.filter(
-        location => location.location_type === "new"
-      );
-      if (newServiceLocations.length > 0) {
-        for (const [index, location] of newServiceLocations.entries()) {
-          const locationForm = new Form({
+
+      if (this.form.service_location.location_type === "new") {
+        const locationForm = new Form({
             address_line_1: location.address_line_1,
             address_line_2: location.address_line_2,
             address_line_3: location.address_line_3,
@@ -386,12 +402,11 @@ export default {
             accessibility_info: ""
           });
           const { data } = await locationForm.post("/locations");
-          this.form.service_locations[index] = {
-            ...this.form.service_locations[index],
+          this.form.service_locations[0] = {
+            ...this.form.service_locations[0],
             location_id: data.id,
             location_type: "existing"
           };
-        }
       }
 
       if (this.form.$errors.any()) {
@@ -424,6 +439,8 @@ export default {
 
         if (!this.hasLocation) {
           delete data.service_locations;
+        } else {
+          data.service_locations = [data.service_location]
         }
       });
       const serviceId = response.data.id;
