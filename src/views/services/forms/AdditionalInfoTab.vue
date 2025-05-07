@@ -310,7 +310,7 @@ export default {
         { text: "Up to one week", value: "one_week" },
         { text: "Up to two weeks", value: "two_weeks" },
         { text: "Up to three weeks", value: "three_weeks" },
-        { text: "One month", value: "month" },
+        { text: "Up to one month", value: "month" },
         { text: "Longer than a month", value: "longer" }
       ];
     },
