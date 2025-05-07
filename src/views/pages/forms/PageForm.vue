@@ -57,6 +57,11 @@
       :required="true"
     />
 
+    <hr />
+
+    <gov-heading tag="h3" size="m">Page thumbnail</gov-heading>
+    <gov-hint>Upload an image that will be used as the thumbnail for the page.</gov-hint>
+
     <ck-image-input
       @input="onInput('image_file_id', $event.file_id)"
       @image-changed="$emit('image-changed', $event)"
