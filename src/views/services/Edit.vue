@@ -277,8 +277,8 @@ export default {
         { id: "details", heading: "Details", active: true },
         { id: "additional-info", heading: "Additional info", active: false },
         { id: "useful-info", heading: "Good to know", active: false },
-        { id: "eligibility", heading: "Eligibility", active: false },
         { id: "locations", heading: "Locations", active: false },
+        { id: "eligibility", heading: "Eligibility", active: false },
         { id: "taxonomies", heading: "Taxonomies", active: false },
         { id: "description", heading: "Description", active: false },
         { id: "referral", heading: "Referral", active: false }
