@@ -80,12 +80,17 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    resetScroll: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   methods: {
     onClick() {
       this.$emit("click");
-      if (this.start) {
+      if (this.start || this.resetScroll) {
         window.scrollTo(0,0); 
       }
     }

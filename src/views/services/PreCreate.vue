@@ -48,7 +48,7 @@
             Back to services </gov-button
           ><!--
           -->&nbsp;<!--
-          --><gov-button :to="{ name: 'services-create' }">
+          --><gov-button :to="{ name: 'services-create' }" :reset-scroll="true">
             Continue
           </gov-button>
         </gov-grid-column>

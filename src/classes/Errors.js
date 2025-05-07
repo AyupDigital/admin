@@ -78,6 +78,7 @@ export default class Errors {
     });
 
     this.errors = errors;
+    window.scrollTo(0,0); 
   }
 
   /**
