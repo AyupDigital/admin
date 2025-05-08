@@ -17,16 +17,7 @@
         label="Select location"
         hint="You can select an existing location or create a new one."
         :options="locationTypes"
-        :error="errors.get('location_type')"
-      />
-
-      <gov-radio
-        v-for="option in locationTypeOptions"
-        :key="option.value"
-        :value="option.value"
-        v-model="location_type"
-        :name="`location_type_${index}`"
-        :label="option.text"
+        :error="errors.get('location_id')"
       />
 
       <!-- Existing location: select from list -->
@@ -474,8 +465,10 @@ export default {
     },
     onInput({ field, value }) {
       this.$emit(`update:${field}`, value);
-      this.$emit("clear", `service_locations_0_${field}`);
       this.$emit("clear", field);
+      if (field === "location_type") {
+        this.$emit("clear", "location_id");
+      }
     },
     onLocationInput({ field, value }) {
       this.$emit(`update:${field}`, value);

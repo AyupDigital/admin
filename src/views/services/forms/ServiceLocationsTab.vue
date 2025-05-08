@@ -14,19 +14,23 @@
       id="has_location"
       :label="`Does your ${type} operate at a physical location?`"
       :options="[
-        { value: true, label: `Yes - This ${type} operates at a physical location` },
-        { value: false, label: `No - This ${type} does not operate at a physical location` }
+        {
+          value: true,
+          label: `Yes - This ${type} operates at a physical location`
+        },
+        {
+          value: false,
+          label: `No - This ${type} does not operate at a physical location`
+        }
       ]"
       :error="errors.get('has_location')"
     />
-    <div
-      v-if="hasLocation"
-      class="mb-4"
-    >
+    <div v-if="hasLocation" class="mb-4">
       <gov-section-break size="l" />
       <gov-heading size="s">Location</gov-heading>
       <service-location-form
         :errors="errors.getNestedAsErrors('service_locations_0_')"
+        :location-errors="locationErrors"
         :location_type.sync="location.location_type"
         :location_id.sync="location.location_id"
         :name.sync="location.name"
@@ -45,12 +49,10 @@
         :holiday_opening_hours.sync="location.holiday_opening_hours"
         @update:image_file_id="location.image_file_id = $event"
         @clear="$emit('clear', $event)"
-        @clear-location="clearLocationErrors(index, $event)"
+        @clear-location="$emit('clear-location', $event)"
         @alt-text-changed="location.alt_text_changed = true"
         @image-changed="location.image_changed = true"
         @location-selected="onLocationSelected($event, index)"
-        @update:location_type="$emit('clear', 'service_locations_0_location_id')"
-        @update:name="$emit('clear', 'service_locations_0_name')"
       />
     </div>
     <slot />
@@ -67,6 +69,13 @@ export default {
   components: { ServiceLocationForm },
   props: {
     errors: {
+      required: true,
+      type: Object,
+      validator: function(value) {
+        return value instanceof Errors;
+      }
+    },
+    locationErrors: {
       required: true,
       type: Object,
       validator: function(value) {
@@ -116,11 +125,9 @@ export default {
           this.location.county = location.county;
           this.location.postcode = location.postcode;
           this.location.country = location.country;
-          this.location.has_wheelchair_access =
-            location.has_wheelchair_access;
+          this.location.has_wheelchair_access = location.has_wheelchair_access;
           this.location.has_induction_loop = location.has_induction_loop;
-          this.location.has_accessible_toilet =
-            location.has_accessible_toilet;
+          this.location.has_accessible_toilet = location.has_accessible_toilet;
           this.location.accessibility_info = location.accessibility_info;
         }
       } catch (error) {
@@ -129,9 +136,12 @@ export default {
     }
   },
   created() {
-    if (this.location.location_id && this.location.location_type === "existing") {
-        this.fetchLocationDetails(this.location.location_id);
-      }
-  },
+    if (
+      this.location.location_id &&
+      this.location.location_type === "existing"
+    ) {
+      this.fetchLocationDetails(this.location.location_id);
+    }
+  }
 };
 </script>

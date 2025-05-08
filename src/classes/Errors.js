@@ -1,9 +1,11 @@
+import Vue from "vue";
+
 export default class Errors {
   /**
    * Create a new Errors instance.
    */
   constructor() {
-    this.errors = {};
+    this.errors = Vue.observable({});
   }
 
   /**
@@ -92,13 +94,12 @@ export default class Errors {
     keys.forEach(key => {
       if (key.includes(".")) {
         let new_key = key.replace(/\./g, "_");
-        errors[new_key] = errors[key];
+        Vue.set(this.errors, new_key, errors[key]);
         delete errors[key];
+      } else {
+        Vue.set(this.errors, key, errors[key]);
       }
     });
-
-    this.errors = errors;
-    
   }
 
   /**
@@ -109,11 +110,13 @@ export default class Errors {
   clear(field) {
     if (field) {
       field = field.replace(/\./g, "_");
-      delete this.errors[field];
+      Vue.delete(this.errors, field);
 
       return;
     }
 
-    this.errors = {};
+    Object.keys(this.errors).forEach(key => {
+      Vue.delete(this.errors, key);
+    });
   }
 }

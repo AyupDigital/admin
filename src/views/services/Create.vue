@@ -50,13 +50,10 @@
           <template v-if="!updateRequestCreated">
             <gov-heading size="m">Add service</gov-heading>
 
-            <gov-error-summary
-              v-if="form.$errors.any()"
-              title="Check for errors"
-            >
+            <gov-error-summary v-if="hasErrors" title="Check for errors">
               <gov-list>
                 <li
-                  v-for="(error, field) in form.$errors.all()"
+                  v-for="(error, field) in errors"
                   :key="field"
                   v-text="error[0]"
                 />
@@ -82,10 +79,7 @@
                 :national.sync="form.national"
                 :attending_type.sync="form.attending_type"
                 :attending_access.sync="form.attending_access"
-                @clear="
-                  form.$errors.clear($event);
-                  errors = {};
-                "
+                @clear="form.$errors.clear($event)"
                 @update:logo_file_id="form.logo_file_id = $event"
                 @image-changed="imageChanged = $event"
                 @alt-text-changed="altTextChanged = true"
@@ -93,13 +87,10 @@
               >
                 <gov-button @click="onNext" start>Next</gov-button>
               </details-tab>
-              
+
               <additional-info-tab
                 v-if="isTabActive('additional-info')"
-                @clear="
-                  form.$errors.clear($event);
-                  errors = {};
-                "
+                @clear="form.$errors.clear($event)"
                 :errors="form.$errors"
                 :type="form.type"
                 :hasLocation.sync="hasLocation"
@@ -120,10 +111,7 @@
 
               <useful-info-tab
                 v-if="isTabActive('useful-info')"
-                @clear="
-                  form.$errors.clear($event);
-                  errors = {};
-                "
+                @clear="form.$errors.clear($event)"
                 :errors="form.$errors"
                 :type="form.type"
                 :useful_infos.sync="form.useful_infos"
@@ -136,14 +124,14 @@
                   :is="
                     isTabActive('locations') ? 'service-locations-tab' : false
                   "
-                  @clear="
-                    form.$errors.clear($event);
-                  "
+                  @clear="form.$errors.clear('service_locations_0_' + $event)"
                   @update:hasLocation="hasLocation = $event"
                   :hasLocation="hasLocation"
                   :type="form.type"
                   :errors="form.$errors"
+                  :location-errors="form.service_location.$errors"
                   :location.sync="form.service_location"
+                  @clear-location="form.service_location.$errors.clear($event)"
                 >
                   <gov-button @click="onNext" start>Next</gov-button>
                 </service-locations-tab>
@@ -151,10 +139,7 @@
 
               <eligibility-tab
                 v-if="isTabActive('eligibility')"
-                @clear="
-                  form.$errors.clear($event);
-                  errors = {};
-                "
+                @clear="form.$errors.clear($event)"
                 :errors="form.$errors"
                 :type="form.type"
                 :serviceEligibilityTypes.sync="form.eligibility_types"
@@ -164,10 +149,7 @@
 
               <taxonomies-tab
                 v-if="isTabActive('taxonomies')"
-                @clear="
-                  form.$errors.clear($event);
-                  errors = {};
-                "
+                @clear="form.$errors.clear($event)"
                 :errors="form.$errors"
                 :is-global-admin="auth.isGlobalAdmin"
                 :type="form.type"
@@ -178,10 +160,7 @@
 
               <description-tab
                 v-if="isTabActive('description')"
-                @clear="
-                  form.$errors.clear($event);
-                  errors = {};
-                "
+                @clear="form.$errors.clear($event)"
                 :errors="form.$errors"
                 :type="form.type"
                 :intro.sync="form.intro"
@@ -193,10 +172,7 @@
 
               <referral-tab
                 v-if="isTabActive('referral')"
-                @clear="
-                  form.$errors.clear($event);
-                  errors = {};
-                "
+                @clear="form.$errors.clear($event)"
                 :errors="form.$errors"
                 :is-global-admin="auth.isGlobalAdmin"
                 :is-super-admin="auth.isSuperAdmin"
@@ -206,16 +182,15 @@
                 :referral_email.sync="form.referral_email"
                 :referral_url.sync="form.referral_url"
               >
-                
               </referral-tab>
             </gov-tabs>
             <gov-button v-if="form.$submitting" disabled type="submit"
-                  >Creating...</gov-button
-                >
-                <gov-button v-else @click="onSubmit" type="submit"
-                  >Create</gov-button
-                >
-                <ck-submit-error v-if="form.$errors.any()" />
+              >Creating...</gov-button
+            >
+            <gov-button v-else @click="onSubmit" type="submit"
+              >Create</gov-button
+            >
+            <ck-submit-error v-if="form.$errors.any()" />
           </template>
         </gov-grid-column>
       </gov-grid-row>
@@ -325,9 +300,8 @@ export default {
           image_file_id: null,
           alt_text_changed: false,
           image_changed: false
-        }),
+        })
       }),
-      errors: {},
       tabs: [
         { id: "details", heading: "Details", active: true },
         { id: "additional-info", heading: "Additional info", active: false },
@@ -359,6 +333,17 @@ export default {
       }
 
       return this.tabs;
+    },
+    hasErrors() {
+      return (
+        this.form.$errors.any() || this.form.service_location.$errors.any()
+      );
+    },
+    errors() {
+      return {
+        ...this.form.$errors.all(),
+        ...this.form.service_location.$errors.all()
+      };
     }
   },
   methods: {
@@ -387,26 +372,13 @@ export default {
       });
 
       if (this.form.service_location.location_type === "new") {
-        const locationForm = new Form({
-            address_line_1: location.address_line_1,
-            address_line_2: location.address_line_2,
-            address_line_3: location.address_line_3,
-            city: location.city,
-            county: location.county,
-            postcode: location.postcode,
-            country: location.country,
-            has_induction_loop: location.has_induction_loop,
-            has_wheelchair_access: location.has_wheelchair_access,
-            has_accessible_toilet: location.has_accessible_toilet,
-            image_file_id: location.image_file_id,
-            accessibility_info: ""
-          });
-          const { data } = await locationForm.post("/locations");
-          this.form.service_locations[0] = {
-            ...this.form.service_locations[0],
-            location_id: data.id,
-            location_type: "existing"
-          };
+        const { data } = await this.form.service_location.post("/locations");
+
+        this.form.service_location = {
+          ...this.form.service_location,
+          location_id: data.id,
+          location_type: "existing"
+        };
       }
 
       if (this.form.$errors.any()) {
@@ -440,7 +412,7 @@ export default {
         if (!this.hasLocation) {
           delete data.service_locations;
         } else {
-          data.service_locations = [data.service_location]
+          data.service_locations = [data.service_location];
         }
       });
       const serviceId = response.data.id;
@@ -449,8 +421,17 @@ export default {
       await this.auth.fetchUser();
 
       if (this.auth.isSuperAdmin && serviceId) {
+        if (!this.form.service_location.location_id) {
+          // If the user has not added a location, redirect to the post create page.
+          this.$router.push({
+            name: "services-post-create",
+            params: { service: serviceId }
+          });
+          return;
+        }
+        // If the user has added a location, redirect to the service show page.
         this.$router.push({
-          name: "services-post-create",
+          name: "services-show",
           params: { service: serviceId }
         });
       } else if (!this.form.$errors.any()) {

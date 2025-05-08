@@ -10,20 +10,43 @@
 
         <gov-section-break size="l" />
 
-        <ck-select-input :value="type" @input="
-          $emit('update:type', $event);
-        $emit('clear', 'type');
-        " id="type" label="What is it?" :hint="`This option changes how your page is described on ${appName}`"
-          :options="typeOptions" :error="errors.get('type')" :required="true" />
+        <ck-select-input
+          :value="type"
+          @input="
+            $emit('update:type', $event);
+            $emit('clear', 'type');
+          "
+          id="type"
+          label="What is it?"
+          :hint="`This option changes how your page is described on ${appName}`"
+          :options="typeOptions"
+          :error="errors.get('type')"
+          :required="true"
+        />
 
-        <ck-text-input :value="name" @input="onNameInput($event)" id="name" :label="`What is the name of your ${type}?`"
-          type="text" :error="errors.get('name')" :required="true" />
+        <ck-text-input
+          :value="name"
+          @input="onNameInput($event)"
+          id="name"
+          :label="`What is the name of your ${type}?`"
+          type="text"
+          :error="errors.get('name')"
+          :required="true"
+        />
 
-        <ck-text-input :value="slug" @input="
-          $emit('update:slug', $event);
-        $emit('clear', 'slug');
-        " id="slug" label="Unique slug" type="text" :error="errors.get('slug')" v-if="auth.isGlobalAdmin"
-          :required="true">
+        <ck-text-input
+          :value="slug"
+          @input="
+            $emit('update:slug', $event);
+            $emit('clear', 'slug');
+          "
+          id="slug"
+          label="Unique slug"
+          type="text"
+          :error="errors.get('slug')"
+          v-if="auth.isGlobalAdmin"
+          :required="true"
+        >
           <gov-hint slot="hint" for="slug">
             This will be used to access the {{ type }} page.<br />
             e.g. example.com/services/{{ slug }}
@@ -32,83 +55,160 @@
 
         <template v-if="isNew || auth.isGlobalAdmin">
           <ck-loader v-if="loading" />
-          <ck-select-input v-else :value="organisation_id" @input="
-            $emit('update:organisation_id', $event);
-          $emit('clear', 'organisation_id');
-          " id="organisation_id" label="Organisation" :hint="`Which organisation hosts this ${type}?`"
-            :options="organisations" :error="errors.get('organisation_id')" :required="true" />
+          <ck-select-input
+            v-else
+            :value="organisation_id"
+            @input="
+              $emit('update:organisation_id', $event);
+              $emit('clear', 'organisation_id');
+            "
+            id="organisation_id"
+            label="Organisation"
+            :hint="`Which organisation hosts this ${type}?`"
+            :options="organisations"
+            :error="errors.get('organisation_id')"
+            :required="true"
+          />
         </template>
 
-        <ck-text-input :value="url" @input="
-          $emit('update:url', $event);
-        $emit('clear', 'url');
-        " id="url" :label="`What is the web address of your ${type}?`" :hint="`This must start with ‘http://’ or ‘https://’. You can use your organisation’s website address if the ${type} doesn’t have its own.`
-            " type="url" :error="errors.get('url')" />
+        <ck-text-input
+          :value="url"
+          @input="
+            $emit('update:url', $event);
+            $emit('clear', 'url');
+          "
+          id="url"
+          :label="`What is the web address of your ${type}?`"
+          :hint="
+            `This must start with ‘http://’ or ‘https://’. You can use your organisation’s website address if the ${type} doesn’t have its own.`
+          "
+          type="url"
+          :error="errors.get('url')"
+        />
 
-        <ck-select-input :value="score" @input="
-          $emit('update:score', $event);
-        $emit('clear', 'score');
-        " id="score" label="Quality Score" :hint="`Rate the overall effectiveness and quality of the ${type} between 1 (poor) and 5 (excellent). This is not displayed but affects positioning within search results.`
-            " :options="scoreOptions" :error="errors.get('score')" v-if="auth.isSuperAdmin" />
+        <ck-select-input
+          :value="score"
+          @input="
+            $emit('update:score', $event);
+            $emit('clear', 'score');
+          "
+          id="score"
+          label="Quality Score"
+          :hint="
+            `Rate the overall effectiveness and quality of the ${type} between 1 (poor) and 5 (excellent). This is not displayed but affects positioning within search results.`
+          "
+          :options="scoreOptions"
+          :error="errors.get('score')"
+          v-if="auth.isSuperAdmin"
+        />
 
-        <ck-radio-input :value="national" @input="$emit('update:national', $event)" id="national"
-          :label="`Is the ${type} a national ${type}?`" :options="nationalOptions" :error="errors.get('national')" />
+        <ck-radio-input
+          :value="national"
+          @input="$emit('update:national', $event)"
+          id="national"
+          :label="`Is the ${type} a national ${type}?`"
+          :options="nationalOptions"
+          :error="errors.get('national')"
+        />
 
-        <ck-select-input :value="attending_type" @input="
-          $emit('update:attending_type', $event);
-        $emit('clear', 'attending_type');
-        " id="attending_type" label="Attending type" :options="attendingTypeOptions"
-          :error="errors.get('attending_type')" :required="true" />
+        <ck-select-input
+          :value="attending_type"
+          @input="
+            $emit('update:attending_type', $event);
+            $emit('clear', 'attending_type');
+          "
+          id="attending_type"
+          label="Attending type"
+          :options="attendingTypeOptions"
+          :error="errors.get('attending_type')"
+          :required="true"
+        />
 
-        <ck-select-input :value="attending_access" @input="
-          $emit('update:attending_access', $event);
-        $emit('clear', 'attending_access');
-        " id="attending_access" label="Attending access" :options="attendingAccessOptions"
-          :error="errors.get('attending_access')" :required="true" />
+        <ck-select-input
+          :value="attending_access"
+          @input="
+            $emit('update:attending_access', $event);
+            $emit('clear', 'attending_access');
+          "
+          id="attending_access"
+          label="Attending access"
+          :options="attendingAccessOptions"
+          :error="errors.get('attending_access')"
+          :required="true"
+        />
 
-
-
-        <ck-radio-input :value="status" @input="
-          $emit('update:status', $event);
-        $emit('clear', 'status');
-        " id="status" :label="`Is the ${type} enabled`" :hint="`Indicates if the ${type} is enabled or disabled (disabled ${$options.filters.plural(
-            type
-          )} will not be shown in search results)`
-            " :options="statusOptions" :error="errors.get('status')" v-if="auth.isGlobalAdmin" />
+        <ck-radio-input
+          :value="status"
+          @input="
+            $emit('update:status', $event);
+            $emit('clear', 'status');
+          "
+          id="status"
+          :label="`Is the ${type} enabled`"
+          :hint="
+            `Indicates if the ${type} is enabled or disabled (disabled ${$options.filters.plural(
+              type
+            )} will not be shown in search results)`
+          "
+          :options="statusOptions"
+          :error="errors.get('status')"
+          v-if="auth.isGlobalAdmin"
+        />
 
         <gov-fieldset>
           <gov-legend>
             <gov-label for="ends_at" class="govuk-!-font-weight-bold">
-              <slot name="label">Auto disable this service at a specific date?</slot>
+              <slot name="label"
+                >Auto disable this service at a specific date?</slot
+              >
             </gov-label>
             <slot name="hint">
               <gov-hint for="ends_at">
-                If this service has a limited time of operation, enter an end date below, after which the service will
-                automatically become disabled and not be discoverable on the platform to public users.
+                If this service has a limited time of operation, enter an end
+                date below, after which the service will automatically become
+                disabled and not be discoverable on the platform to public
+                users.
               </gov-hint>
             </slot>
           </gov-legend>
         </gov-fieldset>
-        <ck-date-picker id="ends_at" :value="ends_at" :error="errors.get('end_date')" @input="
-          $emit('update:ends_at', $event);
-        $emit('clear', 'ends_at');
-        " label="End date" :hint="`The date which this ${type} should be made inactive`" />
+        <ck-date-picker
+          id="ends_at"
+          :value="ends_at"
+          :error="errors.get('end_date')"
+          @input="
+            $emit('update:ends_at', $event);
+            $emit('clear', 'ends_at');
+          "
+          label="End date"
+          :hint="`The date which this ${type} should be made inactive`"
+        />
 
         <gov-heading size="m">Service Logo</gov-heading>
-        <ck-image-input @input="
-          $emit('update:logo_file_id', $event.file_id);
-        $emit('update:logo', $event.image);
-        " @image-changed="
+        <ck-image-input
+          @input="
+            $emit('update:logo_file_id', $event.file_id);
+            $emit('update:logo', $event.image);
+          "
+          @image-changed="
             $emit('image-changed', $event);
-          $emit('clear', 'file');
-          " @alt-text-changed="
+            $emit('clear', 'file');
+          "
+          @alt-text-changed="
             $emit('alt-text-changed', $event);
-          $emit('clear', 'alt_text');
-          " id="logo" :label="`Upload your ${type} logo`" :file-id="logo_file_id" :errors="errors">
+            $emit('clear', 'alt_text');
+          "
+          id="logo"
+          :label="`Upload your ${type} logo`"
+          :file-id="logo_file_id"
+          :errors="errors"
+        >
           <template slot="hint">
             <gov-hint for="logo">
               This can be different to the logo of your organisation.
-              <gov-link :href="logoHelpHref">Need help with your logo?</gov-link>
+              <gov-link :href="logoHelpHref"
+                >Need help with your logo?</gov-link
+              >
             </gov-hint>
             <gov-hint for="logo">
               If your {{ type }} doesn't have a logo, the site will use the
@@ -123,8 +223,12 @@
           Upload images of the {{ type }} to the {{ type }}'s gallery.
         </gov-body>
 
-        <ck-gallery-items-input :gallery-items="gallery_items" @input="$emit('update:gallery_items', $event)"
-          @clear="$emit('clear', $event)" :errors="errors" />
+        <ck-gallery-items-input
+          :gallery-items="gallery_items"
+          @input="$emit('update:gallery_items', $event)"
+          @clear="$emit('clear', $event)"
+          :errors="errors"
+        />
 
         <template v-if="appServiceTagsActive">
           <gov-heading size="m">Tags</gov-heading>
@@ -133,8 +237,12 @@
             Select tags to help users find the {{ type }}.
           </gov-body>
 
-          <tag-input :service-tags="tags" @input="$emit('update:tags', $event)" @clear="$emit('clear', $event)"
-            :errors="errors" />
+          <tag-input
+            :service-tags="tags"
+            @input="$emit('update:tags', $event)"
+            @clear="$emit('clear', $event)"
+            :errors="errors"
+          />
         </template>
 
         <slot />
