@@ -190,10 +190,7 @@
                 <gov-button v-if="form.$submitting" disabled type="submit"
                   >Creating...</gov-button
                 >
-                <gov-button
-                  v-else
-                  @click="onSubmit"
-                  type="submit"
+                <gov-button v-else @click="onSubmit" type="submit"
                   >Create</gov-button
                 >
                 <ck-submit-error v-if="form.$errors.any()" />
@@ -322,17 +319,27 @@ export default {
   methods: {
     async onSubmit() {
       if (this.imageChanged && !this.altTextChanged) {
-        this.form.$errors.record({"alt_text": ["Please enter alt text for the image."]});
+        this.form.$errors.record({
+          alt_text: ["Details tab - Please enter alt text for the image."]
+        });
         return;
       }
       if (this.imageChanged) {
-        this.form.$errors.record({"file": ["Please click 'Upload file' to upload your image."]});
+        this.form.$errors.record({
+          file: [
+            "Details tab - Please click 'Upload file' to upload your image."
+          ]
+        });
         return;
       }
-      const invalidGalleryImages = this.form.gallery_items.filter(galleryItem => !galleryItem.alt_text || !galleryItem.file_id);
+      const invalidGalleryImages = this.form.gallery_items.filter(
+        galleryItem => !galleryItem.alt_text || !galleryItem.file_id
+      );
       invalidGalleryImages.forEach((galleryItem, index) => {
         this.form.$errors.record({
-          [`gallery_items.${index}`]: ["Please ensure you've added an image description and pressed 'Upload file' to upload your image."]
+          [`gallery_items.${index}`]: [
+            "Details tab - Please ensure you've added an image description and pressed 'Upload file' to upload your gallery image."
+          ]
         });
       });
       if (this.form.$errors.any()) {
