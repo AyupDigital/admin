@@ -24,6 +24,7 @@
             :phone.sync="form.phone"
             :password.sync="form.password"
             :roles.sync="form.roles"
+            :otp_method.sync="form.otp_method"
             @clear="form.$errors.clear($event)"
           />
 
@@ -55,6 +56,7 @@ export default {
         email: "",
         phone: "",
         password: "",
+        otp_method: "sms",
         roles: []
       })
     };

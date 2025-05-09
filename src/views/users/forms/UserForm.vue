@@ -1,3 +1,4 @@
+<!-- eslint-disable prettier/prettier -->
 <template>
   <div>
     <ck-text-input
@@ -41,7 +42,7 @@
       type="tel"
       :error="errors.get('phone')"
       autocomplete="none"
-      :required="true"
+      :required="otp_method === 'sms'"
     />
 
     <ck-password
@@ -52,6 +53,20 @@
       :error="errors.get('password')"
       :required="true"
     />
+    
+    <ck-select-input
+      :value="otp_method"
+      @input="onInput('otp_method', $event)"
+      id="otp_method"
+      label="One Time Passcode Method"
+      :hint="`Select the method you would like to receive your one time passcode when logging in.`"
+      :options="[
+        { text: 'SMS', value: 'sms' },
+        { text: 'Email', value: 'email' }
+      ]"
+      :error="errors.get('otp_method')"
+      :required="true"
+      />
 
     <gov-section-break size="l" />
 
@@ -117,6 +132,10 @@ export default {
       type: String
     },
     password: {
+      required: true,
+      type: String
+    },
+    otp_method: {
       required: true,
       type: String
     },

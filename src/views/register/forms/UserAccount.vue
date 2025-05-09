@@ -21,6 +21,7 @@
       label="First name"
       type="text"
       :error="errors.get('user.first_name')"
+      :required="true"
     />
 
     <ck-text-input
@@ -29,6 +30,7 @@
       label="Last name"
       type="text"
       :error="errors.get('user.last_name')"
+      :required="true"
     />
 
     <ck-text-input
@@ -37,6 +39,7 @@
       label="Email"
       type="email"
       :error="errors.get('user.email')"
+      :required="true"
     />
 
     <ck-text-input
@@ -45,6 +48,23 @@
       label="Mobile Phone"
       type="tel"
       :error="errors.get('user.phone')"
+      :required="form.user.otp_method === 'sms'"
+    />
+
+    <ck-select-input
+      :value="form.user.otp_method"
+      @input="form.user.otp_method = $event"
+      id="otp_method"
+      label="One Time Passcode Method"
+      :hint="
+        `Select the method you would like to receive your one time passcode when logging in.`
+      "
+      :options="[
+        { text: 'SMS', value: 'sms' },
+        { text: 'Email', value: 'email' }
+      ]"
+      :error="errors.get('user.otp_method')"
+      :required="true"
     />
 
     <ck-password
@@ -52,6 +72,7 @@
       id="password"
       label="Password"
       :error="errors.get('user.password')"
+      :required="true"
     />
   </div>
 </template>

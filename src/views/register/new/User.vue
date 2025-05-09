@@ -38,7 +38,11 @@ export default {
   },
   computed: {
     fieldsEmpty() {
-      return Object.values(this.form.user).some(field => field == "");
+      const requiredFields = ["email", "password", "first_name", "last_name"];
+      if (this.form.user.otp_method === "sms") {
+        requiredFields.push("phone");
+      }
+      return requiredFields.some(field => !this.form.user[field]);
     }
   }
 };
