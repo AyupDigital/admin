@@ -42,7 +42,8 @@ export default {
             last_name: "",
             email: "",
             phone: "",
-            password: ""
+            password: "",
+            otp_method: "sms"
           },
           organisation: {
             name: "",

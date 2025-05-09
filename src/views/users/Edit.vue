@@ -28,6 +28,7 @@
               :phone.sync="form.phone"
               :password.sync="form.password"
               :roles.sync="form.roles"
+              :otp_method.sync="form.otp_method"
               @clear="form.$errors.clear($event)"
             />
 
@@ -74,6 +75,7 @@ export default {
         email: this.user.email,
         phone: this.user.phone,
         password: "",
+        otp_method: this.user.otp_method,
         roles: this.user.roles
       });
 
@@ -144,8 +146,9 @@ export default {
     async onSubmit() {
       await this.form.put(`/users/${this.user.id}`, (config, data) => {
         // Strip spaces from the phone number.
-        data.phone = data.phone.replace(/\s/g, "");
-
+        if (data.phone) {
+          data.phone = data.phone.replace(/\s/g, "");
+        }
         if (data.password.length === 0) {
           delete data.password;
         }

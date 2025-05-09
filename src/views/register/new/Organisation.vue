@@ -16,6 +16,7 @@
       label="Organisation name"
       type="text"
       :error="errors.get(['organisation.name', 'organisation.slug'])"
+      :required="true"
     >
       <gov-hint slot="hint" for="name">
         The name of your organisation must be unique. The URL of your page will
@@ -31,6 +32,7 @@
       label="Please provide a one-line summary of organisation"
       hint="This should be a short line or two that summarises who the organisation is and will appear below the Organisation name on it's page."
       :error="errors.get('organisation.description')"
+      :required="true"
     />
 
     <ck-text-input

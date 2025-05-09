@@ -18,6 +18,18 @@
         <gov-table-cell>{{ user.phone }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
+        <gov-table-header top scope="row"
+          >One Time Passcode Method</gov-table-header
+        >
+        <gov-table-cell>{{
+          user.otp_method === "sms"
+            ? "SMS"
+            : user.otp_method === "email"
+            ? "Email"
+            : user.otp_method
+        }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
         <gov-table-header top scope="row">Permissions</gov-table-header>
         <gov-table-cell>
           <gov-list>

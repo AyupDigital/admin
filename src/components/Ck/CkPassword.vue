@@ -7,6 +7,7 @@
     hint="The password must be at least eight characters long, contain one uppercase letter, one lowercase letter, one number and one special character (!#$%&()*+,-./:;<=>?@[]^_`{|}~)"
     :error="error"
     @input="$emit('input', $event)"
+    :required="required"
   >
     <template v-slot:after-input>
       <GovButton type="button" @click="toggleShowPassword">{{
@@ -35,6 +36,10 @@ export default {
     error: {
       type: String,
       default: null
+    },
+    required: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
