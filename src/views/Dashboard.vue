@@ -44,7 +44,10 @@
           <gov-section-break size="m" />
         </gov-grid-column>
 
-        <gov-grid-column width="one-half" v-if="auth.canView('referrals')">
+        <gov-grid-column
+          width="one-half"
+          v-if="auth.canView('referrals') && !appHideReferrals"
+        >
           <gov-heading tag="h2" size="l">Referrals</gov-heading>
           <gov-body>View and respond to referrals to your service(s).</gov-body>
           <gov-button start :to="{ name: 'referrals-index' }">

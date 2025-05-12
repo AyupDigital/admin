@@ -71,7 +71,9 @@ export default {
         {
           text: "Referrals",
           to: { name: "referrals-index" },
-          hide: !Auth.canView("referrals")
+          hide:
+            !Auth.canView("referrals") ||
+            process.env.VUE_APP_HIDE_REFERRALS === "true"
         },
         {
           text: "Organisations",

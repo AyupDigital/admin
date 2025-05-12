@@ -45,7 +45,7 @@
                     />
                   </gov-form-group>
 
-                  <gov-form-group>
+                  <gov-form-group v-if="!appHideReferrals">
                     <gov-label for="filter[referral_method]"
                       >Referral method</gov-label
                     >
@@ -79,34 +79,7 @@
             uri="/services"
             :params="params"
             default-sort="name"
-            :columns="[
-              {
-                heading: 'Service name',
-                sort: 'name',
-                render: service => {
-                  return service.name + ' ' + this.hasUpdateRequest(service);
-                }
-              },
-              {
-                heading: 'Organisation',
-                sort: 'organisation_name',
-                render: service => service.organisation.name
-              },
-              {
-                heading: 'Status',
-                render: service => displayStatus(service.status)
-              },
-              {
-                heading: 'Referral method',
-                render: service =>
-                  displayReferralMethod(service.referral_method)
-              },
-              {
-                heading: 'Freshness',
-                sort: 'last_modified_at',
-                render: service => displayFreshness(service.last_modified_at)
-              }
-            ]"
+            :columns="columns"
             :view-route="
               service => {
                 return {
@@ -174,6 +147,41 @@ export default {
       }
 
       return params;
+    },
+    columns() {
+      const baseColumns = [
+        {
+          heading: "Service name",
+          sort: "name",
+          render: service => {
+            return service.name + " " + this.hasUpdateRequest(service);
+          }
+        },
+        {
+          heading: "Organisation",
+          sort: "organisation_name",
+          render: service => service.organisation.name
+        },
+        {
+          heading: "Status",
+          render: service => this.displayStatus(service.status)
+        }
+      ];
+
+      if (!this.appHideReferrals) {
+        baseColumns.push({
+          heading: "Referral method",
+          render: service => this.displayReferralMethod(service.referral_method)
+        });
+      }
+
+      baseColumns.push({
+        heading: "Freshness",
+        sort: "last_modified_at",
+        render: service => this.displayFreshness(service.last_modified_at)
+      });
+
+      return baseColumns;
     }
   },
   methods: {

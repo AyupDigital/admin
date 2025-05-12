@@ -32,7 +32,7 @@
             </gov-grid-column>
           </gov-grid-row>
 
-          <gov-tabs :tabs="tabs">
+          <gov-tabs :tabs="allowedTabs">
             <router-view :service="service" />
           </gov-tabs>
 
@@ -138,6 +138,19 @@ export default {
         this.auth.canDelete("service") ||
         this.auth.isOrganisationAdmin(this.service.organisation_id)
       );
+    },
+    allowedTabs() {
+      if (this.appHideReferrals) {
+        const referralTabIndex = this.tabs.findIndex(
+          tab => tab.heading === "Referral"
+        );
+        const tabs = this.tabs.slice();
+        tabs.splice(referralTabIndex, 1);
+
+        return tabs;
+      }
+
+      return this.tabs;
     }
   }
 };

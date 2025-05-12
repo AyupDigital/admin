@@ -303,6 +303,16 @@ export default {
         return tabs;
       }
 
+      if (this.appHideReferrals) {
+        const referralTabIndex = this.tabs.findIndex(
+          tab => tab.id === "referral"
+        );
+        const tabs = this.tabs.slice();
+        tabs.splice(referralTabIndex, 1);
+
+        return tabs;
+      }
+
       return this.tabs;
     },
     updateButtonText() {
