@@ -103,6 +103,32 @@
           <gov-table-cell>{{ service.score | score }}</gov-table-cell>
         </gov-table-row>
 
+        <gov-table-row v-if="service.hasOwnProperty('national')">
+          <gov-table-header top scope="row">National</gov-table-header>
+          <gov-table-cell v-if="original">{{
+            original.national ? "Yes " : "No"
+          }}</gov-table-cell>
+          <gov-table-cell>{{
+            service.national ? "Yes " : "No"
+          }}</gov-table-cell>
+        </gov-table-row>
+
+        <gov-table-row v-if="service.hasOwnProperty('attending_type')">
+          <gov-table-header top scope="row">Attending type</gov-table-header>
+          <gov-table-cell v-if="original">{{
+            originalAttendingType
+          }}</gov-table-cell>
+          <gov-table-cell>{{ attendingType }}</gov-table-cell>
+        </gov-table-row>
+
+        <gov-table-row v-if="service.hasOwnProperty('attending_access')">
+          <gov-table-header top scope="row">Attending access</gov-table-header>
+          <gov-table-cell v-if="original">{{
+            originalAttendingAccess
+          }}</gov-table-cell>
+          <gov-table-cell>{{ attendingAccess }}</gov-table-cell>
+        </gov-table-row>
+
         <gov-table-row v-if="service.hasOwnProperty('ends_at')">
           <gov-table-header top scope="row">End date</gov-table-header>
           <gov-table-cell v-if="original">{{
@@ -590,6 +616,42 @@ export default {
       return this.galleryItemsDataUris && this.galleryItemsDataUris.length > 0
         ? this.galleryItemsDataUris
         : this.imageUrls(this.service);
+    },
+    attendingType() {
+      return this.service.attending_type
+        .map(
+          attendingType =>
+            attendingType.charAt(0).toUpperCase() +
+            attendingType.slice(1).replaceAll("_", " ")
+        )
+        .join(", ");
+    },
+    attendingAccess() {
+      return this.service.attending_access
+        .map(
+          attendingAccess =>
+            attendingAccess.charAt(0).toUpperCase() +
+            attendingAccess.slice(1).replaceAll("_", " ")
+        )
+        .join(", ");
+    },
+    originalAttendingType() {
+      return this.original.attending_type
+        .map(
+          attendingType =>
+            attendingType.charAt(0).toUpperCase() +
+            attendingType.slice(1).replaceAll("_", " ")
+        )
+        .join(", ");
+    },
+    originalAttendingAccess() {
+      return this.original.attending_access
+        .map(
+          attendingAccess =>
+            attendingAccess.charAt(0).toUpperCase() +
+            attendingAccess.slice(1).replaceAll("_", " ")
+        )
+        .join(", ");
     }
   },
 

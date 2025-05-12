@@ -92,23 +92,13 @@
         <gov-table-row>
           <gov-table-header top scope="row">Attending type</gov-table-header>
           <gov-table-cell>
-            {{
-              service.attending_type
-                ? service.attending_type.slice(0, 1).toUpperCase() +
-                  service.attending_type.slice(1).replaceAll("_", " ")
-                : "-"
-            }}
+            {{ attendingType }}
           </gov-table-cell>
         </gov-table-row>
         <gov-table-row>
           <gov-table-header top scope="row">Attending access</gov-table-header>
           <gov-table-cell>
-            {{
-              service.attending_access
-                ? service.attending_access.slice(0, 1).toUpperCase() +
-                  service.attending_access.slice(1).replaceAll("_", " ")
-                : "-"
-            }}
+            {{ attendingAccess }}
           </gov-table-cell>
         </gov-table-row>
         <gov-table-row>
@@ -181,6 +171,24 @@ export default {
   computed: {
     imageUrls() {
       return this.service.gallery_items.map(galleryItem => galleryItem.url);
+    },
+    attendingType() {
+      return this.service.attending_type
+        .map(
+          attendingType =>
+            attendingType.charAt(0).toUpperCase() +
+            attendingType.slice(1).replaceAll("_", " ")
+        )
+        .join(", ");
+    },
+    attendingAccess() {
+      return this.service.attending_access
+        .map(
+          attendingAccess =>
+            attendingAccess.charAt(0).toUpperCase() +
+            attendingAccess.slice(1).replaceAll("_", " ")
+        )
+        .join(", ");
     }
   },
 
