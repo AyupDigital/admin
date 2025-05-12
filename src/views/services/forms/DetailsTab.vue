@@ -111,27 +111,33 @@
           :error="errors.get('national')"
         />
 
-        <ck-select-input
+        <ck-checkbox-input
           :value="attending_type"
           @input="
             $emit('update:attending_type', $event);
             $emit('clear', 'attending_type');
           "
           id="attending_type"
-          label="Attending type"
+          :label="`How do people access the ${type}?`"
+          :hint="
+            `Indicates how people can access the ${type} (e.g. phone, venue, home, online).`
+          "
           :options="attendingTypeOptions"
           :error="errors.get('attending_type')"
           :required="true"
         />
 
-        <ck-select-input
+        <ck-checkbox-input
           :value="attending_access"
           @input="
             $emit('update:attending_access', $event);
             $emit('clear', 'attending_access');
           "
           id="attending_access"
-          label="Attending access"
+          :label="`Is the ${type} open to the public?`"
+          :hint="
+            `Indicates if the ${type} is open to the public or requires a referral.`
+          "
           :options="attendingAccessOptions"
           :error="errors.get('attending_access')"
           :required="true"
@@ -256,6 +262,7 @@ import CkImageInput from "@/components/Ck/CkImageInput";
 import CkDatePicker from "@/components/Ck/CkDatePicker";
 import CkGalleryItemsInput from "@/views/services/inputs/GalleryItemsInput";
 import TagInput from "@/views/services/inputs/TagInput";
+import CkCheckboxInput from "@/components/Ck/CkCheckboxInput.vue";
 
 export default {
   name: "DetailsTab",
@@ -263,7 +270,8 @@ export default {
     CkImageInput,
     CkGalleryItemsInput,
     CkDatePicker,
-    TagInput
+    TagInput,
+    CkCheckboxInput
   },
   props: {
     errors: {
@@ -344,16 +352,16 @@ export default {
         { text: "Excellent", value: 5 }
       ],
       attendingAccessOptions: [
-        { text: "Referral", value: "referral" },
-        { text: "Appointment", value: "appointment" },
-        { text: "Drop-in", value: "drop_in" },
-        { text: "Membership", value: "membership" }
+        { label: "Referral", value: "referral" },
+        { label: "Appointment", value: "appointment" },
+        { label: "Drop-in", value: "drop_in" },
+        { label: "Membership", value: "membership" }
       ],
       attendingTypeOptions: [
-        { text: "Phone", value: "phone" },
-        { text: "Venue", value: "venue" },
-        { text: "Home", value: "home" },
-        { text: "Online", value: "online" }
+        { label: "Phone", value: "phone" },
+        { label: "Venue", value: "venue" },
+        { label: "Home", value: "home" },
+        { label: "Online", value: "online" }
       ]
     };
   },
