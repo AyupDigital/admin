@@ -19,12 +19,7 @@
       :error="errors.get('slug')"
       v-if="auth.isSuperAdmin"
       :required="true"
-    >
-      <gov-hint slot="hint" for="slug">
-        This will be used to access the collection.<br />
-        e.g. /collections/{{ slug }}
-      </gov-hint>
-    </ck-text-input>
+    />
 
     <ck-textarea-input
       :value="intro"
