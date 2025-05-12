@@ -173,28 +173,22 @@ export default {
       return this.service.gallery_items.map(galleryItem => galleryItem.url);
     },
     attendingType() {
-      return this.service.attending_type.length
-        ? this.service.attending_type
-            .map(type => {
-              return (
-                type.charAt(0).toUpperCase() +
-                type.slice(1).replaceAll("_", " ")
-              );
-            })
-            .join(", ")
-        : "-";
+      return this.service.attending_type
+        .map(
+          attendingType =>
+            attendingType.charAt(0).toUpperCase() +
+            attendingType.slice(1).replaceAll("_", " ")
+        )
+        .join(", ");
     },
     attendingAccess() {
-      return this.service.attending_access.length
-        ? this.service.attending_access
-            .map(access => {
-              return (
-                access.charAt(0).toUpperCase() +
-                access.slice(1).replaceAll("_", " ")
-              );
-            })
-            .join(", ")
-        : "-";
+      return this.service.attending_access
+        .map(
+          attendingAccess =>
+            attendingAccess.charAt(0).toUpperCase() +
+            attendingAccess.slice(1).replaceAll("_", " ")
+        )
+        .join(", ");
     }
   },
 

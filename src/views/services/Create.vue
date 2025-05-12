@@ -250,8 +250,8 @@ export default {
         referral_email: "",
         referral_url: "",
         national: false,
-        attending_type: "venue",
-        attending_access: "drop_in",
+        attending_type: ["venue"],
+        attending_access: ["drop_in"],
         ends_at: "",
         criteria: {
           age_group: "",
