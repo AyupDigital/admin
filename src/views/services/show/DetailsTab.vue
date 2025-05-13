@@ -4,10 +4,20 @@
     <gov-table>
       <template slot="body">
         <gov-table-row>
+          <gov-table-header top scope="row">What is it?</gov-table-header>
+          <gov-table-cell>It is a {{ service.type }}</gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
           <gov-table-header top scope="row"
             >Name of {{ service.type }}</gov-table-header
           >
           <gov-table-cell>{{ service.name }}</gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row"
+            >Slug of {{ service.type }}</gov-table-header
+          >
+          <gov-table-cell>{{ service.slug }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>
           <gov-table-header top scope="row"
@@ -21,67 +31,9 @@
           >
           <gov-table-cell break>{{ service.url }}</gov-table-cell>
         </gov-table-row>
-        <gov-table-row>
-          <gov-table-header top scope="row"
-            >{{ service.type | ucfirst }} logo</gov-table-header
-          >
-          <gov-table-cell>
-            <ck-image v-if="service.image" :file-id="service.image.id" />
-          </gov-table-cell>
-        </gov-table-row>
-        <gov-table-row>
-          <gov-table-header top scope="row"
-            >Summary of {{ service.type }}</gov-table-header
-          >
-          <gov-table-cell>{{ service.intro }}</gov-table-cell>
-        </gov-table-row>
-        <gov-table-row>
-          <gov-table-header top scope="row"
-            >{{ service.type | ucfirst }} description</gov-table-header
-          >
-          <gov-table-cell v-html="toHtml(service.description)" />
-        </gov-table-row>
-        <gov-table-row v-if="appServiceOfferingsActive">
-          <gov-table-header top scope="row">Offerings</gov-table-header>
-          <gov-table-cell>
-            <gov-list v-if="service.offerings.length > 0" bullet>
-              <li
-                v-for="{ offering, order } in service.offerings"
-                :key="`ServiceOffering::${order}`"
-              >
-                {{ offering }}
-              </li>
-            </gov-list>
-            <template v-else>None</template>
-          </gov-table-cell>
-        </gov-table-row>
-        <gov-table-row>
-          <gov-table-header top scope="row">Status</gov-table-header>
-          <gov-table-cell
-            v-html="service.status === 'active' ? 'Enabled' : 'Disabled'"
-          />
-        </gov-table-row>
         <gov-table-row v-if="auth.isSuperAdmin">
           <gov-table-header top scope="row">Quality Score</gov-table-header>
           <gov-table-cell v-html="qualityScores[service.score]" />
-        </gov-table-row>
-        <gov-table-row>
-          <gov-table-header top scope="row">End date</gov-table-header>
-          <gov-table-cell>{{ service.ends_at | endsAt }}</gov-table-cell>
-        </gov-table-row>
-        <gov-table-row>
-          <gov-table-header top scope="row">Last updated</gov-table-header>
-          <gov-table-cell>
-            {{ service.last_modified_at | lastModifiedAt }}
-            <template v-if="auth.isServiceAdmin(service.id)">
-              <gov-link
-                v-if="!refreshForm.$submitting"
-                @click="onMarkAsStillUpToDate"
-                >(mark as still up to date)</gov-link
-              >
-              <template v-else>(marking as still up to date...)</template>
-            </template>
-          </gov-table-cell>
         </gov-table-row>
         <gov-table-row>
           <gov-table-header top scope="row">National</gov-table-header>
@@ -101,6 +53,42 @@
             {{ attendingAccess }}
           </gov-table-cell>
         </gov-table-row>
+
+        
+        <gov-table-row>
+          <gov-table-header top scope="row">Status</gov-table-header>
+          <gov-table-cell
+            v-html="service.status === 'active' ? 'Enabled' : 'Disabled'"
+          />
+        </gov-table-row>
+
+        <gov-table-row>
+          <gov-table-header top scope="row">End date</gov-table-header>
+          <gov-table-cell>{{ service.ends_at | endsAt }}</gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row">Last updated</gov-table-header>
+          <gov-table-cell>
+            {{ service.last_modified_at | lastModifiedAt }}
+            <template v-if="auth.isServiceAdmin(service.id)">
+              <gov-link
+                v-if="!refreshForm.$submitting"
+                @click="onMarkAsStillUpToDate"
+                >(mark as still up to date)</gov-link
+              >
+              <template v-else>(marking as still up to date...)</template>
+            </template>
+          </gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row"
+            >{{ service.type | ucfirst }} logo</gov-table-header
+          >
+          <gov-table-cell>
+            <ck-image v-if="service.image" :file-id="service.image.id" />
+          </gov-table-cell>
+        </gov-table-row>
+
         <gov-table-row>
           <gov-table-header top scope="row"
             >Gallery items ({{

@@ -76,17 +76,14 @@ export default {
           heading: "Good to know",
           to: { name: "services-show-useful-info" }
         },
+
         {
-          heading: "Contact info",
-          to: { name: "services-show-contact-info" }
+          heading: "Locations",
+          to: { name: "services-show-locations" }
         },
         {
           heading: "Eligibility",
           to: { name: "services-show-eligibility" }
-        },
-        {
-          heading: "Locations",
-          to: { name: "services-show-locations" }
         },
         {
           heading: "Referral",
@@ -95,6 +92,10 @@ export default {
         {
           heading: "Taxonomies",
           to: { name: "services-show-taxonomies" }
+        },
+        {
+          heading: "Description",
+          to: { name: "services-show-description" }
         }
       ]
     };

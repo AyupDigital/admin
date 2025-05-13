@@ -226,9 +226,9 @@ let router = new Router({
           component: () => import("@/views/services/show/UsefulInfoTab")
         },
         {
-          path: "contact-info",
-          name: "services-show-contact-info",
-          component: () => import("@/views/services/show/ContactInfoTab")
+          path: "description",
+          name: "services-show-description",
+          component: () => import("@/views/services/show/DescriptionTab")
         },
         {
           path: "eligibility",
