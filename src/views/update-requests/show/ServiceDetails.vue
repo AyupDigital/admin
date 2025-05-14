@@ -121,7 +121,7 @@
         <gov-table-row
           v-if="
             service.hasOwnProperty('attending_type') &&
-              original.attending_type !== service.attending_type
+              originalAttendingType !== attendingType
           "
         >
           <gov-table-header top scope="row">Attending type</gov-table-header>
@@ -134,7 +134,7 @@
         <gov-table-row
           v-if="
             service.hasOwnProperty('attending_access') &&
-              original.attending_access !== service.attending_access
+              originalAttendingAccess !== serviceAttendingAccess
           "
         >
           <gov-table-header top scope="row">Attending access</gov-table-header>

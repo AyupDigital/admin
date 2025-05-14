@@ -509,6 +509,17 @@ export default {
           if (data.ends_at === (this.service.ends_at || "")) {
             delete data.ends_at;
           }
+
+          if (data.attending_access === this.service.attending_access) {
+            delete data.attending_access;
+          }
+          if (data.attending_type === this.service.attending_type) {
+            delete data.attending_type;
+          }
+          if (data.national === this.service.national) {
+            delete data.national;
+          }
+
           if (
             JSON.stringify(data.useful_infos) ===
             JSON.stringify(this.service.useful_infos)
