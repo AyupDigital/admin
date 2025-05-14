@@ -103,7 +103,12 @@
           <gov-table-cell>{{ service.score | score }}</gov-table-cell>
         </gov-table-row>
 
-        <gov-table-row v-if="service.hasOwnProperty('national')">
+        <gov-table-row
+          v-if="
+            service.hasOwnProperty('national') &&
+              original.national !== service.national
+          "
+        >
           <gov-table-header top scope="row">National</gov-table-header>
           <gov-table-cell v-if="original">{{
             original.national ? "Yes " : "No"
@@ -113,7 +118,12 @@
           }}</gov-table-cell>
         </gov-table-row>
 
-        <gov-table-row v-if="service.hasOwnProperty('attending_type')">
+        <gov-table-row
+          v-if="
+            service.hasOwnProperty('attending_type') &&
+              original.attending_type !== service.attending_type
+          "
+        >
           <gov-table-header top scope="row">Attending type</gov-table-header>
           <gov-table-cell v-if="original">{{
             originalAttendingType
@@ -121,7 +131,12 @@
           <gov-table-cell>{{ attendingType }}</gov-table-cell>
         </gov-table-row>
 
-        <gov-table-row v-if="service.hasOwnProperty('attending_access')">
+        <gov-table-row
+          v-if="
+            service.hasOwnProperty('attending_access') &&
+              original.attending_access !== service.attending_access
+          "
+        >
           <gov-table-header top scope="row">Attending access</gov-table-header>
           <gov-table-cell v-if="original">{{
             originalAttendingAccess
