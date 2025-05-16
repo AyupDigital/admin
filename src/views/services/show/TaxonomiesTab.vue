@@ -6,6 +6,7 @@
 
     <gov-grid-row>
       <gov-grid-column width="two-thirds">
+        <ck-loader v-if="loading" />
         <ck-taxonomy-list
           :taxonomies="taxonomies"
           :filteredTaxonomyIds="serviceTaxonomyIds"
