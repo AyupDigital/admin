@@ -80,7 +80,7 @@
             >&nbsp;
             <gov-tag v-if="!page.enabled" class="govuk-tag--grey"
               >disabled</gov-tag
-            >
+            >&nbsp;
             <span v-html="hasUpdateRequest(page)" />
           </li>
         </gov-list>
@@ -105,12 +105,14 @@
             </gov-link>
           </template>
           <template slot="status" slot-scope="statusProps">
-            <gov-tag v-if="statusProps.node.page_type === 'landing'"
-              >Landing page</gov-tag
+            <gov-tag class="govuk-tag--green" v-if="statusProps.node.page_type === 'landing'">Landing page</gov-tag
+            >&nbsp;
+            <gov-tag class="govuk-tag--green" v-if="statusProps.node.page_type === 'topic'">Topic page</gov-tag
             >&nbsp;
             <gov-tag v-if="!statusProps.node.enabled" class="govuk-tag--grey"
               >disabled</gov-tag
-            >
+            >&nbsp;
+            <span v-html="hasUpdateRequest(statusProps.node)" />
           </template>
         </ck-tree-list>
       </gov-grid-column>
@@ -178,7 +180,7 @@ export default {
   methods: {
     async fetchPages() {
       this.loading = true;
-      this.searching = Object.keys(this.params).length > 0;
+      this.searching = Object.keys(this.params).length > 1;;
       const { data } = await http.get("/pages/index", {
         params: this.params,
       });
