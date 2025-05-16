@@ -390,13 +390,15 @@ export default {
         (!this.service.image || !this.service.image.alt_text)
       ) {
         this.form.$errors.record({
-          alt_text: ["Please enter alt text for the image."]
+          alt_text: ["Details tab - Please enter alt text for the image."]
         });
         return;
       }
       if (this.imageChanged) {
         this.form.$errors.record({
-          file: ["Please click 'Upload file' to upload your image."]
+          file: [
+            "Details tab - Please click 'Upload file' to upload your image."
+          ]
         });
         return;
       }
@@ -409,13 +411,14 @@ export default {
       invalidGalleryImages.forEach((galleryItem, index) => {
         this.form.$errors.record({
           [`gallery_items.${index}`]: [
-            "Please ensure you've added an image description and pressed 'Upload file' to upload your image."
+            "Details tab - Please ensure you've added an image description and pressed 'Upload file' to upload your gallery image."
           ]
         });
       });
       if (this.form.$errors.any()) {
         return;
       }
+
       const response = await this.form.put(
         `/services/${this.service.id}`,
         (config, data) => {
@@ -619,7 +622,10 @@ export default {
       this.$router.push(next);
     },
     async onPreview() {
-      this.updateRequest = await this.onSubmit(true);
+      const data = await this.onSubmit(true);
+      if (data) {
+        this.updateRequest = data;
+      }
     },
     onTabChange({ index }) {
       this.tabs.forEach(tab => (tab.active = false));

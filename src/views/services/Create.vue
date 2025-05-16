@@ -182,15 +182,15 @@
                 :referral_email.sync="form.referral_email"
                 :referral_url.sync="form.referral_url"
               >
+                <gov-button v-if="form.$submitting" disabled type="submit"
+                  >Creating...</gov-button
+                >
+                <gov-button v-else @click="onSubmit" type="submit"
+                  >Create</gov-button
+                >
+                <ck-submit-error v-if="form.$errors.any()" />
               </referral-tab>
             </gov-tabs>
-            <gov-button v-if="form.$submitting" disabled type="submit"
-              >Creating...</gov-button
-            >
-            <gov-button v-else @click="onSubmit" type="submit"
-              >Create</gov-button
-            >
-            <ck-submit-error v-if="form.$errors.any()" />
           </template>
         </gov-grid-column>
       </gov-grid-row>
@@ -360,13 +360,15 @@ export default {
     async onSubmit() {
       if (this.imageChanged && !this.altTextChanged) {
         this.form.$errors.record({
-          alt_text: ["Please enter alt text for the image."]
+          alt_text: ["Details tab - Please enter alt text for the image."]
         });
         return;
       }
       if (this.imageChanged) {
         this.form.$errors.record({
-          file: ["Please click 'Upload file' to upload your image."]
+          file: [
+            "Details tab - Please click 'Upload file' to upload your image."
+          ]
         });
         return;
       }
@@ -376,7 +378,7 @@ export default {
       invalidGalleryImages.forEach((galleryItem, index) => {
         this.form.$errors.record({
           [`gallery_items.${index}`]: [
-            "Please ensure you've added an image description and pressed 'Upload file' to upload your image."
+            "Details tab - Please ensure you've added an image description and pressed 'Upload file' to upload your gallery image."
           ]
         });
       });
