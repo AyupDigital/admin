@@ -7,6 +7,14 @@ Vue.use(Router);
 let router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
+  scrollBehavior(to, from, savedPosition) {
+    // If a saved position exists (e.g., when using browser back/forward), use it
+    if (savedPosition) {
+      return savedPosition;
+    }
+    // Otherwise, scroll to the top of the page
+    return { x: 0, y: 0 };
+  },
   routes: [
     {
       path: "/login",
