@@ -114,7 +114,11 @@ export default {
   },
   computed: {
     logo() {
-      return require("@/assets/" + process.env.VUE_APP_LOGO);
+      const logo = process.env.VUE_APP_LOGO;
+      if (logo.includes("https")) {
+        return logo;
+      }
+      return require("@/assets/" + logo);
     }
   }
 };
