@@ -1,5 +1,5 @@
 <template>
-  <span :id="id" class="govuk-error-message">
+  <span :id="id" class="govuk-error-message" role="alert">
     <slot />
   </span>
 </template>

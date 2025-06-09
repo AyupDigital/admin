@@ -151,6 +151,8 @@ export default {
         this.form.mime_type = null;
         this.form.file = null;
         this.$emit("input", { file_id: null, image: null });
+        this.imageChanged = null;
+        this.$emit("image-changed", null);
         return;
       }
       // Destructure the payload with the variables we need.
@@ -200,6 +202,12 @@ export default {
         this.form.file = null;
         this.form.alt_text = null;
         this.form.$errors.clear();
+        this.errors.clear('alt_text');
+        this.errors.clear('file');
+        this.errors.clear('image_file_id');
+        this.errors.clear('mime_type');
+        this.imageChanged = false;
+        this.$emit("image-changed", false);
         this.$emit("input", { file_id: null, image: null, alt: null });
         return;
       }

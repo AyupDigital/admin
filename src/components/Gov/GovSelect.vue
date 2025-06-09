@@ -6,7 +6,8 @@
     class="govuk-select"
     :class="computedClasses"
     :name="name"
-    :aria-describedby="hint ? ariaDescribedBy : null"
+    :aria-describedby="getAriaDescribedBy"
+    :aria-invalid="error ? 'true' : 'false'"
   >
     <slot />
     <template v-if="options">
@@ -49,10 +50,17 @@ export default {
       type: String,
       required: false
     },
+    error: {
+      required: false,
+      default: null
+    }
   },
   computed: {
-    ariaDescribedBy() {
-      return `${this.name}-hint`;
+    getAriaDescribedBy() {
+      const ids = [];
+      if (this.hint) ids.push(`${this.name}-hint`);
+      if (this.error) ids.push(`${this.name}-error`);
+      return ids.length > 0 ? ids.join(' ') : null;
     },
     computedClasses() {
       return this.width ? `govuk-input--width-${this.width}` : null;

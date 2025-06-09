@@ -4,12 +4,12 @@
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
-        <vue-headful :title="`Show Page ${page.title} - ${appName}`" />
+        <vue-headful :title="`${page.page_type} Page: ${page.title} - ${appName}`" />
 
         <gov-grid-column width="full">
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
-              <gov-heading size="m">
+              <gov-heading size="xl">
                 <gov-caption size="m">{{ page.title }}</gov-caption>
                 View page
               </gov-heading>

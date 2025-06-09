@@ -11,7 +11,7 @@
         />
 
         <gov-grid-column width="two-thirds">
-          <gov-heading size="m">View organisation</gov-heading>
+          <gov-heading size="xl">View organisation</gov-heading>
 
           <gov-inset-text v-if="updated"
             >Organisation {{ organisation.name }} has been

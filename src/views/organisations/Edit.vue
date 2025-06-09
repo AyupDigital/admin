@@ -65,7 +65,7 @@
               >
                 <template v-slot:intro>
                   <gov-body>
-                    These are a list of ‘tags’ that are applied to an
+                    These are a list of 'tags' that are applied to an
                     organisation. These tags help the organisation be found in
                     categories and keyword searches.
                   </gov-body>

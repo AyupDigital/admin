@@ -7,7 +7,8 @@
     :id="id"
     :name="name"
     :rows="rows"
-    :aria-describedby="ariaDescribedBy"
+    :aria-describedby="getAriaDescribedBy"
+    :aria-invalid="error ? 'true' : 'false'"
     :required="required ? true : false"
   ></textarea>
 </template>
@@ -33,6 +34,14 @@ export default {
       required: false,
       default: 5
     },
+    error: {
+      required: false,
+      default: null
+    },
+    hint: {
+      type: String,
+      required: false
+    },
     required: {
       type: Boolean,
       required: false,
@@ -40,8 +49,11 @@ export default {
     }
   },
   computed: {
-    ariaDescribedBy() {
-      return `${this.name}-hint`;
+    getAriaDescribedBy() {
+      const ids = [];
+      if (this.hint) ids.push(`${this.name}-hint`);
+      if (this.error) ids.push(`${this.name}-error`);
+      return ids.length > 0 ? ids.join(' ') : null;
     }
   },
   methods: {

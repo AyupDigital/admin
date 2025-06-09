@@ -1,0 +1,54 @@
+$govuk-focus-colour: #ffdd00;
+$govuk-focus-text-colour: #0b0c0c;
+
+
+.govuk-footer__link {
+  &:focus {
+    color: $govuk-focus-text-colour !important;
+    background-color: $govuk-focus-colour;
+    box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
+    text-decoration: none;
+    outline: 3px solid transparent;
+  }
+}
+
+// Regular navigation items get yellow bg and black text on focus
+.govuk-header__navigation-item:not(.govuk-header__navigation-item--active) {
+  a:focus {
+    color: $govuk-focus-text-colour !important;
+    background-color: $govuk-focus-colour;
+    box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
+    text-decoration: none;
+    outline: 3px solid transparent;
+  }
+}
+
+// Active navigation items always have white text and border
+.govuk-header__navigation-item--active {
+  a {
+    color: #fff !important;
+    border-bottom: 3px solid #fff !important;
+    background-color: transparent !important;
+  }
+}
+
+.govuk-link {
+  &:focus {
+    color: $govuk-focus-text-colour !important;
+    background-color: $govuk-focus-colour;
+    box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
+    text-decoration: none;
+    outline: 3px solid transparent;
+  }
+}
+
+.govuk-error-message {
+  color: $govuk-error-colour;
+  font-weight: 700;
+
+  &:focus {
+    color: $govuk-focus-text-colour !important;
+    background-color: $govuk-focus-colour;
+    box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
+  }
+} 

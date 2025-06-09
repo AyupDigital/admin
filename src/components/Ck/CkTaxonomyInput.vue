@@ -1,6 +1,7 @@
 <template>
   <ck-loader v-if="loading" />
   <div v-else>
+    <span class="govuk-visually-hidden" role="status" aria-live="polite">Taxonomies loaded</span>
     <gov-form-group>
       <gov-label for="filter[name]">Search by taxonomy name</gov-label>
       <gov-input

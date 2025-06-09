@@ -11,7 +11,7 @@
         <gov-grid-column width="full">
           <gov-grid-row>
             <gov-grid-column width="two-thirds">
-              <gov-heading size="m">
+              <gov-heading size="xl">
                 <gov-caption size="m">{{ service.name }}</gov-caption>
                 View {{ service.type }}
               </gov-heading>

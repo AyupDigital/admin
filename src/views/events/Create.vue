@@ -160,6 +160,7 @@ export default {
       organisations: [{ text: "Please select", value: null }],
       updateRequestCreated: false,
       updateRequestMessage: null,
+      imageRemoved: false,
       loading: false,
       imageChanged: false,
       altTextChanged: false

@@ -1,6 +1,6 @@
 <template>
   <gov-form-group :invalid="error !== null">
-    <gov-label :for="id" class="govuk-!-font-weight-bold">
+    <gov-label :forId="id" class="govuk-!-font-weight-bold">
       <slot name="label">{{ label }} {{ required ? "" : "(Optional)" }}</slot>
     </gov-label>
 
@@ -16,6 +16,9 @@
         :name="id"
         :rows="rows"
         :maxlength="maxlength"
+        :error="error"
+        :hint="hint"
+        :required="required"
       />
       <ck-character-count
         v-if="maxlength"
@@ -76,6 +79,6 @@ export default {
 </script>
 <style>
 .govuk-textarea {
-  margin-bottom: 0px;
+  margin-bottom: 5px !important;
 }
 </style>

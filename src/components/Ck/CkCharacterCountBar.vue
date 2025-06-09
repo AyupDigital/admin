@@ -54,7 +54,6 @@ export default {
   @extend .govuk-body;
 
   margin: 0;
-  background-color: $govuk-border-colour;
 }
 .ck-character-bar {
   padding-top: 0.5rem;

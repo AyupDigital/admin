@@ -4,6 +4,7 @@ $govuk-error-colour: #d23a49;
 @import url("https://use.fontawesome.com/releases/v5.3.1/css/solid.css");
 @import url("https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css");
 @import "fonts";
+@import "accessibility";
 
 // Overides
 .govuk-header {
@@ -18,13 +19,27 @@ $govuk-error-colour: #d23a49;
   width: 100%;
 }
 
+// Table responsiveness
+.govuk-table {
+  @include govuk-media-query($until: tablet) {
+    // Ensure table cells don't wrap unnecessarily
+    white-space: nowrap;
+    
+    // Allow text to wrap for longer content
+    &__cell--break-word {
+      white-space: normal;
+    }
+  }
+}
+
+// Tabs responsiveness
 .govuk-tabs {
   .govuk-tabs__list {
-    display: flex; // Use flexbox for consistent alignment
-    flex-wrap: wrap; // Allow tabs to wrap to the next line if needed
-    padding: 0; // Reset padding for the list
-    margin: 0; // Reset margin for the list
-    list-style: none; // Remove default list styling
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    list-style: none;
   }
 
   .govuk-tabs__tab {
@@ -32,8 +47,8 @@ $govuk-error-colour: #d23a49;
     padding: 10px 20px;
     margin: 0 5px 0 0;
     box-sizing: border-box;
-    min-width: 100px; // Ensure consistent minimum width for all tabs
-    text-align: center; // Center-align text within tabs
+    min-width: 100px;
+    text-align: center;
 
     &--bar {
       color: $govuk-link-colour !important;
@@ -45,11 +60,12 @@ $govuk-error-colour: #d23a49;
 
     &.govuk-tabs__tab--active {
       color: $govuk-link-colour;
-      border-bottom: 5px solid $govuk-link-colour; // Keep GOV.UK-style blue border
+      border-bottom: 5px solid $govuk-link-colour;
       background: govuk-colour("grey-4");
     }
   }
 }
+
 img {
   max-width: 100%;
 }
@@ -58,14 +74,6 @@ img {
 .hljs {
   font-size: 19px;
   line-height: 25px;
-}
-
-.app-table--fixed {
-  table-layout: fixed;
-}
-
-.app-\!-db {
-  display: block !important;
 }
 
 .app-table--fixed {
@@ -202,9 +210,7 @@ img {
   border-bottom: none !important;
 }
 
-.govuk-header__navigation-item--active a:link, .govuk-header__navigation-item--active a:hover, .govuk-header__navigation-item--active a:visited {
-  color: #75d0c4 !important;
-}
+
 
 .govuk-button {
   background-color: #485b7f !important;

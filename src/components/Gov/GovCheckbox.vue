@@ -8,7 +8,8 @@
       :id="id"
       :name="name"
       type="checkbox"
-      :aria-describedby="ariaDescribedBy"
+      :aria-describedby="getAriaDescribedBy"
+      :aria-invalid="error ? 'true' : 'false'"
       :disabled="disabled"
     />
     <gov-label class="govuk-checkboxes__label" :for="id">{{ label }}</gov-label>
@@ -36,6 +37,14 @@ export default {
       type: String,
       required: true
     },
+    hint: {
+      type: String,
+      required: false
+    },
+    error: {
+      required: false,
+      default: null
+    },
     disabled: {
       type: Boolean,
       required: false,
@@ -43,8 +52,11 @@ export default {
     }
   },
   computed: {
-    ariaDescribedBy() {
-      return `${this.name}-hint`;
+    getAriaDescribedBy() {
+      const ids = [];
+      if (this.hint) ids.push(`${this.name}-hint`);
+      if (this.error) ids.push(`${this.name}-error`);
+      return ids.length > 0 ? ids.join(' ') : null;
     }
   }
 };

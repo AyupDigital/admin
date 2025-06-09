@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`Add Organisation - ${appName}`" />
+    <vue-headful :title="`Add a New Organisation - ${appName}`" />
 
     <gov-back-link :to="{ name: 'organisations-index' }"
       >Back to organisations</gov-back-link
@@ -68,7 +68,7 @@
               >
                 <template v-slot:intro>
                   <gov-body>
-                    These are a list of ‘tags’ that are applied to an
+                    These are a list of 'tags' that are applied to an
                     organisation. These tags help the organisation be found in
                     categories and keyword searches.
                   </gov-body>

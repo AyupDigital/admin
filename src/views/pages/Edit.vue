@@ -2,7 +2,7 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <vue-headful :title="`Edit Page ${page.title} - ${appName}`" />
+      <vue-headful :title="`Edit ${page.page_type} Page: ${page.title} - ${appName}`" />
 
       <gov-back-link :to="{ name: 'pages-show', params: { page: page.id } }"
         >Back to page</gov-back-link

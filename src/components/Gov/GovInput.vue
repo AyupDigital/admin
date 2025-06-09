@@ -10,7 +10,8 @@
     :type="type"
     :max="max"
     :min="min"
-    :aria-describedby="describedBy ? describedBy : ariaDescribedBy"
+    :aria-describedby="getAriaDescribedBy"
+    :aria-invalid="error ? 'true' : 'false'"
     :autocomplete="autocomplete"
     :required="required ? true : null"
   />
@@ -51,6 +52,10 @@ export default {
       type: String,
       required: false
     },
+    error: {
+      required: false,
+      default: null
+    },
     autocomplete: {
       type: String,
       required: false
@@ -70,8 +75,12 @@ export default {
     computedClass() {
       return this.width ? `govuk-input--width-${this.width}` : null;
     },
-    ariaDescribedBy() {
-      return `${this.name}-hint`;
+    getAriaDescribedBy() {
+      const ids = [];
+      if (this.describedBy) ids.push(this.describedBy);
+      if (this.hint) ids.push(`${this.name}-hint`);
+      if (this.error) ids.push(`${this.name}-error`);
+      return ids.length > 0 ? ids.join(' ') : null;
     }
   },
   methods: {

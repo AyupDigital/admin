@@ -1,5 +1,5 @@
 <template>
-  <label class="govuk-label" :id="id">
+  <label class="govuk-label" :for="forId" :id="id">
     <slot />
   </label>
 </template>
@@ -8,6 +8,11 @@
 export default {
   name: "GovLabel",
   props: {
+    forId: {
+      type: String,
+      required: false,
+      default: null
+    },
     id: {
       required: false,
       default: null

@@ -7,7 +7,7 @@
         <gov-table-header scope="col">Type</gov-table-header>
         <gov-table-header scope="col">Recipient</gov-table-header>
         <gov-table-header scope="col">Date / Time</gov-table-header>
-        <gov-table-header scope="col" right></gov-table-header>
+        <gov-table-header scope="col" right>Action</gov-table-header>
       </gov-table-row>
     </template>
     <template slot="body">

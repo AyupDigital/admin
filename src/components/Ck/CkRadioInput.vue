@@ -1,8 +1,8 @@
 <template>
   <gov-form-group :invalid="error !== null">
-    <gov-fieldset class="govuk-radios">
+    <gov-fieldset class="govuk-fieldset">
       <gov-legend>
-        <gov-label :for="id" class="govuk-!-font-weight-bold">
+        <gov-label :forId="id" class="govuk-!-font-weight-bold">
           <slot name="label">{{ label }}</slot>
         </gov-label>
 
@@ -10,17 +10,21 @@
           <gov-hint v-if="hint" :for="id" v-text="hint" />
         </slot>
       </gov-legend>
-      <gov-radio
-        v-for="(option, index) in options"
-        :key="index"
-        :bind-to="value"
-        @input="$emit('input', $event)"
-        :id="`${id}_${index}`"
-        :name="id"
-        :label="option.label"
-        :value="option.value"
-        :disabled="disabled"
-      />
+
+      <div class="govuk-radios">
+        <gov-radio
+          v-for="(option, index) in options"
+          :key="index"
+          :bind-to="value"
+          @input="$emit('input', $event)"
+          :id="`${id}_${index}`"
+          :name="id"
+          :label="option.label"
+          :value="option.value"
+          :error="error"
+          :disabled="disabled"
+        />
+      </div>
 
       <slot name="after-input" />
 

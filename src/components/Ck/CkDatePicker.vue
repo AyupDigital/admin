@@ -122,6 +122,11 @@ export default {
       const ukDate = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
       const isoDate = /^\d{4}-\d{1,2}-\d{1,2}$/;
 
+      // If empty or incomplete date, don't show error
+      if (!dateStr || dateStr.length < 10) {
+        return null;
+      }
+
       if (dateStr.match(ukDate)) {
         // UK date convert to ISO-8601 format
         const dateArr = dateStr.split("/");
@@ -134,10 +139,9 @@ export default {
         // Valid ISO-8601 date return new Date object
         return new Date(dateStr);
       }
-      if (dateStr.length > 5) {
-        // Give the user time to enter a date
-        this.formatError = "Invalid date format. Use dd/mm/yyyy";
-      }
+
+      // Only show error if we have a complete but invalid date
+      this.formatError = "Invalid date format. Use dd/mm/yyyy";
       return null;
     },
     formatDate(dateObj) {
