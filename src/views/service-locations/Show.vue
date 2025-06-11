@@ -27,14 +27,12 @@
 
             <template v-if="auth.isServiceAdmin(serviceLocation.service_id)">
               <gov-body
-                >Please be certain of the action before deleting a service
-                location</gov-body
+                >If this service no longer operates at this location, you can remove the location association from your service. The location will still exist for other services to use.</gov-body
               >
-
-              <gov-section-break size="l" />
 
               <ck-delete-button
                 resource="service location"
+                custom-button-prefix="Remove"
                 :endpoint="`/service-locations/${this.serviceLocation.id}`"
                 @deleted="onDelete"
               />

@@ -3,7 +3,7 @@
   <div v-if="!form.$submitting">
     <!-- If the user has not yet clicked the delete button -->
     <gov-button v-if="!showConfirm" @click="onShowConfirmation" error
-      >Delete {{ resource }}</gov-button
+      >{{ customButtonPrefix }} {{ resource }}</gov-button
     >
 
     <!-- If the user has clicked the delete button, they must then confirm -->
@@ -38,6 +38,10 @@ export default {
     endpoint: {
       required: true,
       type: String
+    },
+    customButtonPrefix: {
+      type: String,
+      default: "Delete"
     }
   },
   data() {
