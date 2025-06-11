@@ -82,7 +82,7 @@
       "
     >
       <gov-fieldset-legend size="xl">
-        <gov-heading size="m">Accessibility information</gov-heading>
+        <gov-heading tag="h3" size="m">Accessibility information</gov-heading>
       </gov-fieldset-legend>
       <gov-body
         >Select which accessibility requirements the building meets</gov-body

@@ -13,7 +13,7 @@
       <ck-loader v-if="loading" />
       <gov-button v-else @click="onExportCsv">Download thesaurus</gov-button>
 
-      <gov-heading size="m">Synonyms</gov-heading>
+      <gov-heading tag="h2" size="m">Synonyms</gov-heading>
 
       <ck-loader v-if="loading" />
       <ck-thesaurus-list v-else :synonyms="synonyms" />

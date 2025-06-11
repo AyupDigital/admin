@@ -20,7 +20,7 @@
           width="two-thirds"
         >
           <gov-grid-column width="two-thirds">
-            <gov-heading size="m">Update case</gov-heading>
+            <gov-heading tag="h2" size="m">Update case</gov-heading>
 
             <gov-hint>
               You can change the status of the referral to 'Complete',
@@ -56,7 +56,7 @@
         <gov-section-break size="l" />
         <gov-grid-row>
           <gov-grid-column width="full">
-            <gov-heading size="m">Previous comments</gov-heading>
+            <gov-heading tag="h2" size="m">Previous comments</gov-heading>
             <ck-loader v-if="loadingStatusUpdates" />
             <template v-else>
               <gov-grid-row
@@ -102,7 +102,7 @@
           <gov-section-break size="l" />
           <gov-grid-row width="two-thirds">
             <gov-grid-column width="two-thirds">
-              <gov-heading size="m">Delete referral</gov-heading>
+              <gov-heading tag="h2" size="m">Delete referral</gov-heading>
 
               <gov-body
                 >Please be certain of the action before deleting a

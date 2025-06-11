@@ -33,7 +33,7 @@
       :key="rootTaxonomy.id"
     >
       <gov-grid-column width="two-thirds">
-        <gov-heading size="m">{{ rootTaxonomy.name }}</gov-heading>
+        <gov-heading tag="h2" size="m">{{ rootTaxonomy.name }}</gov-heading>
         <ck-taxonomy-list
           :taxonomies="rootTaxonomy.children"
           :filteredTaxonomyIds="true"

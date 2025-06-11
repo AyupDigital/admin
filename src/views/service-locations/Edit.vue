@@ -19,7 +19,7 @@
         <gov-grid-row>
           <gov-grid-column width="one-half">
             <gov-heading size="xl">Service locations</gov-heading>
-            <gov-heading size="m">Edit service location</gov-heading>
+            <gov-heading tag="h2" size="m">Edit service location</gov-heading>
 
             <service-location-form
               :errors="form.$errors"

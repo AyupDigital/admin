@@ -33,7 +33,7 @@
                 </li>
               </gov-list>
             </div>
-            <gov-heading size="m">Add event</gov-heading>
+            <gov-heading tag="h2" size="m">Add event</gov-heading>
             <gov-body
               >The events will appear on their own page will be discoverable and
               filterable by visitors based on the information you

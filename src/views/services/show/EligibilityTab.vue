@@ -6,7 +6,7 @@
       :key="rootTaxonomy.id"
     >
       <gov-grid-column width="two-thirds">
-        <gov-heading size="m">{{ rootTaxonomy.name }}</gov-heading>
+        <gov-heading size="m" tag="h3">{{ rootTaxonomy.name }}</gov-heading>
         <div v-if="serviceHasEligibilityCriteria(rootTaxonomy)">
           <ck-taxonomy-list
             :taxonomies="rootTaxonomy.children"

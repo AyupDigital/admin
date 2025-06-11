@@ -9,7 +9,7 @@
         />
 
         <gov-grid-column width="two-thirds">
-          <gov-heading size="m">View user</gov-heading>
+          <gov-heading tag="h2" size="m">View user</gov-heading>
 
           <ck-user-details :user="user" />
 

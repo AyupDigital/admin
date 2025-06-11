@@ -12,7 +12,7 @@
             <gov-caption size="xl">Collections</gov-caption>
             Personas
           </gov-heading>
-          <gov-heading size="m">Add persona</gov-heading>
+          <gov-heading tag="h2" size="m">Add persona</gov-heading>
           <gov-body>
             From this page, you can add the persona groups that appear on the
             homepage. You can specify which taxonomies they refer to, the icon

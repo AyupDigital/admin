@@ -16,7 +16,7 @@
               <gov-caption size="xl">Collections</gov-caption>
               Personas
             </gov-heading>
-            <gov-heading size="m">Edit persona</gov-heading>
+            <gov-heading tag="h2" size="m">Edit persona</gov-heading>
             <gov-body>
               From this page, you can edit the persona groups that appear on the
               homepage. You can change which taxonomies they refer to, the icon

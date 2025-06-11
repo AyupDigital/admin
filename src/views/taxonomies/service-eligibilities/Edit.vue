@@ -19,7 +19,7 @@
               <gov-caption size="xl">Taxonomies</gov-caption>
               Service Eligibilities
             </gov-heading>
-            <gov-heading size="m">Edit service eligibility</gov-heading>
+            <gov-heading tag="h2" size="m">Edit service eligibility</gov-heading>
             <gov-body>
               From this page you can change the name of the taxonomy 'tags' on
               the site and how they relate to each other. These should not be

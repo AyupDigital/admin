@@ -97,7 +97,7 @@
                 !updateRequest.deleted_at
             "
           >
-            <gov-heading size="m">Do you approve these changes?</gov-heading>
+            <gov-heading tag="h2" size="m">Do you approve these changes?</gov-heading>
 
             <gov-radios inline>
               <gov-radio

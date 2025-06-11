@@ -17,7 +17,7 @@
         <gov-grid-row>
           <gov-grid-column width="full">
             <gov-heading size="xl">Organisations</gov-heading>
-            <gov-heading size="m">Edit organisation</gov-heading>
+            <gov-heading tag="h2" size="m">Edit organisation</gov-heading>
 
             <gov-error-summary
               v-if="form.$errors.any()"

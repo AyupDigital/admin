@@ -25,7 +25,7 @@
         />
 
         <template v-if="appServiceOfferingsActive">
-          <gov-heading size="m">What you offer</gov-heading>
+          <gov-heading tag="h2" size="m">What you offer</gov-heading>
 
           <gov-body>
             Include a bullet list of some of the things you do as a {{ type }}.

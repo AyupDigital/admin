@@ -13,7 +13,7 @@
             <gov-caption size="xl">Taxonomies</gov-caption>
             Service Eligibilities
           </gov-heading>
-          <gov-heading size="m">Add service eligibility</gov-heading>
+          <gov-heading tag="h2" size="m">Add service eligibility</gov-heading>
           <gov-body>
             From this page you can add the name of the taxonomy 'tags' on the
             site and how they relate to each other. These should not be added

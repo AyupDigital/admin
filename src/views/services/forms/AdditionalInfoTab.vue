@@ -230,7 +230,7 @@
 
         <gov-section-break size="l" />
 
-        <gov-heading size="m">Social media links</gov-heading>
+        <gov-heading tag="h2" size="m">Social media links</gov-heading>
 
         <gov-body>
           If you have any social media accounts for your {{ type }}, please

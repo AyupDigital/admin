@@ -25,7 +25,7 @@
                   :src="video.src"
                   :title="video.title"
                 />
-                <gov-heading size="m">{{ video.title }}</gov-heading>
+                <gov-heading tag="h2" size="m">{{ video.title }}</gov-heading>
               </gov-grid-column>
             </gov-grid-row>
           </template>

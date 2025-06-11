@@ -48,7 +48,7 @@
           </template>
 
           <template v-if="!updateRequestCreated">
-            <gov-heading size="m">Add service</gov-heading>
+            <gov-heading tag="h2" size="m">Add service</gov-heading>
 
             <gov-error-summary v-if="hasErrors" title="Check for errors">
               <gov-list>

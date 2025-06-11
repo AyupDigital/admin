@@ -8,7 +8,7 @@
         <gov-grid-column width="one-half">
           <gov-heading size="xl">Users</gov-heading>
 
-          <gov-heading size="m">Add user</gov-heading>
+          <gov-heading tag="h2" size="m">Add user</gov-heading>
 
           <gov-body
             >Create users to be able to acces the back-end of the

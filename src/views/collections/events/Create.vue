@@ -12,7 +12,7 @@
             <gov-caption size="xl">Collections</gov-caption>
             Events
           </gov-heading>
-          <gov-heading size="m">Add event collection</gov-heading>
+          <gov-heading tag="h2" size="m">Add event collection</gov-heading>
           <gov-body>
             From this page, you can add the event collections that appear on the
             homepage. You can specify which taxonomies they refer to, the icon

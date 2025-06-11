@@ -9,7 +9,7 @@
       <gov-grid-row>
         <gov-grid-column width="one-half">
           <gov-heading size="xl">Locations</gov-heading>
-          <gov-heading size="m">Add location</gov-heading>
+          <gov-heading tag="h2" size="m">Add location</gov-heading>
           <gov-body
             >The locations will appear on the service pages which will inform
             people of where to find your service/organisation</gov-body

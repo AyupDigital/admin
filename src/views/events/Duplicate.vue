@@ -22,7 +22,7 @@
             </template>
 
             <template v-else>
-              <gov-heading size="m">Duplicate event</gov-heading>
+              <gov-heading tag="h2" size="m">Duplicate event</gov-heading>
               <gov-body
                 >The events will appear on their own page will be discoverable
                 and filterable by visitors based on the information you

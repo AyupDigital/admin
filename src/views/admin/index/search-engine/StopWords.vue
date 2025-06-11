@@ -14,7 +14,7 @@
       <ck-loader v-if="loading" />
       <gov-button v-else @click="onExportCsv">Download stop words</gov-button>
 
-      <gov-heading size="m">All stop words</gov-heading>
+      <gov-heading tag="h2" size="m">All stop words</gov-heading>
 
       <ck-loader v-if="loading" />
       <gov-list v-else bullet>

@@ -16,7 +16,7 @@
             not replace during peak hours.
           </gov-warning-text>
 
-          <gov-heading size="m">Edit Stop Words</gov-heading>
+          <gov-heading tag="h2" size="m">Edit Stop Words</gov-heading>
 
           <gov-body
             >Update the stop words used when searching for services.</gov-body

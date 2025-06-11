@@ -15,7 +15,7 @@
             <gov-grid-column width="full">
               <gov-heading size="xl">Services</gov-heading>
 
-              <gov-heading size="m">Edit {{ form.type }}</gov-heading>
+              <gov-heading tag="h2" size="m">Edit {{ form.type }}</gov-heading>
 
               <gov-error-summary
                 v-if="form.$errors.any()"
@@ -198,7 +198,7 @@
             <gov-grid-column width="full">
               <gov-heading size="xl">Services</gov-heading>
 
-              <gov-heading size="m">Preview changes</gov-heading>
+              <gov-heading tag="h2" size="m">Preview changes</gov-heading>
 
               <service-details
                 update-request-id="PREVIEW"

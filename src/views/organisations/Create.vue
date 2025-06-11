@@ -11,7 +11,7 @@
           <gov-heading size="xl">Organisations</gov-heading>
           <template v-if="!auth.isSuperAdmin">
             <div v-if="updateRequestCreated">
-              <gov-heading size="m" tag="h3"
+              <gov-heading size="m" tag="h2"
                 >Create organisation request</gov-heading
               >
               <gov-body>{{ updateRequestMessage }}</gov-body>
@@ -21,7 +21,7 @@
             </div>
           </template>
           <template v-if="!updateRequestCreated">
-            <gov-heading size="m">Add organisation</gov-heading>
+            <gov-heading tag="h2" size="m">Add organisation</gov-heading>
 
             <gov-error-summary
               v-if="form.$errors.any()"

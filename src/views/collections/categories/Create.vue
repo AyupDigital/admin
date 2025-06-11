@@ -12,7 +12,7 @@
             <gov-caption size="xl">Collections</gov-caption>
             Categories
           </gov-heading>
-          <gov-heading size="m">Add category</gov-heading>
+          <gov-heading tag="h2" size="m">Add category</gov-heading>
           <gov-body>
             From this page, you can add the categories that appear on the
             homepage. You can specify which taxonomies they refer to, the icon

@@ -33,7 +33,7 @@
       <gov-grid-row>
         <gov-grid-column width="two-thirds">
           <!-- Heading -->
-          <gov-heading size="m">
+          <gov-heading tag="h2" size="m">
             {{ taxonomy.name }}&nbsp;
             <gov-link
               v-if="auth.isGlobalAdmin"

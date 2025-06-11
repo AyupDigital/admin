@@ -86,7 +86,7 @@
       :error="errors.get('enabled')"
     />
 
-    <gov-heading size="m">Sideboxes</gov-heading>
+    <gov-heading tag="h2" size="m">Sideboxes</gov-heading>
 
     <gov-body>
       Create up to three sideboxes that will can be used to display information

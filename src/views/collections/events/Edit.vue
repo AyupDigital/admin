@@ -16,7 +16,7 @@
               <gov-caption size="xl">Collections</gov-caption>
               Events
             </gov-heading>
-            <gov-heading size="m">Edit event collection</gov-heading>
+            <gov-heading tag="h2" size="m">Edit event collection</gov-heading>
             <gov-body>
               From this page, you can edit the event collections that appear on
               the homepage. You can change which taxonomies they refer to, the

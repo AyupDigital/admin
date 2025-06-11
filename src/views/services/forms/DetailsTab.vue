@@ -190,7 +190,7 @@
           :hint="`The date which this ${type} should be made inactive`"
         />
 
-        <gov-heading size="m">Service Logo</gov-heading>
+        <gov-heading tag="h2" size="m">Service Logo</gov-heading>
         <ck-image-input
           @input="
             $emit('update:logo_file_id', $event.file_id);
@@ -223,7 +223,7 @@
           </template>
         </ck-image-input>
 
-        <gov-heading size="m">Gallery items</gov-heading>
+        <gov-heading tag="h2" size="m">Gallery items</gov-heading>
 
         <gov-body>
           Upload images of the {{ type }} to the {{ type }}'s gallery.
@@ -237,7 +237,7 @@
         />
 
         <template v-if="appServiceTagsActive">
-          <gov-heading size="m">Tags</gov-heading>
+          <gov-heading tag="h2" size="m">Tags</gov-heading>
 
           <gov-body v-if="auth.isGlobalAdmin">
             Select tags to help users find the {{ type }}.

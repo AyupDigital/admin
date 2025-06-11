@@ -9,7 +9,7 @@
       :key="reportType.type"
     >
       <gov-inset-text>
-        <gov-heading size="m">{{ reportType.type }}</gov-heading>
+        <gov-heading tag="h2" size="m">{{ reportType.type }}</gov-heading>
         <gov-body>{{ reportType.description }}</gov-body>
 
         <gov-heading size="s">Scheduled generation</gov-heading>

@@ -86,7 +86,7 @@
     </template>
 
     <!-- Regular opening hours -->
-    <gov-heading size="m">Opening hours</gov-heading>
+    <gov-heading tag="h2" size="m">Opening hours</gov-heading>
     <gov-inset-text
       v-for="(regularOpeningHour, index) in regular_opening_hours"
       :key="regularOpeningHour.index"
@@ -208,7 +208,7 @@
     <!-- /Regular opening hours -->
 
     <!-- Holiday opening hours -->
-    <gov-heading size="m">Holiday times</gov-heading>
+    <gov-heading tag="h2" size="m">Holiday times</gov-heading>
     <gov-inset-text
       v-for="(holidayOpeningHour, index) in holiday_opening_hours"
       :key="holidayOpeningHour.index"

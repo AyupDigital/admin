@@ -70,7 +70,7 @@
 
     <gov-section-break size="l" />
 
-    <gov-heading size="m">Permissions</gov-heading>
+    <gov-heading tag="h2" size="m">Permissions</gov-heading>
 
     <gov-list bullet>
       <li>
