@@ -1,6 +1,8 @@
 <template>
   <th
     @click="$emit('click')"
+    @keydown.enter="$emit('click')"
+    @keydown.space="$emit('click')"
     class="govuk-table__header"
     :class="computedClasses"
   >

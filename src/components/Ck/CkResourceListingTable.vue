@@ -7,13 +7,14 @@
           <gov-table-header
             v-for="(column, index) in columns"
             :key="`ResourceListingTableHeading-${index}`"
-            @click="onSort(column)"
             :clickable="column.hasOwnProperty('sort')"
+            @click="onSort(column)"
+            :tabindex="column.hasOwnProperty('sort') ? 0 : -1"
           >
-            {{ column.heading }}
-            <template v-if="column.hasOwnProperty('sort')">
-              {{ sortText(column) }}
-            </template>
+              {{ column.heading }}
+              <template v-if="column.hasOwnProperty('sort')">
+                {{ sortText(column) }}
+              </template>
           </gov-table-header>
           <gov-table-header>Action</gov-table-header>
         </gov-table-row>
