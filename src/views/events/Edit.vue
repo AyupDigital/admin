@@ -60,6 +60,18 @@
                 @clear="form.$errors.clear($event)"
                 @image-changed="imageChanged = $event"
                 @alt-text-changed="altTextChanged = true"
+                @update:location_type="location.type = $event"
+                @update:address_line_1="location.address_line_1 = $event"
+                @update:address_line_2="location.address_line_2 = $event"
+                @update:address_line_3="location.address_line_3 = $event"
+                @update:county="location.county = $event"
+                @update:country="location.country = $event"
+                @update:city="location.city = $event"
+                @update:postcode="location.postcode = $event"
+                @update:has_induction_loop="location.has_induction_loop = $event"
+                @update:has_wheelchair_access="location.has_wheelchair_access = $event"
+                @update:has_accessible_toilet="location.has_accessible_toilet = $event"
+                @update:location_id="location.id = $event"
               />
               <taxonomies-tab
                 v-if="isTabActive('taxonomies')"
@@ -118,7 +130,22 @@ export default {
       event: null,
       form: null,
       imageChanged: false,
-      altTextChanged: false
+      altTextChanged: false,
+      location: new Form({
+        type: null,
+        id: null,
+        address_line_1: "",
+        address_line_2: "",
+        address_line_3: "",
+        county: "",
+        city: "",
+        country: "United Kingdom",
+        postcode: "",
+        accessibility_info: "",
+        has_induction_loop: false,
+        has_wheelchair_access: false,
+        has_accessible_toilet: false,
+      })
     };
   },
 
@@ -201,6 +228,15 @@ export default {
         });
         return;
       }
+
+      if (!this.location.id && this.location.type === "new") {
+        const { data } = await this.location.post("/locations");
+
+        this.location.type = "existing";
+        this.location.id = data.id;
+        this.form.location_id = data.id;
+      }
+
       const response = await this.form.put(
         `/organisation-events/${this.event.id}`,
         (config, data) => {

@@ -2,7 +2,7 @@
   <div>
     <ck-radio-input
       :value="locationType"
-      @input="locationType = $event"
+      @input="locationTypeUpdated($event)"
       id="location_type"
       label="Select location"
       hint="You can select an existing location or create a new one."
@@ -60,6 +60,30 @@
         :has_induction_loop.sync="form.has_induction_loop"
         :has_wheelchair_access.sync="form.has_wheelchair_access"
         :has_accessible_toilet.sync="form.has_accessible_toilet"
+        @update:address_line_1="
+            onLocationInput({ field: 'address_line_1', value: $event })
+          "
+        @update:address_line_2="
+            onLocationInput({ field: 'address_line_2', value: $event })
+          "
+        @update:address_line_3="
+            onLocationInput({ field: 'address_line_3', value: $event })
+          "
+        @update:city="onLocationInput({ field: 'city', value: $event })"
+        @update:county="onLocationInput({ field: 'county', value: $event })"
+        @update:postcode="
+            onLocationInput({ field: 'postcode', value: $event })
+          "
+        @update:country="onLocationInput({ field: 'country', value: $event })"
+        @update:has_induction_loop="
+            onLocationInput({ field: 'has_induction_loop', value: $event })
+          "
+        @update:has_wheelchair_access="
+            onLocationInput({ field: 'has_wheelchair_access', value: $event })
+          "
+        @update:has_accessible_toilet="
+          onLocationInput({ field: 'has_accessible_toilet', value: $event })
+        "
         @update:image_file_id="form.image_file_id = $event"
         @clear="form.$errors.clear($event)"
       />
@@ -192,6 +216,14 @@ export default {
     onInput({ field, value }) {
       this.$emit(`update:${field}`, value);
       this.$emit("clear", field);
+    },
+    onLocationInput({ field, value }) {
+      this.$emit(`update:${field}`, value);
+      this.$emit("clear-location", field);
+    },
+    locationTypeUpdated(event) {
+      this.$emit("update:location_type", event);
+      this.locationType = event;
     },
     async fetchLocations() {
       if (this.locationSearchTerm === "") {

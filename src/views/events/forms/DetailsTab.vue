@@ -279,6 +279,16 @@
       <ck-location-input
         :location_id="location_id"
         @update:location_id="onInput('location_id', $event)"
+        @update:address_line_1="onInput('address_line_1', $event)"
+        @update:address_line_2="onInput('address_line_2', $event)"
+        @update:address_line_3="onInput('address_line_3', $event)"
+        @update:city="onInput('city', $event)"
+        @update:county="onInput('county', $event)"
+        @update:postcode="onInput('postcode', $event)"
+        @update:country="onInput('country', $event)"
+        @update:has_induction_loop="onInput('has_induction_loop', $event)"
+        @update:has_wheelchair_access="onInput('has_wheelchair_access', $event)"
+        @update:location_type="onInput('location_type', $event)"
         :errors="errors"
       />
     </gov-inset-text>
