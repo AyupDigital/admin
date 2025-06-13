@@ -32,17 +32,38 @@
     <gov-grid-row>
       <gov-grid-column width="two-thirds">
         <ck-loader v-if="loading" />
-        <gov-list v-else bullet>
-          <collection-list-item
-            v-for="collection in collections"
-            :key="collection.id"
-            :collection="collection"
-            :collections="collections"
-            edit-collection-route="collections-categories-edit"
+<!--        <gov-list v-else bullet>-->
+<!--          <collection-list-item-->
+<!--            v-for="collection in collections"-->
+<!--            :key="collection.id"-->
+<!--            :collection="collection"-->
+<!--            :collections="collections"-->
+<!--            edit-collection-route="collections-categories-edit"-->
+<!--            @move-up="onMoveUp"-->
+<!--            @move-down="onMoveDown"-->
+<!--          />-->
+<!--        </gov-list>-->
+        <ck-tree-list
+            v-else
+            key="collectioncategorieslist"
+            :nodes="categoriesTree"
+            edit="collections-categories-edit"
+            nodeType="collection"
+            :bullet="true"
             @move-up="onMoveUp"
             @move-down="onMoveDown"
-          />
-        </gov-list>
+        >
+<!--          <template v-if="showView" slot="edit" slot-scope="editProps">-->
+<!--            <gov-link-->
+<!--                :to="{-->
+<!--                name: 'pages-show',-->
+<!--                params: { page: editProps.node.id }-->
+<!--              }"-->
+<!--            >-->
+<!--              View-->
+<!--            </gov-link>-->
+<!--          </template>-->
+        </ck-tree-list>
       </gov-grid-column>
     </gov-grid-row>
   </div>
@@ -51,11 +72,12 @@
 <script>
 import http from "@/http";
 import CollectionListItem from "./CollectionListItem";
+import CkTreeList from "@/components/Ck/CkTreeList.vue";
 
 export default {
   name: "ListCollectionCategories",
 
-  components: { CollectionListItem },
+  components: { CollectionListItem, CkTreeList },
 
   data() {
     return {
@@ -63,10 +85,25 @@ export default {
       collections: []
     };
   },
+  computed: {
+    categoriesTree() {
+      return this.buildCategoriesTree(
+          this.collections.filter(category => {
+            return !category.parent;
+          })
+      )
+    }
+  },
   methods: {
     async fetchCollections() {
       this.loading = true;
-      this.collections = await this.fetchAll("/collections/categories");
+      this.collections = await this.fetchAll("/collections/categories?include=children,parent");
+      this.collections = this.collections.map(collection => {
+        return {
+          label: collection.name,
+          ...collection
+        }
+      })
       this.loading = false;
     },
     async onMoveUp(collection) {
@@ -78,6 +115,28 @@ export default {
       });
 
       this.fetchCollections();
+    },
+    buildCategoriesTree(categories, parsed = [], depth = 0) {
+      categories
+          .sort((cat1, cat2) => {
+            return cat1.order - cat2.order;
+          })
+          .forEach(category => {
+            category.children = this.collections.filter(
+                child => child.parent && child.parent.id === category.id
+            );
+
+            if (depth === 0) {
+              parsed.push(category);
+            }
+
+            if (category.children.length > 0 && depth < 4) {
+              parsed = this.buildCategoriesTree(category.children, parsed, depth + 1);
+            }
+          });
+
+      return parsed;
+
     },
     async onMoveDown(collection) {
       this.loading = true;
