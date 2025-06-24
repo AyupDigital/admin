@@ -206,7 +206,7 @@ Vue.mixin({
     appShowParentIdOnCollections() {
       return process.env.hasOwnProperty("VUE_APP_SHOW_PARENT_ID_ON_COLLECTIONS")
         ? process.env.VUE_APP_SHOW_PARENT_ID_ON_COLLECTIONS === "true"
-        : false;
+        : true;
     },
     appHideReferrals() {
       return process.env.hasOwnProperty("VUE_APP_HIDE_REFERRALS")
