@@ -10,14 +10,7 @@
         v-if="auth.isServiceAdmin(service.id)"
         width="one-third text-right"
       >
-        <gov-button
-          :to="{
-            name: 'service-locations-create',
-            params: { service: service.id }
-          }"
-          success
-          expand
-        >
+        <gov-button @click="checkForUnsavedChanges" success expand>
           Add location
         </gov-button>
       </gov-grid-column>
@@ -31,12 +24,30 @@
 </template>
 
 <script>
+import Form from "@/classes/Form";
+
 export default {
   name: "LocationsTab",
   props: {
     service: {
       type: Object,
       required: true
+    },
+    form: {
+      type: Form,
+      required: true
+    }
+  },
+  methods: {
+    checkForUnsavedChanges() {
+      console.log(this.form.hasChanged());
+      if (this.form.hasChanged()) {
+        alert(
+          "You have unsaved changes. Please save or discard them before adding a new location."
+        );
+      } else {
+        window.location.href = `/services/${this.service.id}/service-locations/create`;
+      }
     }
   }
 };

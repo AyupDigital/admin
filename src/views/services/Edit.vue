@@ -116,6 +116,7 @@
                 <locations-tab
                   v-if="isTabActive('locations')"
                   :service="service"
+                  :form="form"
                 >
                   <gov-button @click="onNext" start>Next</gov-button>
                 </locations-tab>
@@ -273,6 +274,7 @@ export default {
   data() {
     return {
       form: null,
+      initialForm: null,
       tabs: [
         { id: "details", heading: "Details", active: true },
         { id: "additional-info", heading: "Additional info", active: false },

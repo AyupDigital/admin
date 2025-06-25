@@ -197,4 +197,13 @@ export default class Form {
 
     return fd;
   }
+
+  hasChanged() {
+    for (let field in this.$originalData) {
+      if (this.$originalData[field] !== this[field]) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
