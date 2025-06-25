@@ -22,10 +22,7 @@
         <gov-table-cell>{{ serviceLocation.location.postcode }}</gov-table-cell>
         <gov-table-cell right>
           <gov-link
-            :to="{
-              name: 'service-locations-show',
-              params: { serviceLocation: serviceLocation.id }
-            }"
+            @click="checkForUnsavedChanges(serviceLocation.id)"
             label="View location"
             >View</gov-link
           >
@@ -47,6 +44,25 @@ export default {
     serviceLocations: {
       type: Array,
       required: true
+    },
+    unsavedChanges: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  methods: {
+    checkForUnsavedChanges(serviceLocationId) {
+      if (this.unsavedChanges) {
+        alert(
+          "You have unsaved changes. Please save or discard them before proceeding."
+        );
+      } else {
+        this.$router.push({
+          name: "service-locations-show",
+          params: { serviceLocation: serviceLocationId }
+        });
+      }
     }
   }
 };

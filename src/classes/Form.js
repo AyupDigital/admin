@@ -105,7 +105,7 @@ export default class Form {
           if (error.response.hasOwnProperty("data")) {
             this.onFail(error.response.data);
           }
-          window.scrollTo(0,0); 
+          window.scrollTo(0, 0);
           reject(error.response.data);
         });
     });

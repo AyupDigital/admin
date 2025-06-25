@@ -10,7 +10,15 @@
         v-if="auth.isServiceAdmin(service.id)"
         width="one-third text-right"
       >
-        <gov-button @click="checkForUnsavedChanges" success expand>
+        <gov-button
+          @click="
+            checkForUnsavedChanges(
+              `/services/${service.id}/service-locations/create`
+            )
+          "
+          success
+          expand
+        >
           Add location
         </gov-button>
       </gov-grid-column>
@@ -18,14 +26,13 @@
 
     <ck-service-locations-table
       :service-locations="service.service_locations"
+      :unsaved-changes="unsavedChanges"
     />
     <slot />
   </div>
 </template>
 
 <script>
-import Form from "@/classes/Form";
-
 export default {
   name: "LocationsTab",
   props: {
@@ -33,20 +40,19 @@ export default {
       type: Object,
       required: true
     },
-    form: {
-      type: Form,
-      required: true
+    unsavedChanges: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
-    checkForUnsavedChanges() {
-      console.log(this.form.hasChanged());
-      if (this.form.hasChanged()) {
+    checkForUnsavedChanges(redirect) {
+      if (this.unsavedChanges) {
         alert(
           "You have unsaved changes. Please save or discard them before adding a new location."
         );
       } else {
-        window.location.href = `/services/${this.service.id}/service-locations/create`;
+        window.location.href = redirect;
       }
     }
   }

@@ -116,7 +116,7 @@
                 <locations-tab
                   v-if="isTabActive('locations')"
                   :service="service"
-                  :form="form"
+                  :unsaved-changes="form.hasChanged()"
                 >
                   <gov-button @click="onNext" start>Next</gov-button>
                 </locations-tab>
