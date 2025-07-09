@@ -7,6 +7,7 @@
       label="Name of location"
       type="text"
       :error="errors.get('name')"
+      :required="true"
     />
 
     <template v-if="isCreateForm">
@@ -104,6 +105,7 @@
         label="Frequency type"
         :options="frequencies"
         :error="errors.get(`regular_opening_hours.${index}.frequency`)"
+        :required="true"
       />
 
       <ck-select-input
