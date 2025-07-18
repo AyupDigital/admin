@@ -105,8 +105,8 @@
 
         <gov-table-row
           v-if="
-            service.hasOwnProperty('national') &&
-              original.national !== service.national
+            service.hasOwnProperty('national') && (!original ||
+              original.national !== service.national)
           "
         >
           <gov-table-header top scope="row">National</gov-table-header>
@@ -121,7 +121,7 @@
         <gov-table-row
           v-if="
             service.hasOwnProperty('attending_type') &&
-              originalAttendingType !== attendingType
+              (!original || originalAttendingType !== attendingType)
           "
         >
           <gov-table-header top scope="row">Attending type</gov-table-header>
@@ -134,7 +134,8 @@
         <gov-table-row
           v-if="
             service.hasOwnProperty('attending_access') &&
-              originalAttendingAccess !== serviceAttendingAccess
+            (!original || 
+              originalAttendingAccess !== serviceAttendingAccess)
           "
         >
           <gov-table-header top scope="row">Attending access</gov-table-header>
